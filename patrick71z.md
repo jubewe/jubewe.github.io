@@ -34,8 +34,17 @@
 >> Owner Commands:
 >>> `addperm admin <user>` > Gives a user admin perms for the bot *(No access to this command)*
 >>> `removeperm admin <user>` > Removes a users admin perms for the bot *(No access to this command)*
->> 󠀀
-> 󠀀
+>>
+>> Whisper Commands:
+>>> `test` > Responds with test
+>>> `oauth <channel> <token>` > Sets the oauth token to login on the Modstats *(Depends on access level)* 
+>>> `join <channel>` > Joins a channel *(Admin/Owner)*
+>>> `leave <channel>` > Leaves a channel *(Admin/Owner)*
+>>> `log <channel>` > Starts logging a channel *(Depends on access level)*
+>>> `unlog <channel>` > Stops logging a channel *(Depends on access level)*
+>>> `checktoken <channel/token>` > Checks the token of the channel or scopes of the token *(Depends on access level)*
+>>
+> Changes Possible
 
 Current Owners: [`jubewe`](https://twitch.tv/jubewe),[`patrick71z`](https://twitch.tv/patrick71z),[`royykz`](https://twitch.tv/royykz) *(May not be up-to-date)*
 Currently Hosting on PC/PI of `jubewe`
