@@ -4,8 +4,8 @@
 
 ### Infos:
 > Prefix: `!`
-
-> Commands:
+> 
+## **Commands:**
 >> Regular:
 >>> `bot`/`ping` > Shows Info about the Bot, including ping, channels, logchannels and handels
 >>> `channels` > Shows in how many channels the bot is in
@@ -45,8 +45,9 @@
 >>> `checktoken <channel/token>` > Checks the token of the channel or scopes of the token *(Depends on access level)*
 >>
 > Changes Possible
-
+## -
 Current Owners: [`jubewe`](https://twitch.tv/jubewe),[`patrick71z`](https://twitch.tv/patrick71z),[`royykz`](https://twitch.tv/royykz) *(May not be up-to-date)*
+##
 Currently Hosting on PC/PI of `jubewe`
 
 Updated by Ju on 02-09-2022
