@@ -4,7 +4,7 @@ Jubewe Github
 # ![h1](https://cdn.frankerfacez.com/emote/257284/1) Welcome on my Github Profile!
 
 ### ```About Me:``` 
-### ![1](https://cdn.frankerfacez.com/emote/496280/1) Junior Developer in `JavaScript`
+### ![1](https://cdn.frankerfacez.com/emote/496280/1) Junior Developer in `JavaScript` since Jan. 2021
 ### ![2](https://cdn.frankerfacez.com/emote/145916/1) [Twitch Moderator](https://modlookup.3v.fi/u/jubewe)
 ### ![3](https://cdn.frankerfacez.com/emote/310163/1) [Supporter](https://twitch.tv/jubewe)
 ### ![4](https://cdn.betterttv.net/emote/618c77311f8ff7628e6d5b8f/1x) [Active Chatter](https://twitch.tv/jubewe)
