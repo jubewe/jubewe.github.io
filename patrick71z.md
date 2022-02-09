@@ -35,8 +35,6 @@
 >>> `addperm admin <user>` > Gives a user admin perms for the bot *(No access to this command)*
 >>> `removeperm admin <user>` > Removes a users admin perms for the bot *(No access to this command)*
 
-`
-`
 
 Current Owners: [`jubewe`](https://twitch.tv/jubewe),[`patrick71z`](https://twitch.tv/patrick71z),[`royykz`](https://twitch.tv/royykz) *(May not be up-to-date)*
 Currently Hosting on PC/PI of `jubewe`
