@@ -14,5 +14,6 @@
 ```
 ### ```Projects:```
 
-- JuBot ~ Twitch
-- Colabot ~ Discord/Twitch
+- JuBot ~ Twitch (tmi.js\dank-twitch-irc)
+- Colabot ~ Discord/Twitch (tmi.js)
+- [Patrick71z](./patrick71z) ~ Twitch-Pubsub (@twurple\dank-twitch-irc)
