@@ -1,3 +1,4 @@
+![fa-crown](./src/favicon.ico)
 [Jubewe Github](https://jubewe.github.io/)
 
 ## 
