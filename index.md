@@ -15,4 +15,4 @@ Jubewe Github
 
 - JuBot ~ Twitch (tmi.js\dank-twitch-irc)
 - Colabot ~ Discord/Twitch (tmi.js)
-- [Patrick71z](../patrick71z/patrick71z) ~ Twitch-Pubsub (@twurple\dank-twitch-irc)
+- [Patrick71z](./patrick71z/patrick71z) ~ Twitch-Pubsub (@twurple\dank-twitch-irc)
