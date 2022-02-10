@@ -4,6 +4,9 @@
 
 ## Developed by [![1](https://cdn.discordapp.com/emojis/941078271381090396.webp?size=20&quality=lossless) Jubewe](https://www.twitch.tv/jubewe)
 
+### Shortcuts:
+#### [Token Help (Click Here)](https://jubewe.github.io/patrick71z/tokenhelp)
+
 ### Infos:
 > Prefix: `!`
 > 
@@ -49,7 +52,7 @@
 > Changes Possible
 ## -
 Current Owners: [`jubewe`](https://twitch.tv/jubewe),[`patrick71z`](https://twitch.tv/patrick71z),[`royykz`](https://twitch.tv/royykz) *(May not be up-to-date)*
-##
+
 Currently Hosting on PC/PI of `jubewe`
 
 Updated by Ju on 02-09-2022
