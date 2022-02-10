@@ -5,7 +5,7 @@
 ## Developed by [![1](https://cdn.discordapp.com/emojis/941078271381090396.webp?size=20&quality=lossless) Jubewe](https://www.twitch.tv/jubewe)
 
 ### Shortcuts:
-#### [Token Help (Click Here)](https://jubewe.github.io/patrick71z/tokenhelp)
+#### [Token Help (Click Here)](https://jubewe.github.io/help/token)
 
 ### Infos:
 > Prefix: `!`
