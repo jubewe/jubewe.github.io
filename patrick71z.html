@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+
+<header>
+    <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+    <title>Jubewe Github</title>
+</header>
+
+<body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
+    <div id="header">
+        <a href="https://jubewe.github.io/" style="border:ridge; border-color: #1d3956; padding: 2px; border-color: #335376; color: cyan; border-radius: 3px; text-decoration: none; padding-top: 0px; background-color: #2a4869;">Main</a>
+        <a href="https://jubewe.github.io"><center><img src="./src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869;"></center></a>
+        <a href="https://jubewe.github.io/" style="text-align: center; color: white; text-decoration: none;"><h1 style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869;"> Patrick71z - Main</h1></a>
+    </div>
+    <div id="help" style="border: dotted; align-content: flex-end;">
+        <br>
+        <img src="https://cdn.discordapp.com/emojis/811523637571485736.webp?size=40&quality=lossless" height="21px" style="padding: 2px; right: auto;"> 
+        <center>
+            <a href="https://jubewe.github.io/help/token" style="color: yellowgreen"> Token Help </a>
+        </center>
+        <img src="https://cdn.discordapp.com/emojis/811523637571485736.webp?size=40&quality=lossless" height="21px" style="position:absolute; padding: 2px;"> 
+        <br>
+    </div>
+    <div style="border: solid; border-color: transparent;"></div>
+    <div id="commands">
+        <h3>Commands</h3>
+        <ol>
+            <div >
+                <h style="text-decoration: underline;">Regular</h>
+                <div style="font-size: 15px;">
+                    <ol>
+                        <br>
+                        <li><h style="color:teal;">bot/ping</h> > Shows Info about the Bot, including ping, channels, logchannels and handels</li>
+                        <li><h style="color:teal;">channels</h> > Shows in how many channels the bot is in</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Depends on Permissions</h>
+                <div style="font-size: 15px;">
+                    <ol>
+                        <br>
+                        <li><h style="color:teal;">stats ~user/all\self~ ~channel\currentchan~ ~time\logstart~ ~-filters\modfilters~</h> > description</li>
+                        <li><h style="color:teal;">stats ~public/global~ ~user\self~ ~-filters~</h> > Shows all logstats of a user filtered by custom filters and time</li>
+                        <li><h style="color:teal;">log ~chan~</h> > starts logging a channel</li>
+                        <li><h style="color:teal;">unlog ~chan~</h> > description</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Admin/Owner</h>
+                <div style="font-size: 15px;">
+                    <ol>
+                        <br>
+                        <li><h style="color:teal;">num</h> > gets the current number in the console - useful for finding errors</li>
+                        <li><h style="color:teal;">off</h> > stops the script without restart (manual restart required)</li>
+                        <li><h style="color:teal;">join ~chan~</h> > joins a channel and handles messages</li>
+                        <li><h style="color:teal;">leave ~channel~</h> > leaves a channel</li>
+                        <li><h style="color:teal;">say ~message~</h> > says ~message~</li>
+                        <li><h style="color:teal;">send ~channel~ ~message~</h> > sends ~message~ in ~channel~</li>
+                        <li><h style="color:teal;">test</h> > test command</li>
+                        <li><h style="color:teal;">channels ~(-force)~</h> > gets the current channels (-force sends the names in chat)</li>
+                        <li><h style="color:teal;">getlogs ~(-force)~</h> > gets the current logging channels (-force sends the names in chat)</li>
+                        <li><h style="color:teal;">addperm ~user~</h> > adds perms to a user so it can use the commands</li>
+                        <li><h style="color:teal;">removeperm ~user~</h> > removes perms from a user</li>
+                        <li><h style="color:teal;">checkperm ~user\self~ ~channel\currentchannel~</h> > gets the permstatus of a user (in a channel)</li>
+                        <li><h style="color:teal;">gettoken ~channel\currentchannel~</h> > gets the token of a channel (log in console if custom)</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Owner</h>
+                <div style="font-size: 15px;">
+                    <ol>
+                        <br>
+                        <li><h style="color:teal;">addperm ~(admin)~ ~user~</h> > adds admin rights to ~user~ (they cant use this command)</li>
+                        <li><h style="color:teal;">removeperm ~(admin)~ ~user~</h> > removes admin rights from ~user~</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Whisper</h>
+                <div style="font-size: 15px;">
+                    <ol>
+                        <br>
+                        <li><h style="color:teal;">test</h> > test cmd</li>
+                        <li><h style="color:teal;">help ~(oauth)\standart~</h> > help cmd</li>
+                        <li><h style="color:teal;">oauth ~oauth:(yourkey)/channel~</h> > sets the oauth key for the account or a channel if access</li>
+                        <li><h style="color:teal;">oauth reset |~channel~</h> > resets the token for the account or channel if access</li>
+                        <!-- Depends on Permissions -->
+                        <li><h style="color:teal;">log ~channel~</h> > starts logging the modlogs of a channel</li>
+                        <li><h style="color:teal;">unlog ~channel~</h> > stops logging the modlogs of a channel</li>
+                        <!-- Admin/Owner -->
+                        <li><h style="color:teal;">tokeninfo ~token~</h> > gets info about the token of a channel</li>
+                        <li><h style="color:teal;">checktoken ~channel~</h> > gets info about a token over the api</li>
+                    </ol>
+                </div>
+            </div>
+        </ol>
+    </div>
+</body>
