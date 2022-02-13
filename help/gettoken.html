@@ -6,35 +6,24 @@
 </header>
 
 <body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
-    <div id="header">
-        <a href="https://jubewe.github.io/" style="border:ridge; border-color: #1d3956; padding: 2px; border-color: #335376; color: cyan; border-radius: 3px; text-decoration: none; padding-top: 0px; background-color: #2a4869;">Main</a>
-        <a href="https://jubewe.github.io"><center><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869;"></center></a>
-        <a href="https://jubewe.github.io/" style="text-align: center; color: white; text-decoration: none;"><h1 style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869;"> Token Help </h1></a>
-    </div>
-    <!-- <center><a><code style="font-size: 25px; color: red; text-decoration: underline;">About me:</code></a></center> -->
-    <div>
-        <ol>
-            <li>Go to <a style="color: currentColor;" href="./gettoken.html">this token-generator</a></li>
-            <br>
-            <li>Click on "Request Token"</li>
-            <br>
-            <li>Click "Authorize" in the new window</li>
-            <br>
-            <li>You will be redirected to a page which will validate the token</li>
-            <br>
-            <li>If successful, you can click "show infos" and then on the token to copy it</li>
-            <br>
-            <h3>Add Token to bot:</h3>
-            <!-- <br> -->
-            Open a whisper message to patrick71z and send <code>!oauth ~your token~</code>
-            <br>
-            > Example: <code>!oauth bbxxpxcy1w248ajgb4rkeytdkdwffd</code>
-            <br>
-        </ol>
-    </div>
-</body>
-
-<footer>
+    <a href="https://jubewe.github.io/" style="border:ridge; border-color: #1d3956; padding: 2px; border-color: #335376; color: cyan; border-radius: 3px; text-decoration: none; padding-top: 0px; background-color: #2a4869; user-select: none;">Main</a>
+    <center>
+        <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+            <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+        </div>
+        <br><br>
+        <h style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869; display: inline-block; margin-inline: 20px; margin-left: auto; margin-right: auto; font-size: 40px; color: white; user-select: none;" onclick="window.open('https://jubewe.github.io/')"> Token </h>
+    </center>
+    <br>
+    <center>
+        <h id="herror" style="display: none; color: red; text-transform: none;"></h>
+    </center>
+    <br>
+    <center>
+        <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=7ajujm2bromilnclf3p4mgbat5lyhz&redirect_uri=https://jubewe.github.io/help/validatetoken&scope=channel:moderate+moderation:read+openid" style="color: aqua;">Request Token</a>
+    </center>
+    <br>
+    <br>
     <div style="border: solid; border-color:transparent"></div>
     <center>
         <div id="links" style="border: dotted; border-radius: 20px; padding: 5px; border-color: aqua; color: steelblue; display: inline; padding-left: 10px; padding-right: 10px; user-select: none; " >
@@ -57,7 +46,8 @@
             </div>
         </div>
     </center>
-</footer>
+</body>
+
 
 <style>
     .clickrotate {

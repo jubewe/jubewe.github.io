@@ -14,40 +14,60 @@
         <br><br>
         <h style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869; display: inline-block; margin-inline: 20px; margin-left: auto; margin-right: auto; font-size: 40px; color: white; user-select: none;" onclick="window.open('https://jubewe.github.io/')"> Token Validate </h>
     </center>
-    <!-- <center><a><code style="font-size: 25px; color: red; text-decoration: underline;">About me:</code></a></center> -->
-    <br>
     <center>
-        <h>We recieved your token</h>
+        <div id="notificationdiv" style="display: none;">
+            <br>
+            <h id="notification" style="color: red;">Notification</h>
+        </div>
     </center>
     <br>
     <center>
-        <h style="text-decoration: underline;">Status:</h>
+        <h style="user-select: none;">We recieved your token</h>
+    </center>
+    <br>
+    <center>
+        <h style="text-decoration: underline; user-select: none;">Status:</h>
         <h id="tokenstatus" style="color: orange;">Validating</h>
     </center>
     <br>
-    <div id="lodingdiv" style="display: contents;">
+    <div id="loadingdiv" style="display: contents;">
         <center><h><img src="../src/loading.gif" height="30px"></h></center>
         <br>
     </div>
     <div id="togglepixel">
         <center>
-            <button id="togglebutton" style="background-color: green;" onclick="togglepixel()">Show Infos</button>
+            <button id="togglebutton" style="background-color: green; border-radius: 3px;" onclick="togglepixel()">Show Infos</button>
             <br><br>
         </center>
     </div>
-    <div id="loadeddiv" style="display: none;">
+    <div id="loadeddiv" style="display: none; user-select: none;">
         <center>
-            Username: <h id="validated_username">none</h>
+            Username: <h style="user-select: text;"  id="validated_username">none</h>
             <br>
-            Userid: <h id="validated_userid">none</h>
+            Userid: <h style="user-select: text;"  id="validated_userid">none</h>
             <br>
-            Clientid: <h id="validated_clientid">none</h>
+            Clientid: <h style="user-select: text;"  id="validated_clientid">none</h>
             <br>
-            Expires in: <h id="validated_expiresin">none</h>
+            Expires in: <h style="user-select: text;" id="validated_expiresin">none</h>
             <br>
-            Token: <h id="validated_token">none</h>
+            Token: <button id="validated_token" onclick="copytoken()"></button>
+            <br>
+            <br>
         </center>
     </div>
+    <div>
+        <center>
+            <a href="./gettoken.html" style="color: aqua; border: solid; padding: 5px; padding-top: 2px; padding-bottom: 2px; border-radius: 15px; border-width: 2px; border-color: cadetblue; background-color: #214a4b; text-decoration: none; user-select: none;">Get Token</a>
+        </center>
+    </div>
+    <!-- <br>
+    <center>
+        <div style="border: solid; border-radius: 10px; border-color: red; display: inline-block; padding: 5px; padding-left: 10px; padding-right: 10px; user-select: none; ">
+            <h style="color: red; text-decoration: underline;">Revoke Token:</h>
+            <input id="tokenrevoke" type="text" placeholder="Insert Token" style="background-color: orangered; border-color: red;">
+            <button type="button" style="background-color: orangered; border-color: red;" onclick="revoketoken()">Submit</button>
+        </div>
+    </center> -->
     <br>
     <div style="border: solid; border-color:transparent"></div>
     <center>
@@ -101,9 +121,10 @@
         let ctielement = document.getElementById([ctiid])
         ctielement.innerHTML = ctivalue
     }
+
     function validate(token){
-        if(document.URL.includes("?code=")){
-            let code = document.URL.split("?code=")[1].split("&")[0]
+        if(document.URL.includes("#access_token=")){
+            let code = document.URL.split("#access_token=")[1].split("&")[0]
             let request = new XMLHttpRequest();
             request.open("GET", `https://id.twitch.tv/oauth2/validate`)
             request.setRequestHeader("Authorization",`Bearer ${code}`)
@@ -113,11 +134,12 @@
                 if(dat.status !== undefined){
                     document.getElementById("tokenstatus").innerHTML = "Errored"
                     document.getElementById("tokenstatus").style.color = "red"
-                    document.getElementById("lodingdiv").style.display = "none"
+                    document.getElementById("loadingdiv").style.display = "none"
+                    document.getElementById("togglepixel").style.display = "none"
                 } else {
                     document.getElementById("tokenstatus").innerHTML = "Validated"
                     document.getElementById("tokenstatus").style.color = "green"
-                    document.getElementById("lodingdiv").style.display = "none"
+                    document.getElementById("loadingdiv").style.display = "none"
                     changetokeninfo("validated_username", dat.login)
                     changetokeninfo("validated_userid", dat.user_id)
                     changetokeninfo("validated_clientid", dat.client_id)
@@ -128,9 +150,14 @@
             request.addEventListener("error", function(e){
                 document.getElementById("tokenstatus").innerHTML = "Errored"
                 document.getElementById("tokenstatus").style.color = "red"
-                document.getElementById("lodingdiv").style.display = "none"
+                document.getElementById("loadingdiv").style.display = "none"
             })
             request.send()
+        } else {
+            document.getElementById("tokenstatus").innerHTML = "Errored - No Token"
+            document.getElementById("tokenstatus").style.color = "orange"
+            document.getElementById("loadingdiv").style.display = "none"
+            document.getElementById("togglepixel").style.display = "none"
         }
     }
 
@@ -144,6 +171,54 @@
         } else {
             loadeddiva.style.display = "none"
             document.getElementById("togglebutton").innerHTML = "Show Infos"
+        }
+    }
+
+    function copytoken(){
+        let ctext = document.getElementById("validated_token").innerHTML;
+        // ctext.select();
+        navigator.clipboard.writeText(ctext);
+        let colorfirst = document.getElementById("validated_token").style.backgroundColor
+        document.getElementById("validated_token").style.backgroundColor = "green"
+        setTimeout(() => {
+            document.getElementById("validated_token").style.backgroundColor = colorfirst
+        }, 5000)
+    }
+
+    function revoketoken(){
+        if(document.getElementById("tokenrevoke").value !== undefined){
+            if(document.getElementById("tokenrevoke").value.length >= 25){
+                let tokenr = document.getElementById("tokenrevoke").value
+                tokenr.toLowerCase().replace("oauth:", "")
+                let request = new XMLHttpRequest();
+                request.open("POST", "https://id.twitch.tv/oauth2/revoke")
+                request.
+                request.addEventListener("load", r => {
+                    console.log(request.response)
+                    document.getElementById("notificationdiv").style.display = "block"
+                    document.getElementById("notification").style.color = "green"
+                    document.getElementById("notification").innerHTML = "Successfully resetted token"
+                    setTimeout(() => {
+                        document.getElementById("notification").style.color = "red"
+                        document.getElementById("notificationdiv").style.display = "none"
+                    }, 10000)
+                })
+                request.addEventListener("error", e => {
+                    console.log(e)
+                    document.getElementById("notificationdiv").style.display = "block"
+                    document.getElementById("notification").innerHTML = "Error on removing token"
+                    setTimeout(() => {
+                        document.getElementById("notificationdiv").style.display = "none"
+                    }, 10000)
+                })
+                request.send()
+            }
+        } else {
+            document.getElementById("notificationdiv").style.display = "block"
+            document.getElementById("notification").innerHTML = "Please insert a valid token"
+            setTimeout(() => {
+                document.getElementById("notificationdiv").style.display = "none"
+            }, 10000)
         }
     }
 
