@@ -40,10 +40,10 @@
                 <div style="font-size: 15px;">
                     <ol>
                         <br>
-                        <li><h style="color:teal;">stats ~user/all\self~ ~channel\currentchan~ ~time\logstart~ ~-filters\modfilters~</h> > description</li>
+                        <li><h style="color:teal;">stats ~user/all\self~ ~channel\currentchan~ ~-filters\modfilters~</h> > gets the modlogs of ~user~ in ~channel~ if being logged</li>
                         <li><h style="color:teal;">stats ~public/global~ ~user\self~ ~-filters~</h> > Shows all logstats of a user filtered by custom filters and time</li>
                         <li><h style="color:teal;">log ~chan~</h> > starts logging a channel</li>
-                        <li><h style="color:teal;">unlog ~chan~</h> > description</li>
+                        <li><h style="color:teal;">unlog ~chan~</h> > stops logging a channel</li>
                     </ol>
                 </div>
                 <br>
@@ -92,6 +92,19 @@
                         <li><h style="color:teal;">checktoken ~channel~</h> > gets info about a token over the api</li>
                     </ol>
                 </div>
+                <br>
+                <h3 style="text-decoration: underline;">Changelog</h3>
+                <div id="changelog_1-1-0">
+                    <h3>Changelog Version 1.1.0</h3>
+                    <div style="font-size: 15px;">
+                        <ol>
+                            <li>Logging System:</li>
+                            <h>> Changed the logging from one log one line single .txt files to one json file for better efficiency</h>
+                            <li>Some Smaller bug fixes in index.js</li>
+                            <li>Bug fix for stats command - filters (msg-action)</li>
+                        </ol>
+                    </div>
+                </div>
             </div>
         </ol>
     </div>
@@ -101,6 +114,6 @@
 <footer>
     <div id="updated">
         <img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px">
-        <h>Updated on 02-12-2022</h>
+        <h>Updated on 02-17-2022</h>
     </div>
 </footer>
