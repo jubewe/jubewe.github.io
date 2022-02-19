@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <title>RegexGenerator</title>
-    <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
 </head>
 <body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
     <div>
@@ -45,6 +45,24 @@
             <br>
         </center>
     </div>
+    <br>
+    <h3>
+        <center>Lookalikes</center>
+    </h3>
+    <div style="user-select: none;">
+        <h>Usage:</h>
+        <br>
+        <h>1. <a href="./replaces.txt" download="replaces.txt">Download the Standart File</a></h>
+        <br>
+        <h>2. Drop your edited File on this page</h>
+        <br>
+    </div>
+    <br>
+    <h>Replaces:</h>
+    <br><br>
+    <button style="background-color: red;" onclick="resetreplace()">Reset Replaces</button>
+    <br>
+    <textarea id="embedreplace" style="height: 390px; background-color: darkcyan;" oninput="changereplace()">Loading Replaces..</textarea>
 </body>
 </html>
 
@@ -52,7 +70,39 @@
 <script>
     document.onload = syncreplaces()
 
-    let replaces = ""        
+    document.addEventListener("drop", function(ev){
+        customreplace(event)
+    })
+
+    document.addEventListener("dragover", function(ev){
+        customdrag(event)
+    })
+
+    let replaces = ""
+
+    function resetreplace(){
+        syncreplaces()
+    }
+    
+    function customreplace(ev){
+        // console.log("file dropped")
+        ev.preventDefault();
+        if(ev.dataTransfer.items[0].type === "text/plain"){
+            let file = ev.dataTransfer.files[0]
+            let reader = new FileReader()
+            reader.onload = function(event){
+                replaces = event.target.result.replace(/(\r)/g, "")
+                document.getElementById("embedreplace").value = replaces
+            }
+            reader.readAsText(file)
+            // console.log(file)
+        }
+    }
+
+    function customdrag(ev){
+        // console.log("file dragged")
+        ev.preventDefault()
+    }
     
     function syncreplaces(){
         fetch("./replaces.txt")
@@ -60,8 +110,9 @@
             data.text().then(x => {
                 // console.log(x)
                 replaces = x.replace(/(\r)/g, "")
+                document.getElementById("embedreplace").value = x.replace(/(\r)/g, "")
+                console.log("Successfully Fetched Lookalikes")
             })
-            console.log("Successfully Fetched Lookalikes")
         })
         .catch(err => {
             location.reload()
@@ -69,11 +120,18 @@
         })
     }
 
+    function changereplace(){
+        let newdata = document.getElementById("embedreplace").value
+        replaces = newdata
+        // console.log(replaces)
+    }
+
     let regex = "config:any regi:"
     let regexraw = ""
     let regexarr = []
     let alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
     let nomatch = ["(", ")"]
+
     function submitregex(){
         let regextext = document.getElementById("textinput").value
         regexarr = []
@@ -92,6 +150,7 @@
                 } else {
                     if(alphabet.includes(x)){
                         if(num === 0 || nomatch.includes(regexarr[num-1])){
+                            console.log(replaces.split("\n")[alphabet.indexOf(x)].split(" ")[0])
                             regexarr.push(`[${replaces.split("\n")[alphabet.indexOf(x)].split(" ")[0]}]+[\\W_]*`)
                         } else {
                             regexarr.push(`+[${replaces.split("\n")[alphabet.indexOf(x)].split(" ")[0]}]+[\\W_]*`)
