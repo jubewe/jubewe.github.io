@@ -72,8 +72,7 @@
             request.send(null)
         } else {
             if(checkCookie("token") === 1){
-                // window.history.pushState("Authorized", "L4L Stream Marker", "index.html#access_token=" + getCookie("token"))
-                window.location.href = "index.html#access_token=" + getCookie("token")
+                window.location.href = "streammarker.html#access_token=" + getCookie("token")
                 window.location.reload()
             } else {
                 document.getElementById("container-usage").style.display = "block"
@@ -140,22 +139,21 @@
             if(getCookie("channelname") === document.getElementById("marker_channel").value.toLowerCase() && getCookie("channelid") !== ""){
                 proceedmarker()
             } else {
-                let request = new XMLHttpRequest();
-                request.open("GET", `https://api.twitch.tv/helix/users?login=${document.getElementById("marker_channel").value}`)
-                request.setRequestHeader("Authorization", `Bearer ${getCookie("token")}`);
-                request.setRequestHeader("Client-ID", clientid);
-                request.setRequestHeader("Content-Type","application/json");
-                request.addEventListener("load", () => {
-                    // console.info(request.responseText)
-                    setCookie("channelid", JSON.parse(request.responseText).data[0].id, 14);
-                    setCookie("channelname", JSON.parse(request.response).data[0].login, 14)
+                getuserid(document.getElementById("marker_channel").value)
+                .then(id => {
+                    setCookie("channelid", id, 14);
+                    setCookie("channelname", document.getElementById("marker_channel").value, 14)
                     proceedmarker()
                 })
-                request.addEventListener("error", () => {
-                    al(1, "Error on getting channelid", "red", 10000)
-                    // console.error(request.responseText);
+                .catch(err => {
+                    al(1, "Error on getting channelid", "red", 5000)
+                    if(err === 1){
+                        document.getElementById("marker_info").innerHTML = `ERROR\non getting channelid of ${document.getElementById("marker_channel").value}`
+                    } else if(err === 2){
+                        document.getElementById("marker_info").innerHTML = `ERROR\non getting channelid of ${document.getElementById("marker_channel").value}\nChannel not found`
+                    }
+                    
                 })
-                request.send(null)
             }
             
         } else {
@@ -164,22 +162,31 @@
 
         function proceedmarker(){
             if(getCookie("channelid") !== ""){
-                let request = new XMLHttpRequest();
-                request.open("POST", "https://api.twitch.tv/helix/streams/markers")
-                request.setRequestHeader("Authorization", `Bearer ${getCookie("token")}`);
-                request.setRequestHeader("Client-Id", clientid);
-                request.setRequestHeader("Content-Type","application/json");
-                request.addEventListener("load", (rload) => {
-                    let dat = JSON.parse(request.responseText).data[0]
-                    al(0, "Successfully Created Stream Marker", "green", 10000);
-                    document.getElementById("marker_info").innerHTML = `Id: ${dat.id}\nCreated at ${dat.created_at.replace("T", " ").split(".")[0]}\nPosition: ${dat.position_seconds} (${millisToMinutesAndSeconds(dat.position_seconds*1000)})\nDescription: ${dat.description}`
-                    // console.info(request.responseText);
-                })
-                request.addEventListener("error", (rerr) => {
-                    al(1, `Error from API \n${request.responseText}`, "red", 10000);
-                    // console.error(request.responseText);
-                })
-                request.send(`{"user_id":"${getCookie("channelid")}","description":"${document.getElementById("marker_title").value}"}`)
+                try {
+                    let request = new XMLHttpRequest();
+                    request.open("POST", "https://api.twitch.tv/helix/streams/markers")
+                    request.setRequestHeader("Authorization", `Bearer ${getCookie("token")}`);
+                    request.setRequestHeader("Client-Id", clientid);
+                    request.setRequestHeader("Content-Type","application/json");
+                    request.addEventListener("load", (rload) => {
+                        let dat = JSON.parse(request.responseText)
+                        console.log(dat)
+                        if(dat.error !== undefined){
+                            al(1, "Error on creating marker", "red", 5000);
+                            document.getElementById("marker_info").innerHTML = `ERROR ${dat.error}\nStatus: ${dat.status}\nCode: ${dat.message.split("code:")[1].split("message:")[0]}`
+                        } else {
+                            al(0, "Successfully Created Stream Marker", "green", 10000);
+                            document.getElementById("marker_info").innerHTML = `Id: ${dat.data[0].id}\nCreated at ${dat.data[0].created_at.replace("T", " ").split(".")[0]}\nPosition: ${dat.data[0].position_seconds} (${millisToMinutesAndSeconds(dat.data[0].position_seconds*1000)})\nDescription: ${dat.data[0].description}`
+                        }
+                    })
+                    request.addEventListener("error", (rerr) => {
+                        al(1, `Error from API \n${request.responseText}`, "red", 10000);
+                        console.error(request.responseText);
+                    })
+                    request.send(`{"user_id":"${getCookie("channelid")}","description":"${document.getElementById("marker_title").value}"}`)
+                } catch(err){
+                    document.getElementById("marker_info").innerHTML = `ERROR`
+                }
             } else {
                 al(1, "Error: No Channel ID given", "red", 10000)
             }
@@ -194,8 +201,14 @@
             request.setRequestHeader("Client-ID", clientid);
             request.setRequestHeader("Content-Type","application/vnd.twitchtv.v5+json");
             request.addEventListener("load", () => {
-                console.info(request.responseText)
-                return resolve(JSON.parse(request.responseText).data[0].id)
+                // console.info("userid " + request.responseText)
+                if(JSON.parse(request.responseText).error !== undefined){
+                    return reject(1)
+                } else if(JSON.parse(request.responseText).data[0] === undefined){
+                    return reject(2)
+                } else {
+                    return resolve(JSON.parse(request.responseText).data[0].id)
+                }
             })
             request.addEventListener("error", () => {
                 return reject(request.responseText)
