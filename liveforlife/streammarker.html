@@ -21,7 +21,7 @@
                 <ol>
                     <li><a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=ojvz4rc2je8m2l2sqva9tk4zyobzqk&redirect_uri=https://jubewe.github.io/liveforlife/streammarker&scope=channel:edit:commercial+channel:manage:broadcast+clips:edit+moderator:read:chat_settings+moderator:manage:chat_settings" style="color: currentColor;">Generate a Token with this Generator</a></li>
                     <li>Click on "Authorize"</li>
-                    <li>nothing</li>
+                    <li>that's all</li>
                 </ol>
             </center>
         </div>
@@ -44,13 +44,31 @@
 </html>
 
 <script>
-    // document.onload = (onloada())
     onloada()
 
     let clientid = "ojvz4rc2je8m2l2sqva9tk4zyobzqk"
 
     function onloada(){
         if(document.URL.includes("#access_token=")){
+            if(window.location.search.includes("?create")){
+            let urlparams = window.location.search.replace("?create", "")
+            if(urlparams !== ""){
+                urlparams = urlparams.substring(1, urlparams.length);
+                let urlparamsa = [];
+                let urlparamsb = [];
+                urlparams.split("&").forEach(up => {
+                    urlparamsa.push(up.split("=")[0])
+                    urlparamsb.push(up.split("=")[1])
+                })
+                if(urlparamsa.includes("channel")){
+                    document.getElementById("marker_channel").value = urlparamsb[urlparamsa.indexOf("channel")]
+                } 
+                if(urlparamsa.includes("title")){
+                    document.getElementById("marker_title").value = urlparamsb[urlparamsa.indexOf("title")]
+                }
+            }
+            // createmarker()
+        }
             let code = document.URL.split("#access_token=")[1].split("&")[0]
             let request = new XMLHttpRequest();
             request.open("GET", `https://id.twitch.tv/oauth2/validate`)
@@ -70,9 +88,10 @@
                 al(1, "Error on Connecting with Twitch", "red", 10000)
             })
             request.send(null)
+
         } else {
             if(checkCookie("token") === 1){
-                window.location.href = "streammarker.html#access_token=" + getCookie("token")
+                window.location.href = "#access_token=" + getCookie("token")
                 window.location.reload()
             } else {
                 document.getElementById("container-usage").style.display = "block"
