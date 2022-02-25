@@ -5,6 +5,12 @@
         <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
     </head>
     <body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
+        <div style="float: right;">
+            <div>
+                <input type="button" value="Remove token (website)" style="background-color: red;" onclick="removecookies()">
+            </div>
+        </div>
+        <br>
         <div>
             <center>
                 <h1>Stream Marker for Mods</h1>
@@ -258,6 +264,14 @@
       var minutes = Math.floor(millis / 60000);
       var seconds = ((millis % 60000) / 1000).toFixed(0);
       return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+    }
+
+    function removecookies(){
+        setCookie("token", "", 0)
+        al(0, "Removed token", "aqua", 5000)
+        setTimeout(() => {
+            window.location.reload()
+        }, 5000)
     }
 
 </script>
