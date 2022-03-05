@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jubewe - Oauth Link Generator</title>
+    <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
+</head>
+
+<body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
+    <div id="class-header">
+        <center>
+            <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+            </div>
+            <h3 name="top">Oauth Link Generator</h3>
+            <br>
+        </center>
+    </div>
+    <div>
+        <center>
+            <div>
+                <label for="response_type-select" class="underline">Response Type:</label>
+                <select id="response_type-select" name="response_type-select">
+                    <option value="code">Code</option>
+                    <option value="token">Token</option>
+                </select>
+                <br>
+
+                <label for="response_clientid-input" class="underline">Client-ID</label>
+                <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" spellcheck="false"></textarea>
+                <br>
+
+                <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
+                <textarea id="response_scopes-input" placeholder="Scopes - seperated by Space" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
+                <br>
+
+                <label for="response_redirecturl-input" class="underline">Redirect-url:</label>
+                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: 250px;" class="noresize" spellcheck="false"></textarea>
+
+                <label for="response_extras-container"></label>
+                <div id="response_extras-container">
+                    <label for="response_extras-forceverify" class="underline">Force Verify</label>
+                    <input id="response_extras-forceverify" type="checkbox">
+                </div>
+
+            </div>
+            <br>
+            <input type="button" onclick="loadlink()" value="Submit">
+            <br>
+            <div>
+                <textarea id="response_output-output" spellcheck="false" style="width: 250px;" placeholder="Output Link"></textarea>
+            </div>
+        </center>
+    </div>
+    
+</body>
+    
+<style>
+    .noresize {
+        resize: none;
+        height: 13px;
+        min-height: 13px;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+    
+</style>
+
+<script>
+    function getvalue(gvelementid){
+        return document.getElementById(gvelementid).value
+    }
+
+    function setvalue(svelementid, svelementvalue){
+        document.getElementById(svelementid).value = svelementvalue
+    }
+
+    function loadlink(){
+        let response_extras = ""
+        if(document.getElementById("response_extras-forceverify").checked === true){
+            response_extras = "&force_verify=true"
+        }
+        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${getvalue("response_scopes-input").replace(/[\s]/g, "+")}${response_extras}`
+
+        setvalue("response_output-output", link)
+    }
+
+</script>
