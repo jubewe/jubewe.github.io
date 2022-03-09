@@ -26,15 +26,15 @@
                 <br>
 
                 <label for="response_clientid-input" class="underline">Client-ID</label>
-                <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" spellcheck="false"></textarea>
+                <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 343px;" spellcheck="false"></textarea>
                 <br>
 
                 <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
-                <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
+                <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
                 <br>
 
                 <label for="response_redirecturl-input" class="underline">Redirect-url:</label>
-                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: 250px;" class="noresize" spellcheck="false"></textarea>
+                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width:fit-content; display: inline-block; width: 313px;" class="noresize" spellcheck="false"></textarea>
 
                 <label for="response_extras-container"></label>
                 <div id="response_extras-container">
@@ -45,9 +45,9 @@
             </div>
             <br>
             <input type="button" onclick="loadlink()" value="Submit">
-            <br>
+            <br><br>
             <div>
-                <textarea id="response_output-output" spellcheck="false" style="width: 250px;" placeholder="Output Link"></textarea>
+                <textarea id="response_output-output" spellcheck="false" style="width: 500px; height: 75px;" placeholder="Output Link"></textarea>
             </div>
         </center>
     </div>
@@ -68,6 +68,44 @@
 </style>
 
 <script>
+    let allscopes = [
+        "analytics:read:extensions",
+        "analytics:read:games",
+        "bits:read",
+        "channel:edit:commercial",
+        "channel:manage:broadcast",
+        "channel:manage:extensions",
+        "channel:manage:polls",
+        "channel:manage:predictions",
+        "channel:manage:redemptions",
+        "channel:manage:schedule",
+        "channel:manage:videos",
+        "channel:read:editors",
+        "channel:read:goals",
+        "channel:read:hype_train",
+        "channel:read:polls",
+        "channel:read:predictions",
+        "channel:read:redemptions",
+        "channel:read:stream_key",
+        "channel:read:subscriptions",
+        "clips:edit",
+        "moderation:read",
+        "moderator:manage:banned_users",
+        "moderator:read:blocked_terms",
+        "moderator:manage:blocked_terms",
+        "moderator:manage:automod",
+        "moderator:read:automod_settings",
+        "moderator:manage:automod_settings",
+        "moderator:read:chat_settings",
+        "moderator:manage:chat_settings",
+        "user:edit",
+        "user:edit:follows",
+        "user:manage:blocked_users",
+        "user:read:blocked_users",
+        "user:read:broadcast",
+        "user:read:email",
+        "user:read:follows"
+    ]
     function getvalue(gvelementid){
         return document.getElementById(gvelementid).value
     }
@@ -81,7 +119,12 @@
         if(document.getElementById("response_extras-forceverify").checked === true){
             response_extras = "&force_verify=true"
         }
-        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${getvalue("response_scopes-input").replace(/[\s]/g, "+")}${response_extras}`
+
+        let scopes = getvalue("response_scopes-input").replace(/[\s]/g, "+")
+        if(getvalue("response_scopes-input") === "all"){
+            scopes = allscopes.join("+")
+        }
+        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${scopes}${response_extras}`
 
         setvalue("response_output-output", link)
     }
