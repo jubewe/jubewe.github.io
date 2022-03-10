@@ -23,33 +23,29 @@
                     <option value="code">Code</option>
                     <option value="token" selected>Token</option>
                 </select>
-                <br>
-
+                <div class="placeholder"></div>
                 <label for="response_clientid-input" class="underline">Client-ID</label>
-                <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 343px;" spellcheck="false"></textarea>
-                <br>
+                <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 341px; height: 11.5px;" spellcheck="false" oninput="fitheight('response_clientid-input', 11.5, 6.5)"></textarea>
                 <!-- 
                 <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
                 <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
                 <br> -->
-
+                <div class="placeholder"></div>
                 <label for="response_redirecturl-input" class="underline">Redirect-url:</label>
-                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: fit-content; display: inline-block; width: 313px;" class="noresize" spellcheck="false"></textarea>
-
+                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: fit-content; display: inline-block; width: 313px; height: 11.5px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 11.5, 6.5)"></textarea>
+                <div class="placeholder"></div>
                 <label for="response_extras-container"></label>
                 <div id="response_extras-container">
                     <label for="response_extras-forceverify" class="underline">Force Verify</label>
                     <input id="response_extras-forceverify" type="checkbox">
                 </div>
-
             </div>
             <br>
-            <div style="padding: 5px; border: double;">
+            <div name="scopes" style="padding: 5px; border: double; max-width: 928px;">
                 <h class="underline" style="font-size: 20px;">Scopes:</h>
-                <br>
-                <br>
+                <div class="placeholder"></div>
                 <h>Click on the fields to Enable/Disable</h>
-                <br><br>
+                <div class="placeholder"></div>
                 <div id="scope-container" style="user-select: none;"></div>
                 <div>
                     <div id="scope_element-disableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: green; margin: 1px;" class="scope-element" onclick="enablescopes()">
@@ -64,10 +60,10 @@
                 </div>
             </div>
             <br>
-            <input type="button" onclick="loadlink()" value="Submit">
-            <br><br>
+            <h class="underline">Generated Link:</h>
+            <div class="placeholder"></div>
             <div>
-                <textarea id="response_output-output" spellcheck="false" style="width: 500px; height: 75px;" placeholder="Output Link"></textarea>
+                <textarea id="response_output-output" class="noresize" spellcheck="false" style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;" placeholder="Output Link"></textarea>
             </div>
             <br>
             <br>
@@ -77,11 +73,21 @@
     
 </body>
     
+<!-- position:fixed: always same location -->
+
 <style>
+    .placeholder {
+        display:block;
+        /* position: fixed; */
+        color: currentColor;
+        border: solid;
+        border-color: transparent;
+        /* height: "2px"; */
+        padding: "5px";
+    }
+
     .noresize {
         resize: none;
-        height: 13px;
-        min-height: 13px;
     }
 
     .underline {
@@ -143,7 +149,8 @@
 
     let enabledscopes = {};
     let offcolor = "orangered";
-    let oncolor = "green"
+    let oncolor = "green";
+    let lastscope = {};
 
     function getvalue(gvelementid){
         return document.getElementById(gvelementid).value
@@ -172,11 +179,10 @@
         setvalue("response_output-output", link)
     }
 
-    document.onload = loadscopes()
+    document.onload = loadscopes(),modactionscopes()
 
     function loadscopes(){
         for(i = 0; i < allscopes.length; i++){
-
             let snode = document.createElement("div", {is:"scope-container"})
             snode.id = `scope-element_${i}`
             snode.style.border = "double"
@@ -186,7 +192,6 @@
             snode.className = "scope-element"
             snode.style.backgroundColor = offcolor
             snode.style.margin = "1px"
-            
 
             let slabel = document.createElement("h", {is:"scope-container"})
             slabel.innerHTML = allscopes[i]
@@ -206,7 +211,6 @@
             }
 
             document.getElementById("scope-container").appendChild(snode)
-            // snode.onclick = changecheck(1, scheckbox, snode)
         }
         document.getElementById("scope-container").appendChild(document.createElement("br"))
         document.getElementById("scope-container").appendChild(document.createElement("br"))
@@ -220,6 +224,9 @@
         for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
             document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = oncolor
         }
+        document.getElementById("response_output-output").style.backgroundColor = oncolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
     }
 
     function disablescopes(){
@@ -227,19 +234,22 @@
         for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
             document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
         }
+        document.getElementById("response_output-output").style.backgroundColor = offcolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
     }
 
     function modactionscopes(){
-        let modactionscopeids = [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41]
+        let modactionscopeids = [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41];
         for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
             if(modactionscopeids.includes(i)){
                 document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = "deepskyblue"
                 enabledscopes[allscopes[i]] = 1
-            }  else {
-                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
             }
-            
         }
+        document.getElementById("response_output-output").style.backgroundColor = "deepskyblue"
+        fitheight("response_output-output", 75, 6)
+        loadlink()
     }
 
     function changecheck(ccparent){
@@ -250,6 +260,28 @@
             ccparent.style.backgroundColor = offcolor
             delete enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML]
         }
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function fitheight(fhelem, fhminheigt, fmsubtract){
+        if(fhminheigt === undefined){
+            fhminheigt = 0
+        }
+        if(fmsubtract === undefined){
+            fmsubtract = 0
+        }
+        setTimeout(() => {
+            let fixheightarr = ["fixheight"]
+            fixheightarr.push(document.getElementById(fhelem).scrollHeight)
+            // document.getElementById(fhelem).style.height = fhminheigt + "px"
+            if(document.getElementById(fhelem).style.height !== fhminheigt){
+                document.getElementById(fhelem).style.height = fhminheigt + "px"
+                document.getElementById(fhelem).style.height = document.getElementById(fhelem).scrollHeight-fmsubtract + "px"
+            }
+            fixheightarr.push(document.getElementById(fhelem).scrollHeight)
+            console.log(fixheightarr.join(" "))
+        }, 0);
     }
 
 </script>
