@@ -28,13 +28,13 @@
                 <label for="response_clientid-input" class="underline">Client-ID</label>
                 <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 343px;" spellcheck="false"></textarea>
                 <br>
-
+                <!-- 
                 <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
                 <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
-                <br>
+                <br> -->
 
                 <label for="response_redirecturl-input" class="underline">Redirect-url:</label>
-                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width:fit-content; display: inline-block; width: 313px;" class="noresize" spellcheck="false"></textarea>
+                <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: fit-content; display: inline-block; width: 313px;" class="noresize" spellcheck="false"></textarea>
 
                 <label for="response_extras-container"></label>
                 <div id="response_extras-container">
@@ -44,11 +44,34 @@
 
             </div>
             <br>
+            <div style="padding: 5px; border: double;">
+                <h class="underline" style="font-size: 20px;">Scopes:</h>
+                <br>
+                <br>
+                <h>Click on the fields to Enable/Disable</h>
+                <br><br>
+                <div id="scope-container" style="user-select: none;"></div>
+                <div>
+                    <div id="scope_element-disableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: green; margin: 1px;" class="scope-element" onclick="enablescopes()">
+                        <h>Enable all</h>
+                    </div>
+                    <div id="scope_element-enableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: orangered; margin: 1px;" class="scope-element" onclick="disablescopes()">
+                        <h>Disable all</h>
+                    </div>
+                    <div id="scope_element-modscopes" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: deepskyblue; margin: 1px;" class="scope-element" onclick="modactionscopes()">
+                        <h>Moderator Actions</h>
+                    </div>
+                </div>
+            </div>
+            <br>
             <input type="button" onclick="loadlink()" value="Submit">
             <br><br>
             <div>
                 <textarea id="response_output-output" spellcheck="false" style="width: 500px; height: 75px;" placeholder="Output Link"></textarea>
             </div>
+            <br>
+            <br>
+            
         </center>
     </div>
     
@@ -64,7 +87,12 @@
     .underline {
         text-decoration: underline;
     }
-    
+
+    .scope-element {
+        background-color: orangered;
+        cursor: crosshair;
+    }
+
 </style>
 
 <script>
@@ -104,8 +132,19 @@
         "user:read:blocked_users",
         "user:read:broadcast",
         "user:read:email",
-        "user:read:follows"
-    ]
+        "user:read:follows",
+        "user:read:subscriptions",
+        "channel:moderate",
+        "chat:edit",
+        "chat:read",
+        "whispers:read",
+        "whispers:edit"
+    ];
+
+    let enabledscopes = {};
+    let offcolor = "orangered";
+    let oncolor = "green"
+
     function getvalue(gvelementid){
         return document.getElementById(gvelementid).value
     }
@@ -120,13 +159,97 @@
             response_extras = "&force_verify=true"
         }
 
-        let scopes = getvalue("response_scopes-input").replace(/[\s]/g, "+")
-        if(getvalue("response_scopes-input") === "all"){
-            scopes = allscopes.join("+")
+        // let scopes = getvalue("response_scopes-input").replace(/[\s]/g, "+")
+        // if(getvalue("response_scopes-input") === "all"){
+        //     scopes = allscopes.join("+")
+        // }
+        let scopes = []
+        for(i = 0; i < Object.keys(enabledscopes).length; i++){
+            scopes.push(Object.keys(enabledscopes)[i])
         }
-        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${scopes}${response_extras}`
+        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${scopes.join("+")}${response_extras}`
 
         setvalue("response_output-output", link)
+    }
+
+    document.onload = loadscopes()
+
+    function loadscopes(){
+        for(i = 0; i < allscopes.length; i++){
+
+            let snode = document.createElement("div", {is:"scope-container"})
+            snode.id = `scope-element_${i}`
+            snode.style.border = "double"
+            snode.style.paddingLeft = "2px"
+            snode.style.paddingRight = "2px"
+            snode.style.display = "inline-block"
+            snode.className = "scope-element"
+            snode.style.backgroundColor = offcolor
+            snode.style.margin = "1px"
+            
+
+            let slabel = document.createElement("h", {is:"scope-container"})
+            slabel.innerHTML = allscopes[i]
+            slabel.id = `scope-element_${i}-label`
+            snode.appendChild(slabel)
+
+            snode.addEventListener("click", () => {
+                changecheck(snode)
+            })
+            if(i === allscopes.length-5){
+                document.getElementById("scope-container").appendChild(document.createElement("br"))
+                let scope_container_chatmsg = document.createElement("h", {is:"scope-container"})
+                scope_container_chatmsg.innerHTML = "Chat and IRC Scopes:"
+                scope_container_chatmsg.style.paddingRight = "2px"
+                scope_container_chatmsg.className = "underline"
+                document.getElementById("scope-container").appendChild(scope_container_chatmsg)
+            }
+
+            document.getElementById("scope-container").appendChild(snode)
+            // snode.onclick = changecheck(1, scheckbox, snode)
+        }
+        document.getElementById("scope-container").appendChild(document.createElement("br"))
+        document.getElementById("scope-container").appendChild(document.createElement("br"))
+    }
+
+    function enablescopes(){
+        enabledscopes = {}
+        for(i = 0; i < allscopes.length; i++){
+            enabledscopes[allscopes[i]] = 1
+        }
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
+            document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = oncolor
+        }
+    }
+
+    function disablescopes(){
+        enabledscopes = {}
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
+            document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
+        }
+    }
+
+    function modactionscopes(){
+        let modactionscopeids = [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41]
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-3; i++){
+            if(modactionscopeids.includes(i)){
+                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = "deepskyblue"
+                enabledscopes[allscopes[i]] = 1
+            }  else {
+                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
+            }
+            
+        }
+    }
+
+    function changecheck(ccparent){
+        if(ccparent.style.backgroundColor === offcolor){
+            ccparent.style.backgroundColor = oncolor
+            enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML] = 0
+        } else {
+            ccparent.style.backgroundColor = offcolor
+            delete enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML]
+        }
     }
 
 </script>
