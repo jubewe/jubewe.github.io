@@ -22,20 +22,33 @@
             </div>
         </center>
         <br>
-        <center><h3 id="referrerh">No referrer given</h3></center>
+        <center>
+            <h3 id="referrerh">No referrer given</h3>
+            <br>
+            <h>Preview:</h>
+            <br>
+            <iframe id="referreri" src="" style="height: 500px; width: 85%;"></iframe>
+        </center
     </body>
     <script>
         document.onload = referr()
 
         function referr(){
+            let urlparams = new URLSearchParams(document.location.search)
             const urlRegex = new RegExp(/((((h+t+p+s*)?)\:+\/+)?)+\S+([\.])+(?:com|de|en|io|lol|me|at|org|net|int|etu|gov|ac|app|bot|tv|gg|co|chat|channel|ceo|club|coop|contact|dating|dev|diy|docs|download|domains|earth|expert|fail|fan|film|final|fit|foo|forum|fun|free|game|gift|google|group|hangout|host|hot|how|inc|info|ink|joy|law|lgbt|like|link|lotto|love|map|media|now|origin|pay|party|pic|porn|prime|prof|hub|pub|radio|racing|read|rest|rip|room|run|sale|search|sex|to|single|site|social|software|song|sucks|support|systems|talk|tax|team|tech|top|trust|vid|vip|vote|watch|website|wiki|work|win|world|wow|wtf|xxx|xyz|zip|eu|bing|cal|dell|dhl|gle|microsoft|ms|netflix|instagram|facebook|ch|be|edu|shop)(\S+)*/gi)
-            if(document.URL.split(document.baseURI)[1] !== null && document.URL.includes("?ref=") && document.URL.split("?ref=")[1] !== ""){
-                let refurl = document.URL.split("?ref=")[1]
+            if(urlparams.get("ref") !== null){
+                let refurl = urlparams.get("ref")
                 if(urlRegex.test(refurl) === true){
                     refurl = "https://" + refurl.replace(/((((h+t+p+s*)?)\:+\/+)?)+/gi, "")
                     document.getElementById("referrerh").innerHTML = "Referring to " + refurl
-                    window.location.href = refurl
-                    // window.location.replace(refurl)
+                    if(urlparams.get("mode") !== null){
+                        document.getElementById("referreri").src = refurl
+                        setTimeout(() => {
+                            document.getElementById("referreri").style.height = document.getElementById("referreri").scrollHeight
+                        }, 0);
+                    } else {
+                        window.location.href = refurl
+                    }
                 } else {
                     document.getElementById("referrerh").innerHTML = "No Referrer given"
                 }
