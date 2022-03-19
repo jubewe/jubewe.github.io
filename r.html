@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <meta content='width=device-width, initial-scale=1' name="viewport">
+    <header>
+        <title>Jubewe - JSON</title>
+        <link rel="icon" type="img/x-icon" href="./src/favicon.ico">
+    </header>
+    
+    
+    <body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
+        <div id="class-header">
+            <center>
+                <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                    <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+                </div>
+            </center>
+        </div>
+        <center>
+            <div id="err-container" style="display: none; color: greenyellow; border: solid; padding: 10px; padding-top: 5px; padding-bottom: 5px; margin-top: 10px; position: sticky">
+                <h id="err-output" style="font-size: 25px;"></h>
+            </div>
+        </center>
+        <br>
+        <center><h3 id="referrerh">No referrer given</h3></center>
+    </body>
+    <script>
+        document.onload = referr()
+
+        function referr(){
+            const urlRegex = new RegExp(/((((h+t+p+s*)?)\:+\/+)?)+\S+([\.])+(?:com|de|en|io|lol|me|at|org|net|int|etu|gov|ac|app|bot|tv|gg|co|chat|channel|ceo|club|coop|contact|dating|dev|diy|docs|download|domains|earth|expert|fail|fan|film|final|fit|foo|forum|fun|free|game|gift|google|group|hangout|host|hot|how|inc|info|ink|joy|law|lgbt|like|link|lotto|love|map|media|now|origin|pay|party|pic|porn|prime|prof|hub|pub|radio|racing|read|rest|rip|room|run|sale|search|sex|to|single|site|social|software|song|sucks|support|systems|talk|tax|team|tech|top|trust|vid|vip|vote|watch|website|wiki|work|win|world|wow|wtf|xxx|xyz|zip|eu|bing|cal|dell|dhl|gle|microsoft|ms|netflix|instagram|facebook|ch|be|edu|shop)(\S+)*/gi)
+            if(document.URL.split(document.baseURI)[1] !== null && document.URL.includes("?ref=") && document.URL.split("?ref=")[1] !== ""){
+                let refurl = document.URL.split("?ref=")[1]
+                if(urlRegex.test(refurl) === true){
+                    refurl = "https://" + refurl.replace(/((((h+t+p+s*)?)\:+\/+)?)+/gi, "")
+                    document.getElementById("referrerh").innerHTML = "Referring to " + refurl
+                    window.location.href = refurl
+                    // window.location.replace(refurl)
+                } else {
+                    document.getElementById("referrerh").innerHTML = "No Referrer given"
+                }
+            } else {
+                document.getElementById("referrerh").innerHTML = "No Referrer given"
+            }
+        }
+    </script>
+</html>
