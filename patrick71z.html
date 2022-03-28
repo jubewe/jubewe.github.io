@@ -2,7 +2,7 @@
 
 <header>
     <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
-    <title>Jubewe Github</title>
+    <title>Jubewe Github - Patrick71z</title>
 </header>
 
 <body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
@@ -23,10 +23,59 @@
         <!-- <br> -->
     </div>
     <div style="border: solid; border-color: transparent;"></div>
+    <div>
+        <h3>Used Permissions (Code)</h3>
+        <ol>
+            <table style="padding: 2px; padding-right: 2px; color: whitesmoke; text-align: center; border: 2px solid green; text-transform: none; border-radius: 10px;">
+                <tr>
+                    <th class="tableheadelem" style="border-top-left-radius: 3px;">Perm-type</th>
+                    <th class="tableheadelem">Number</th>
+                    <th class="tableheadelem" style="border-top-right-radius: 3px;">Note</th>
+                </tr>
+                <tr>
+                    <td>Owner</td>
+                    <td>7</td>
+                    <td rowspan="2" class="spanborder">Manually managed</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>Bot (FFZ)</td>
+                    <td>5</td>
+                    <td class="spanborder">Saved Local (may be not up to date)</td>
+                </tr>
+                <tr>
+                    <td>Broadcaster</td>
+                    <td>4</td>
+                    <td rowspan="4" class="spanborder">Of the selected channel</td>
+                </tr>
+                <tr>
+                    <td>Moderator</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>VIP</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Subscriber (any tier)</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: solid 1px greenyellow; border-bottom-left-radius: 3px;">None/Everyone</td>
+                    <td style="border-bottom: solid 1px greenyellow;">0</td>
+                    <td style="border-bottom: solid 1px greenyellow; border-bottom-right-radius: 3px;" class="spanborder"></td>
+                </tr>
+            </table>
+        </ol>
+    </div>
+    <div style="border: solid; border-color: transparent;"></div>
     <div id="commands">
         <h3>Commands</h3>
         <ol>
-            <div >
+            <div>
                 <h style="text-decoration: underline;">Regular</h>
                 <div style="font-size: 15px;">
                     <ol style="text-transform: none;">
@@ -40,8 +89,7 @@
                 <div style="font-size: 15px;">
                     <ol style="text-transform: none;">
                         <br>
-                        <li><code class="commands">stats ~user/all\self~ ~channel\currentchan~ ~-filters\modfilters~</code> - gets the modlogs of ~user~ in ~channel~ if being logged</li>
-                        <li><code class="commands">stats ~public/global~ ~user\self~ ~-filters~</code> - Shows all logstats of a user filtered by custom filters and time</li>
+                        <li><code class="commands">stats ~all/user\self~ ~channel/all\chan~</code> - Shows numbered logstats filtered by user/all and channel/all</li>
                         <li><code class="commands">log ~chan~</code> - starts logging a channel</li>
                         <li><code class="commands">unlog ~chan~</code> - stops logging a channel</li>
                         <li><code class="commands">rank ~user/all\self~ ~channel\currentchan\all~ (admin: -force/-~number~)</code> - Shows the rank of a user by the modactions in ~channel~ (if logged)</li>
@@ -106,6 +154,7 @@
                             <li class="update">The script is now saving userid and username in a local file without requesting every time (logging)</li>
                             <li class="add">The ping times are now being saved and used to calculate the average ping (bot and ping)</li>
                             <li class="update">NEW: The bot is now usally replying to messages - using twurple-chat to send replys</li>
+                            <li class="update">[Code] Updated command stats - now using a function to get the information + Changed command argument order</li>
                         </ol>
                     </div>
                 </div>
@@ -171,11 +220,27 @@
     .update {
         color: mediumturquoise;
     }
+
+    .tableheadelem {
+        border: .5px solid greenyellow;
+        padding: 3px;
+    }
+
+    .spanborder {
+        border-left-color: transparent;
+    }
+
+    td {
+        border: .5px dotted greenyellow;
+        padding: 2px;
+        border-left: solid 1px greenyellow;
+        border-right: solid 1px greenyellow;
+    }
 </style>
 
 <footer>
     <div id="updated">
         <img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px">
-        <h>Updated on 03-09-2022</h>
+        <h>Updated on 03-28-2022</h>
     </div>
 </footer>
