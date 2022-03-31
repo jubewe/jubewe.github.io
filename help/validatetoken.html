@@ -40,7 +40,7 @@
             <br><br>
         </center>
     </div>
-    <div id="loadeddiv" style="display: none; user-select: none;">
+    <div id="loadeddiv" style="display: none; user-select: none; text-transform: none;">
         <center>
             Username: <h style="user-select: text;"  id="validated_username">none</h>
             <br>
@@ -129,7 +129,7 @@
             request.open("GET", `https://id.twitch.tv/oauth2/validate`)
             request.setRequestHeader("Authorization",`Bearer ${code}`)
             request.addEventListener("load", function(r){
-                console.log(request.response)
+                // console.log(request.response)
                 let dat = JSON.parse(request.response)
                 if(dat.status !== undefined){
                     document.getElementById("tokenstatus").innerHTML = "Errored"
@@ -145,6 +145,7 @@
                     changetokeninfo("validated_clientid", dat.client_id)
                     changetokeninfo("validated_expiresin", dat.expires_in)
                     changetokeninfo("validated_token", code)
+                    window.history.pushState({}, document.title, document.URL.split("#")[0])
                 }
             })
             request.addEventListener("error", function(e){
