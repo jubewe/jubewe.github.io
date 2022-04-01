@@ -6,7 +6,7 @@
 </head>
 
 <body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
-    <div id="class-header">
+    <div id="container" style="user-select: none;">
         <center>
             <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
                 <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
@@ -29,7 +29,7 @@
                 <div class="placeholder"></div>
                 <label for="response_clientid-input" class="underline">Client-ID:</label>
                 <!-- <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 341px; height: 11.5px;" spellcheck="false" oninput="fitheight('response_clientid-input', 11.5, 6.5),loadlink()"></textarea> -->
-                <input type="text" id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 200px; height: 14px;" spellcheck="false" oninput="fitheight('response_clientid-input', 14, 2),loadlink()">
+                <input type="text" id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 200px; height: 14px;" spellcheck="false" oninput="fitheight('response_clientid-input', 14, 2),loadlink()" value="5udxck6anc74znp16q3isokjd9pj7m">
                 <!-- 
                 <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
                 <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
@@ -37,7 +37,7 @@
                 <div class="placeholder"></div>
                 <label for="response_redirecturl-input" class="underline">Redirect-URL:</label>
                 <!-- <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 11.5px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 11.5, 6.5),loadlink()"></textarea> -->
-                <input type="text" id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 14px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 14, 2),loadlink()">
+                <input type="text" id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 14px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 14, 2),loadlink()" value="https://jubewe.github.io/help/validatetoken">
                 <div class="placeholder"></div>
                 <label for="response_extras-container"></label>
                 <div id="response_extras-container">
@@ -283,13 +283,16 @@
     }
 
     function changecheck(ccparent){
-        if(ccparent.style.backgroundColor === offcolor){
+        if(![oncolor,modactioncolor].includes(ccparent.style.backgroundColor)){
+            console.log("off -> on")
             ccparent.style.backgroundColor = oncolor
-            enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML] = 0
+            enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML] = 1
         } else {
+            console.log("on -> off")
             ccparent.style.backgroundColor = offcolor
             delete enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML]
         }
+        console.log(enabledscopes)
         fitheight("response_output-output", 75, 6)
         loadlink()
     }
