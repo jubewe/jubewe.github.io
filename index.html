@@ -30,17 +30,17 @@
     <div style="border: solid; border-color:transparent"></div>
     <div style="border: double; border-color: #3e6188; user-select: none;">
         <center><h3 style="color: greenyellow; border: double; border-color: #335376; background-color: #2a4869;">Projects</h3></center>
-        <div class="zoom"><center><a style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;" href="https://twitch.tv/jubewe" target="_blank"><img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px"> JuBot</a></center></div>
-        <br>
-        <div class="zoom"><center><a style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;" href="https://twitch.tv/colaway" target="_blank"><img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px"> Colabot</a></center></div>
-        <br>
         <center>
+            <div class="zoom"><a style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;" href="https://twitch.tv/jubewe" target="_blank"><img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px"> JuBot</a></div>
+            <br>
+            <div class="zoom"><a style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;" href="https://twitch.tv/colaway" target="_blank"><img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px"> Colabot</a></div>
+            <br>
             <div class="zoom">
                 <a style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;" href="https://twitch.tv/patrick71z" target="_blank"><img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px"> Patrick71z</a> 
                 <a href="./patrick71z" style="color: currentColor; border-radius: 10px; border: solid; padding: 5px; text-decoration: none; padding-top: 6px; padding-bottom: 1px;"> Project <img src="https://cdn.discordapp.com/emojis/895657057200525323.webp?size=40&quality=lossless" height="21px"></a> 
             </div>
+            <br>
         </center>
-        <br>
     </div>
     <div style="border: solid; border-color: transparent;"></div>
     <div id="footer" style="border: double; border-color: #3e6188;">
@@ -97,11 +97,14 @@
         transition: transform 250ms;
     }
     .zoom {
+        /* position: absolute; */
+        display: inline-block;
+        margin: 10px;
         transform: scale(1);
         transition: transform 125ms;
     }
     .zoom:hover {
-        transform: scale(1.5);
+        transform: scale(1.1);
         transition: transform 125ms;
     }
 </style>
