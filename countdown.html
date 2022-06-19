@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html>
+    <body>
+        <h id="countdown" style="font-size: 150px;">00:00:00</h>
+    </body>
+</html>
+
+<script>
+    let countdownelem = document.getElementById("countdown")
+    let countdownnum = 0
+    
+
+    setInterval(() => {
+        countdownnum = countdownnum + 1000
+        document.getElementById("countdown").innerHTML = `${convert(countdownnum).join(":")}`
+        // console.log(`${countdownnum} ${convert(countdownnum).join(":")}`)
+    }, 1000);
+
+    function pad2(n) { return n < 10 ? '0' + n : n };
+
+
+    function convert(inp){
+        let seconds = inp / 1000
+        let hours = parseInt(seconds / 3600)
+        seconds = seconds % 3600
+        let minutes = parseInt(seconds / 60)
+        seconds = seconds % 60
+        return [pad2(hours), pad2(minutes), pad2(seconds)]
+    }
+    
+</script>
