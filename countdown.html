@@ -3,26 +3,99 @@
 <html>
     <body>
         <div style="background-color: white; padding: 5px;">
-            <center>
-                <h id="countdown" style="font-size: 150px;">00:00:00</h>
-            </center>
+            <div id="counter_div" style="background-color: aqua">
+                <center>
+                    <div id="counter_container">
+                        <h id="counter" style="font-size: 150px;"></h>
+                    </div>
+                    <div id="counter_ot_div" style="display: none; padding: 5px;">
+                        <div style="font-size: 50px;">
+                            <h>+ </h>
+                            <h id="counter_ot"></h> 
+                        </div>
+                    </div>
+                </center>
+            </div>
         </div>
     </body>
 </html>
 
 <script>
-    let countdownelem = document.getElementById("countdown")
-    let countdownnum = 0
+    let countnum = 0;
+    let counttype = 1;
+    // 0 = countdown, 1 = countup
+    let overtime = 1;
+    // 0 = off, 1 = on, 2 = active
     
+    function countdown(countdownstart, countdownid){
+        if(![undefined, null].includes(countdownstart)){
+            countnum = countdownstart;
+        }
 
-    setInterval(() => {
-        countdownnum = countdownnum + 1000
-        document.getElementById("countdown").innerHTML = `${convert(countdownnum).join(":")}`
-        // console.log(`${countdownnum} ${convert(countdownnum).join(":")}`)
-    }, 1000);
+        if([undefined, null].includes(countdownid)){
+            countdownid = "counter";
+        }
+
+        if(overtime !== 2){
+            document.getElementById("counter_ot_div").style.display = "none";
+        }
+        
+        setTimeout(() => {
+            document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+        }, 0);
+
+        let countdowninterval = setInterval(() => {
+            if(counttype === 0){
+                if(countnum - 1000 > 0){
+                    countnum = countnum - 1000;
+                    document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+                } else {
+                    countnum = countnum - 1000;
+                    document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+
+                    document.getElementById("counter_div").style.backgroundColor = "red";
+                    if(overtime === 1){
+                        document.getElementById("counter_ot_div").style.display = "block";
+                        overtime = 2;
+                        countup(countnum, "counter_ot")
+                    }
+
+                    clearInterval(countdowninterval)
+                }
+            } else {
+                clearInterval(countdowninterval)
+            }
+        }, 1000);
+    }
+
+    function countup(countupstart, countupid){
+        if(![undefined, null].includes(countupstart)){
+            countnum = countupstart;
+        }
+
+        if([undefined, null].includes(countupid)){
+            countupid = "counter";
+        }
+
+        if(overtime !== 2){
+            document.getElementById("counter_ot_div").style.display = "none";
+        }
+
+        setTimeout(() => {
+            document.getElementById(countupid).innerHTML = `${convert(countnum).join(":")}`;
+        }, 0);
+
+        let countupinterval = setInterval(() => {
+            if(counttype === 1 || overtime === 2){
+                countnum = countnum + 1000;
+                document.getElementById(countupid).innerHTML = `${convert(countnum).join(":")}`;
+            } else {
+                clearInterval(countupinterval)
+            }
+        }, 1000);
+    }
 
     function pad2(n) { return n < 10 ? '0' + n : n };
-
 
     function convert(inp){
         let seconds = inp / 1000
@@ -32,5 +105,48 @@
         seconds = seconds % 60
         return [pad2(hours), pad2(minutes), pad2(seconds)]
     }
-    
+
+    if(/(\?|\&)+(time)+(\=)/g.test(document.URL)){
+        let starttime = document.URL.split(/(\?|\&)+(time)+(\=)/g).reverse()[0]
+        if(starttime.includes("&")){
+            starttime = starttime.split("&")[0]
+        }
+
+        if(starttime.includes(":")){
+            countnum = (starttime.split(":").length === 3 ? parseInt(starttime.split(":")[0])*60*60*1000+parseInt(starttime.split(":")[1])*60*1000+parseInt(starttime.split(":")[2])*1000 : 0)
+        } else {
+            countnum = (!isNaN(parseInt(starttime)) ? parseInt(starttime) : 0)
+        }
+    }
+
+    if(/(\?|\&)+(type)+(\=)/g.test(document.URL)){
+        let counturltype = document.URL.split(/(\?|\&)+(type)+(\=)/g).reverse()[0]
+        
+        if(counturltype.includes("&")){
+            counturltype = counturltype.split("&")[0]
+        }
+
+        if(["0", "countdown"].includes(counturltype)){
+            counttype = 0;
+            countdown(countnum)
+        } else if(["1", "countup"].includes(counturltype)){
+            counttype = 1;
+            countup(countnum)
+        }
+    }
+
+    if(/(\?|\&)+(ot|overtime)+(\=)/g.test(document.URL)){
+        let counturlot = document.URL.split(/(\?|\&)+(ot|overtime)+(\=)/g).reverse()[0]
+
+        if(counturlot.includes("&")){
+            counturlot = counturlot.split("&")[0]
+        }
+
+        if(["0", "off"].includes(counturlot)){
+            overtime = 0;
+        } else if(["1", "on"].includes(counturlot)){
+            overtime = 1;
+        }
+    }
+
 </script>
