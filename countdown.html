@@ -6,7 +6,7 @@
             <div id="counter_div">
                 <center>
                     <div id="counter_container">
-                        <h id="counter" style="font-size: 150px;"></h>
+                        <h id="counter" style="font-size: 150px;">Timer Loading</h>
                     </div>
                     <div id="counter_ot_div" style="display: none; padding: 5px;">
                         <div style="font-size: 50px;">
@@ -16,16 +16,37 @@
                     </div>
                 </center>
             </div>
+            <div id="controls_div" style="display: none;">
+                <center>
+                    <br>
+                    <textarea id="control_time" placeholder="Time" style="height: 15px; width: 150px;"></textarea>
+                    <!-- <button id="control_time_append">Apply Time</button> -->
+                    <br><br>
+                    <button id="control_start" style="background-color: green;">Start / Resume</button>
+                    <button id="control_pause" style="background-color: red;">Pause / Stop</button>
+                    <button id="control_reset" style="background-color: orange;">Reset</button>
+                    <br><br>
+                    <button id="control_countup">Count up</button>
+                    <button id="control_countdown">Count down</button>
+                    <br><br>
+                    <textarea id="control_url" placeholder="Url"></textarea>
+                </center>
+            </div>
         </div>
     </body>
 </html>
 
 <script>
     let countnum = 0;
-    let counttype = 1;
-    // 0 = countdown, 1 = countup
+    let counttype = 2;
+    // 0 = off, 1 = countdown, 2 = countup
     let overtime = 1;
     // 0 = off, 1 = on, 2 = active
+    let help = 0;
+    let controls = 0;
+
+    let controlstop = 0;
+    let controlreset = 0;
     
     function countdown(countdownstart, countdownid){
         if(![undefined, null].includes(countdownstart)){
@@ -42,22 +63,29 @@
         
         setTimeout(() => {
             document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+
+            document.getElementById("control_countup").style.backgroundColor = "white";
+            document.getElementById("control_countdown").style.backgroundColor = "aqua";
         }, 0);
 
         let countdowninterval = setInterval(() => {
-            if(counttype === 0){
+            if(counttype === 1){
                 if(countnum - 1000 > 0){
                     countnum = countnum - 1000;
                     document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
                 } else {
-                    countnum = countnum - 1000;
-                    document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+                    if(countnum > 0){
+                        countnum = countnum - 1000;
+                        document.getElementById(countdownid).innerHTML = `${convert(countnum).join(":")}`;
+                    }
 
                     document.getElementById("counter_div").style.backgroundColor = "red";
                     if(overtime === 1){
                         document.getElementById("counter_ot_div").style.display = "block";
                         overtime = 2;
                         countup(countnum, "counter_ot")
+                    } else {
+                        counttype = 0;
                     }
 
                     clearInterval(countdowninterval)
@@ -66,6 +94,11 @@
                 clearInterval(countdowninterval)
             }
         }, 1000);
+
+        if(controlstop === 1){
+            controlstop = 0;
+            clearInterval(countdowninterval)
+        }
     }
 
     function countup(countupstart, countupid){
@@ -83,10 +116,16 @@
 
         setTimeout(() => {
             document.getElementById(countupid).innerHTML = `${convert(countnum).join(":")}`;
+
+            document.getElementById("control_countup").style.backgroundColor = "aqua";
+            document.getElementById("control_countdown").style.backgroundColor = "white";
+            if(overtime === 2){
+                document.getElementById("control_countdown").style.backgroundColor = "red";
+            }
         }, 0);
 
         let countupinterval = setInterval(() => {
-            if(counttype === 1 || overtime === 2){
+            if(counttype === 2 || overtime === 2){
                 countnum = countnum + 1000;
                 document.getElementById(countupid).innerHTML = `${convert(countnum).join(":")}`;
             } else {
@@ -117,6 +156,8 @@
         } else {
             countnum = (!isNaN(parseInt(starttime)) ? parseInt(starttime) : 0)
         }
+
+        document.getElementById("control_time").innerHTML = countnum
     }
 
     if(/(\?|\&)+(type)+(\=)/g.test(document.URL)){
@@ -126,13 +167,17 @@
             counturltype = counturltype.split("&")[0]
         }
 
-        if(["0", "countdown"].includes(counturltype)){
+        if(["0", "stop"].includes(counturltype)){
             counttype = 0;
-            countdown(countnum)
-        } else if(["1", "countup"].includes(counturltype)){
+        } else if(["1", "countdown"].includes(counturltype)){
             counttype = 1;
-            countup(countnum)
+            countdown(countnum);
+        } else if(["2", "countup"].includes(counturltype)){
+            counttype = 2;
+            countup(countnum);
         }
+    } else {
+        countup(countnum);
     }
 
     if(/(\?|\&)+(ot|overtime)+(\=)/g.test(document.URL)){
@@ -146,6 +191,53 @@
             overtime = 0;
         } else if(["1", "on"].includes(counturlot)){
             overtime = 1;
+        }
+    }
+
+    if(/(\?|\&)+(help)+(\=)/g.test(document.URL)){
+        let counturlhelp = document.URL.split(/(\?|\&)+(help)+(\=)/g).reverse()[0]
+
+        if(counturlhelp.includes("&")){
+            counturlhelp = counturlhelp.split("&")[0]
+        }
+
+        if(["0", "off"].includes(counturlhelp)){
+            help = 0;
+        } else if(["1", "on"].includes(counturlhelp)){
+            help = 1;
+        }
+    }
+
+    if(/(\?|\&)+(controls)+(\=)/g.test(document.URL)){
+        let counturlcontrols = document.URL.split(/(\?|\&)+(controls)+(\=)/g).reverse()[1]
+
+        if(counturlcontrols.includes("&")){
+            counturlcontrols = counturlcontrols.split("&")[0]
+        }
+
+        if(["0", "off"].includes(counturlcontrols)){
+            controls = 0;
+        } else if(["1", "on"].includes(counturlcontrols)){
+            controls = 1;
+        }
+    }
+
+
+    document.getElementById("control_time").oninput = function(){
+        if(!isNaN(parseInt(document.getElementById("control_time").innerHTML))){
+            countnum = parseInt(document.getElementById("control_time").innerHTML);
+        }
+    }
+
+    document.getElementById("control_start").onclick = function(){
+        startcounter()
+    }
+
+    function startcounter(){
+        if(counttype === 0){
+            countdown(countnum);
+        } else if(counttype === 1){
+            countup(countnum);
         }
     }
 
