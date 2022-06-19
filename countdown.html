@@ -2,11 +2,11 @@
 
 <html>
     <body>
-        <div style="background-color: white; padding: 5px;">
-            <div id="counter_div">
+        <div id="container" style="background-color: transparent;">
+            <div id="counter_div" style="background-color: white; color: black; background-repeat: round; background-position: center;">
                 <center>
                     <div id="counter_container">
-                        <h id="counter" style="font-size: 150px;">Timer Loading</h>
+                        <h id="counter" style="font-size: 300px;">Timer Loading</h>
                     </div>
                     <div id="counter_ot_div" style="display: none; padding: 5px;">
                         <div style="font-size: 50px;">
@@ -23,7 +23,7 @@
                     <!-- <button id="control_time_append">Apply Time</button> -->
                     <br><br>
                     <button id="control_start" style="background-color: green;">Start / Resume</button>
-                    <button id="control_pause" style="background-color: red;">Pause / Stop</button>
+                    <button id="control_stop" style="background-color: red;">Pause / Stop</button>
                     <button id="control_reset" style="background-color: orange;">Reset</button>
                     <br><br>
                     <button id="control_countup">Count up</button>
@@ -38,11 +38,12 @@
 
 <script>
     let countnum = 0;
+    let countnuma = 0;
     let counttype = 2;
+    let counttypea = 2;
     // 0 = off, 1 = countdown, 2 = countup
     let overtime = 1;
     // 0 = off, 1 = on, 2 = active
-    let help = 0;
     let controls = 0;
 
     let controlstop = 0;
@@ -69,6 +70,17 @@
         }, 0);
 
         let countdowninterval = setInterval(() => {
+            if(controlstop === 1){
+                controlstop = 0;
+                countnuma = countnum;
+                clearInterval(countdowninterval);
+            }
+
+            if(controlreset === 1){
+                controlreset = 0;
+                clearInterval(countdowninterval);
+            }
+
             if(counttype === 1){
                 if(countnum - 1000 > 0){
                     countnum = countnum - 1000;
@@ -83,22 +95,18 @@
                     if(overtime === 1){
                         document.getElementById("counter_ot_div").style.display = "block";
                         overtime = 2;
-                        countup(countnum, "counter_ot")
+                        // counttype = 2;
+                        countup(countnum, "counter_ot");
                     } else {
                         counttype = 0;
                     }
 
-                    clearInterval(countdowninterval)
+                    clearInterval(countdowninterval);
                 }
             } else {
-                clearInterval(countdowninterval)
+                clearInterval(countdowninterval);
             }
         }, 1000);
-
-        if(controlstop === 1){
-            controlstop = 0;
-            clearInterval(countdowninterval)
-        }
     }
 
     function countup(countupstart, countupid){
@@ -125,11 +133,29 @@
         }, 0);
 
         let countupinterval = setInterval(() => {
+            // console.log(`${controlstop} ${controlreset}`)
+
+            if(controlstop === 1){
+                controlstop = 0;
+                countnuma = countnum;
+                clearInterval(countupinterval);
+            }
+
+            if(controlreset === 1){
+                controlreset = 0;
+                clearInterval(countupinterval);
+                if(counttypea === 1){
+                    countdown(countnuma, countupid)
+                } else if(counttypea === 2){
+                    countup(countnuma, countupid)
+                }
+            }
+
             if(counttype === 2 || overtime === 2){
                 countnum = countnum + 1000;
                 document.getElementById(countupid).innerHTML = `${convert(countnum).join(":")}`;
             } else {
-                clearInterval(countupinterval)
+                clearInterval(countupinterval);
             }
         }, 1000);
     }
@@ -153,8 +179,10 @@
 
         if(starttime.includes(":")){
             countnum = (starttime.split(":").length === 3 ? parseInt(starttime.split(":")[0])*60*60*1000+parseInt(starttime.split(":")[1])*60*1000+parseInt(starttime.split(":")[2])*1000 : 0)
+            countnuma = countnum;
         } else {
             countnum = (!isNaN(parseInt(starttime)) ? parseInt(starttime) : 0)
+            countnuma = countnum;
         }
 
         document.getElementById("control_time").innerHTML = countnum
@@ -169,11 +197,14 @@
 
         if(["0", "stop"].includes(counturltype)){
             counttype = 0;
+            counttypea = counttype;
         } else if(["1", "countdown"].includes(counturltype)){
             counttype = 1;
+            counttypea = counttype;
             countdown(countnum);
         } else if(["2", "countup"].includes(counturltype)){
             counttype = 2;
+            counttypea = counttype;
             countup(countnum);
         }
     } else {
@@ -194,20 +225,6 @@
         }
     }
 
-    if(/(\?|\&)+(help)+(\=)/g.test(document.URL)){
-        let counturlhelp = document.URL.split(/(\?|\&)+(help)+(\=)/g).reverse()[0]
-
-        if(counturlhelp.includes("&")){
-            counturlhelp = counturlhelp.split("&")[0]
-        }
-
-        if(["0", "off"].includes(counturlhelp)){
-            help = 0;
-        } else if(["1", "on"].includes(counturlhelp)){
-            help = 1;
-        }
-    }
-
     if(/(\?|\&)+(controls)+(\=)/g.test(document.URL)){
         let counturlcontrols = document.URL.split(/(\?|\&)+(controls)+(\=)/g).reverse()[1]
 
@@ -222,10 +239,47 @@
         }
     }
 
+    if(/(\?|\&)+(bgcolor|backgroundcolor)+(\=)/g.test(document.URL)){
+        let counterurlbgcolor = document.URL.split(/(\?|\&)+(bgcolor|backgroundcolor)+(\=)/g).reverse()[0]
 
+        if(counterurlbgcolor.includes("&")){
+            counterurlbgcolor = counterurlbgcolor.split("&")[0]
+        }
+
+        document.getElementById("counter_div").style.backgroundColor = counterurlbgcolor;
+    }
+
+    if(/(\?|\&)+(tcolor|textcolor)+(\=)/g.test(document.URL)){
+        let counterurltcolor = document.URL.split(/(\?|\&)+(tcolor|textcolor)+(\=)/g).reverse()[0]
+
+        if(counterurltcolor.includes("&")){
+            counterurltcolor = counterurltcolor.split("&")[0]
+        }
+
+        document.getElementById("counter_div").style.color = counterurltcolor;
+    }
+
+    if(/(\?|\&)+(bgimg|backgroundimage)+(\=)/g.test(document.URL)){
+        let counterurlbgimg = document.URL.split(/(\?|\&)+(bgimg|backgroundimage)+(\=)/g).reverse()[0]
+
+        if(counterurlbgimg.includes("&")){
+            counterurlbgimg = counterurlbgimg.split("&")[0]
+        }
+
+        counterurlbgimg = decodeURI(counterurlbgimg)
+
+        if(counterurlbgimg.includes('"')){
+            counterurlbgimg = counterurlbgimg.split('"')[1].split('"')[0]
+        }
+
+        document.getElementById("counter_div").style.backgroundImage = `URL('${counterurlbgimg}')`;
+    }
+
+/*
     document.getElementById("control_time").oninput = function(){
         if(!isNaN(parseInt(document.getElementById("control_time").innerHTML))){
             countnum = parseInt(document.getElementById("control_time").innerHTML);
+            countnuma = countnum;
         }
     }
 
@@ -233,10 +287,20 @@
         startcounter()
     }
 
+    document.getElementById("control_reset").onclick = function(){
+        controlreset = 1;
+    }
+
+    document.getElementById("control_stop").onclick = function(){
+        controlstop = 1;
+    }
+
+*/
+
     function startcounter(){
-        if(counttype === 0){
+        if(counttype === 1){
             countdown(countnum);
-        } else if(counttype === 1){
+        } else if(counttype === 2){
             countup(countnum);
         }
     }
