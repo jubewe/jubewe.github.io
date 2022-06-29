@@ -177,7 +177,11 @@
             starttime = starttime.split("&")[0]
         }
 
-        if(starttime.includes(":")){
+        if(starttime.includes("T")){
+            let starttimea = new Date(starttime);
+            countnum = parseInt(((Date.now() - starttimea.getTime()) + (2*60*60*1000)).toString().substr(0, ((Date.now() - starttimea.getTime()) + (2*60*60*1000)).toString().length-3)+"000");
+            countnuma = countnum;
+        } else if(starttime.includes(":")){
             countnum = (starttime.split(":").length === 3 ? parseInt(starttime.split(":")[0])*60*60*1000+parseInt(starttime.split(":")[1])*60*1000+parseInt(starttime.split(":")[2])*1000 : 0)
             countnuma = countnum;
         } else {
@@ -274,6 +278,7 @@
 
         document.getElementById("counter_div").style.backgroundImage = `URL('${counterurlbgimg}')`;
     }
+
 
 /*
     document.getElementById("control_time").oninput = function(){

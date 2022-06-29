@@ -35,6 +35,42 @@
                 <textarea id="length-output" style="width: 50px; height: 15px;" placeholder="Output" spellcheck="false"></textarea>
             </center>
         </div>
+        <div id="replace-div" style="display: inline-block;" class="border">
+            <center>
+                <h class="fontup">Replace</h>
+                <!-- <br><br> -->
+                <!-- <label for="replace-select" class="underline">Type:</label>
+                <select id="replace-select" >
+                    <option selected>String</option>
+                    <option>Array</option>
+                    <option>JSON</option>
+                </select>
+                <br> -->
+                <div class="placeholder"></div>
+                <textarea id="replace-input" placeholder="Input" spellcheck="false"></textarea>
+                <div class="placeholder"></div>
+                <textarea id="replace-replacer" placeholder="Replacer" spellcheck="false"></textarea>
+                <br>
+                <h class="underline">Regex:</h>
+                <input id="replace-regex" type="checkbox">
+                <br>
+                <h class="underline">Case Sensitive:</h>
+                <input id="replace-case" type="checkbox">
+                <div class="placeholder"></div>
+                <textarea id="replace-output" placeholder="Output" spellcheck="false"></textarea>
+            </center>
+        </div>
+        <div id="date-div" style="display: inline-block;" class="border">
+            <center>
+                <h class="fontup">Date</h>
+                <br><br>
+                <input id="date-input" type="datetime-local">
+                <div class="placeholder"></div>
+                <textarea id="date-output_js" placeholder="Output JS-Format" spellcheck="false" style="resize: none;"></textarea>
+                <br>
+                <textarea id="date-output_ms" placeholder="Output Milliseconds" spellcheck="false" style="resize: none;"></textarea>
+            </center>
+        </div>
     </body>
 </html>
 
@@ -99,5 +135,46 @@
         document.getElementById("length-output").value = len;
     }
 
+    document.getElementById("replace-input").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-replacer").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-regex").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-case").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("date-input").oninput = function(){
+        document.getElementById("date-output_js").innerHTML = new Date(document.getElementById("date-input").value).toISOString();
+        document.getElementById("date-output_ms").innerHTML = new Date(document.getElementById("date-input").value).getTime();
+    }
+
+    function replacer(){
+        let val = document.getElementById("replace-input").value;
+        let replacea = document.getElementById("replace-replacer").value;
+        let regex = document.getElementById("replace-regex").checked;
+        let casesensitive = document.getElementById("replace-case").checked;
+        let output;
+        if(!casesensitive && !regex && regex.length > 0){
+            regex = regex.toLowerCase();
+        }
+        if(regex){
+            try {
+                output = val.replace(new RegExp(replacea.replace(/(\/|\/g)/g, ""), "g"), "");
+            } catch(err) {
+                output = "Invalid Regexp";
+            }
+        } else {
+            output = val.replace(new RegExp(replacea, "g"), "");
+        }
+        document.getElementById("replace-output").value = output;
+    }
 
 </script>
