@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <meta content='width=device-width, initial-scale=1' name="viewport">
+    <header>
+        <title>Jubewe - Request</title>
+        <link rel="icon" type="img/x-icon" href="../src/favicon.ico">
+    </header>
+
+    <body>
+        <div>
+            <h>Request</h>
+            <br><br>
+            <input id="input_url" type="text" placeholder="Url">
+            <br>
+            <input id="input_header" type="text" placeholder="Header (JSON)" style="width: 500px;">
+            <br>
+            <select id="input_type">
+                <option selected>GET</option>
+                <option>POST</option>
+                <option>PUT</option>
+                <option>DELETE</option>
+            </select>
+            <br>
+            <button id="input_submit">Request</button>
+            <br><br>
+            <textarea placeholder="Response" style="width: 500px; height: 150px;"></textarea>
+        </div>
+    </body>
+</html>
+
+<script>
+    document.getElementById("input_sumbit").addEventListener("click") = function(){
+        let request = new XMLHttpRequest();
+        request.open(document.getElementById("input_type").value)
+    }
+</script>
