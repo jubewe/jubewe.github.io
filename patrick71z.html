@@ -145,11 +145,21 @@
                 </div>
                 <br>
                 <h3 style="text-decoration: underline;">Changelog</h3>
+                <div id="changelog_1-1-4">
+                    <h3>Version 1.1.4</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="update">Added Option to remove bot actions from rank commands by adding <code>-nobot</code> to the message</li>
+                            <li class="bugfix">Fixed bug in splitmsg for splitting messages over 500 characters into multiple ones</code></li>
+                            <li class="update">Command <code>rank</code> now has the option to show the top channels <code>!rank channels all</code></li>
+                            <li class="bugfix">Fixed bug in command <code>rank</code> which randomly sorted the ranks and updated function <code>rank</code></li>
+                        </ol>
+                    </div>
+                </div>
                 <div id="changelog_1-1-3">
                     <h3>Version 1.1.3</h3>
                     <div style="font-size: 15px;">
                         <ol style="text-transform: none;">
-                            <li class="bugfix">Fixed bug in command <code>rank</code> which randomly sorted the ranks and updated function <code>rank</code></li>
                             <li class="bugfix">[Code] Fixed bug in logging with the last argument of the modaction being undefined in some cases</li>
                             <li class="update">The script is now saving userid and username in a local file without requesting every time (logging)</li>
                             <li class="add">The ping times are now being saved and used to calculate the average ping (bot and ping)</li>
@@ -241,6 +251,6 @@
 <footer>
     <div id="updated">
         <img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px">
-        <h>Updated on 03-28-2022</h>
+        <h>Updated on 07-04-2022</h>
     </div>
 </footer>
