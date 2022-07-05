@@ -6,31 +6,109 @@
         <link rel="icon" type="img/x-icon" href="../src/favicon.ico">
     </header>
 
-    <body>
-        <div>
-            <h>Request</h>
-            <br><br>
-            <input id="input_url" type="text" placeholder="Url">
-            <br>
-            <input id="input_header" type="text" placeholder="Header (JSON)" style="width: 500px;">
-            <br>
-            <select id="input_type">
-                <option selected>GET</option>
-                <option>POST</option>
-                <option>PUT</option>
-                <option>DELETE</option>
-            </select>
-            <br>
-            <button id="input_submit">Request</button>
-            <br><br>
-            <textarea placeholder="Response" style="width: 500px; height: 150px;"></textarea>
+    <body style="background-color: #1d4a56; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size: 20px;">
+        <div style="display: block; position: absolute; ">
+            <center>
+                <h3>Request:</h3>
+                <br>
+                <textarea id="input_url" placeholder="Url" style="width: 500px; max-width: 500px;" required></textarea>
+                <br>
+                <textarea id="input_header" placeholder="Header (JSON)" style="width: 500px; max-width: 500px;" required></textarea>
+                <br>
+                <textarea id="input_send" placeholder="Request send body (PUT/POST)" style="width: 500px; max-width: 500px;"></textarea>
+                <br>
+                <select id="input_type">
+                    <option selected>GET</option>
+                    <option>POST</option>
+                    <option>PUT</option>
+                    <option>DELETE</option>
+                </select>
+                <br>
+                <button id="input_submit" type="button">Request</button>
+                <br>
+                <button id="input_save" type="button">Save Data to Cookies</button>
+                <br><br>
+                <textarea id="input_response" placeholder="Response (JSON)" style="width: 500px; height: 150px; max-width: 500px;"></textarea> 
+                <br>
+                <textarea id="input_response_2" placeholder="Response (pretty JSON)" style="width: 500px; height: 150px; max-width: 500px;"></textarea> 
+            </center>
         </div>
     </body>
 </html>
 
 <script>
-    document.getElementById("input_sumbit").addEventListener("click") = function(){
-        let request = new XMLHttpRequest();
-        request.open(document.getElementById("input_type").value)
+    document.onload = function() {
+        setTimeout(() => {
+            (getCookie("url") !== "" ? document.getElementById("input_url").value = getCookie("url") : "");
+            (getCookie("header") !== "" ? document.getElementById("input_header").value = getCookie("header") : "");
+            (getCookie("type") !== "" ? document.getElementById("input_type").value = getCookie("type") : "");
+            (getCookie("send") !== "" ? document.getElementById("input_send").value = getCookie("send") : "");
+        }, 1);
     }
+    // console.log(document.getElementById("input_type"))
+    document.getElementById("input_submit").addEventListener("click", function(){
+        let request = new XMLHttpRequest();
+        request.open(document.getElementById("input_type").value, document.getElementById("input_url").value)
+        for(i = 0; i < Object.keys(JSON.parse(document.getElementById("input_header").value)).length; i++) {
+            request.setRequestHeader(Object.keys(JSON.parse(document.getElementById("input_header").value))[i], Object.values(JSON.parse(document.getElementById("input_header").value))[i]);
+        }
+        if(!["GET", "DELETE"].includes(document.getElementById("input_type").value)){
+            request.send(document.getElementById("input_send").value);
+        } else {
+            request.send();
+        }
+        request.onload = function(ev){
+            document.getElementById("input_response").value = request.responseText;
+            document.getElementById("input_response_2").value = JSON.stringify(JSON.parse(request.responseText), undefined, 2);
+        }
+        request.onerror = function(ev){
+            console.error(request.responseText);
+        }
+    })
+
+    document.getElementById("input_save").addEventListener("click", function(){
+        setCookie("url", document.getElementById("input_url").value, 1);
+        setCookie("header", document.getElementById("input_header").value, 1);
+        setCookie("type", document.getElementById("input_type").value, 1);
+        setCookie("send", document.getElementById("input_send").value, 1);
+        document.getElementById("input_save").style.backgroundColor = "mediumseagreen";
+        setTimeout(() => {
+            document.getElementById("input_save").style.backgroundColor = "";
+        }, 3000);
+    })
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        let expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        let name = cname + "=";
+        let ca = document.cookie.split(';');
+        for(let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+    
+    function checkCookie() {
+        let user = getCookie("username");
+        if(user !== ""){
+            alert("Welcome again " + user);
+        } else {
+            user = prompt("Please enter your name:", "");
+            if (user != "" && user != null) {
+                setCookie("username", user, 365);
+            }
+        }
+    } 
+
 </script>
