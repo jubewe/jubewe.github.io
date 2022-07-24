@@ -49,6 +49,8 @@
                 <div class="placeholder"></div>
                 <textarea id="replace-input" placeholder="Input" spellcheck="false"></textarea>
                 <div class="placeholder"></div>
+                <textarea id="replace-replacing" placeholder="Replacing" spellcheck="false"></textarea>
+                <div class="placeholder"></div>
                 <textarea id="replace-replacer" placeholder="Replacer" spellcheck="false"></textarea>
                 <br>
                 <h class="underline">Regex:</h>
@@ -158,7 +160,9 @@
 
     function replacer(){
         let val = document.getElementById("replace-input").value;
-        let replacea = document.getElementById("replace-replacer").value;
+        let replacea = document.getElementById("replace-replacing").value;
+        let replaceb = document.getElementById("replace-replacer").value;
+        replaceb = (replaceb.length > 0 ? replaceb : "")
         let regex = document.getElementById("replace-regex").checked;
         let casesensitive = document.getElementById("replace-case").checked;
         let output;
@@ -167,12 +171,12 @@
         }
         if(regex){
             try {
-                output = val.replace(new RegExp(replacea.replace(/(\/|\/g)/g, ""), "g"), "");
+                output = val.replace(new RegExp(replacea.replace(/(\/|\/g)/g, ""), "g"), replaceb);
             } catch(err) {
                 output = "Invalid Regexp";
             }
         } else {
-            output = val.replace(new RegExp(replacea, "g"), "");
+            output = val.replace(new RegExp(replacea, "g"), replaceb);
         }
         document.getElementById("replace-output").value = output;
     }
