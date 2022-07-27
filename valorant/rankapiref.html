@@ -1,1 +1,14 @@
+<header>
 
+</header>
+<body>
+    <h id="a">Loading Url..</h>
+</body>
+<script>
+    if(document.URL.includes("?user=")){
+        let valuser = document.URL.split("?user=")[1].split("#");
+        document.getElementById("a").innerHTML = `https://api.kyroskoh.xyz/valorant/v1/mmr/eu/${valuser[0]}/${valuser[1]}`
+    } else {
+        document.getElementById("a").innerHTML = "no user";
+    }
+</script>
