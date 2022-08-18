@@ -1,0 +1,10 @@
+{
+    "manifest_version": 2,
+    "name":"ju_twitch_urprotection",
+    "version":"1.1",
+    "description":"Converts all Urls in a /unban-requests page (only popout) into <Link [domain-name]>",
+    "content_scripts": [{
+        "matches": ["https://www.twitch.tv/popout/moderator/*/unban-requests"],
+        "js":["urprotection.js"]
+    }]
+}
