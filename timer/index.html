@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <div id="container" style="background-color: transparent;">
+            <div id="counter_div" style="background-color: white; color: black; background-repeat: round; background-position: center;">
+                <center>
+                    <div id="counter_container">
+                        <h id="counter" style="font-size: 300px;">Timer Loading</h>
+                    </div>
+                    <div id="counter_ot_div" style="display: none; padding: 5px;">
+                        <div style="font-size: 50px;">
+                            <h>+ </h>
+                            <h id="counter_ot"></h> 
+                        </div>
+                    </div>
+                </center>
+            </div>
+            <div id="controls_div" style="display: none;">
+                <center>
+                    <br>
+                    <textarea id="control_time" placeholder="Time" style="height: 15px; width: 150px;"></textarea>
+                    <!-- <button id="control_time_append">Apply Time</button> -->
+                    <br><br>
+                    <button id="control_start" style="background-color: green;">Start / Resume</button>
+                    <button id="control_stop" style="background-color: red;">Pause / Stop</button>
+                    <button id="control_reset" style="background-color: orange;">Reset</button>
+                    <br><br>
+                    <button id="control_countup">Count up</button>
+                    <button id="control_countdown">Count down</button>
+                    <br><br>
+                    <textarea id="control_url" placeholder="Url"></textarea>
+                </center>
+            </div>
+        </div>
+    </body>
+</html>
+
+<script src="./script.js"></script>

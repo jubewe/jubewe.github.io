@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <title>Jubewe - Oauth Link Generator</title>
+    <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
+</head>
+
+<body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+    <div id="container" style="user-select: none;">
+        <center>
+            <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+                <h3 name="top">Oauth Link Generator</h3>
+            </div>
+            <div class="placeholder"></div>
+            <div id="linkgenerator">
+                <h style="margin-bottom: 3px;">Show/Hide Client-ID and Redirect-URL</h>
+                <div class="placeholder"></div>
+                <div id="response_showhide-container" style="display: flex; border-radius: 10px; background-color: #6e4c4c; border: solid; width: 55px; height: 25px; text-align: center; border-width: 2.5px; align-items: center; cursor: pointer;" onclick="switchshowhide()">
+                    <div id="response_showhide-switch" class="response_showhide-off" style="width: 10px; height: 15px; background-color: #48838a; border: solid; border-radius: 6px; border-width: 2.5px; display: flexbox; margin-left: 2px; margin-right: 2px;"></div>
+                </div>
+                <div class="placeholder"></div>
+                <div class="placeholder"></div>
+                <label for="response_type-select" class="underline">Response Type:</label>
+                <select id="response_type-select" name="response_type-select" onchange="loadlink()">
+                    <option value="token" selected>Token</option>
+                    <option value="code">Code</option>
+                </select>
+                <div class="placeholder"></div>
+                <label for="response_clientid-input" class="underline">Client-ID:</label>
+                <!-- <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 341px; height: 11.5px;" spellcheck="false" oninput="fitheight('response_clientid-input', 11.5, 6.5),loadlink()"></textarea> -->
+                <input type="text" id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 200px; height: 14px;" spellcheck="false" oninput="fitheight('response_clientid-input', 14, 2),loadlink()" value="5udxck6anc74znp16q3isokjd9pj7m">
+                <!-- 
+                <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
+                <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
+                <br> -->
+                <div class="placeholder"></div>
+                <label for="response_redirecturl-input" class="underline">Redirect-URL:</label>
+                <!-- <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 11.5px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 11.5, 6.5),loadlink()"></textarea> -->
+                <input type="text" id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 14px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 14, 2),loadlink()" value="https://jubewe.github.io/help/validatetoken">
+                <div class="placeholder"></div>
+                <label for="response_extras-container"></label>
+                <div id="response_extras-container">
+                    <label for="response_extras-forceverify" class="underline">Force Verify:</label>
+                    <input id="response_extras-forceverify" type="checkbox" onchange="loadlink()">
+                </div>
+            </div>
+            <br>
+            <div name="scopes" style="padding: 5px; border: double; max-width: 930px;">
+                <h class="underline" style="font-size: 20px;">Scopes:</h>
+                <div class="placeholder"></div>
+                <h>Click on the fields to Enable/Disable</h>
+                <div class="placeholder"></div>
+                <div id="scope-container" style="user-select: none;"></div>
+                <div>
+                    <div id="scope_element-disableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: green; margin: 1px;" class="scope-element" onclick="enablescopes()">
+                        <h>Enable all</h>
+                    </div>
+                    <div id="scope_element-enableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: #6e4c4c; margin: 1px;" class="scope-element" onclick="disablescopes()">
+                        <h>Disable all</h>
+                    </div>
+                    <div id="scope_element-modscopes" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: deepskyblue; margin: 1px;" class="scope-element" onclick="modactionscopes()">
+                        <h>Moderator Actions</h>
+                    </div>
+                    <div id="scope_element-recommended" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: aqua; margin: 1px" class="scope-element" onclick="recommendedscopes()">
+                        <h>Recommended</h>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h class="underline">Link Preview:</h>
+            <div class="placeholder"></div>
+            <div>
+                <textarea id="response_output-output" class="noresize" spellcheck="false" style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;" placeholder="Output Link"></textarea>
+                <div id="response_output-hidden" style="display: none;">
+                    <h style="color: cyan;">(Disabled to hide Client-ID and Redirect-URL, disable with the Switch at the top section)</h>
+                    <br><br>
+                    <h style="color: cyan;">Open in new Tab and Copy are still working</h>
+                    <div class="placeholder"></div>
+                </div>
+                <div class="placeholder"></div>
+                <button onclick="openlink(this, getvalue('response_output-output'))" style="background-color: none; border-radius: 5px; border-color: currentColor;">Open in New Tab</button>
+                <button onclick="copylink(this, getvalue('response_output-output'))" style="background-color: none; border-radius: 5px; border-color: currentColor;">Copy</button>
+            </div>
+            <div>
+                <div id="pageurl-div" style="display: none;">
+                    <br>
+                    <textarea id="pageurl-output" class="noresize" spellcheck="false" style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;" ></textarea>
+                </div>
+            </div>
+            <div>
+                <div id="displayscopes-div" style="display: none;">
+                    <br>
+                    <table id="displayscopes-table" style="padding: 4px; text-align: center; border-spacing: 1px 0px; border: 2px solid darkslategray;">
+                        <tr>
+                            <th class="displayscope-elem-h">Number</th>
+                            <th class="displayscope-elem-h">Scope</th>
+                        </tr>
+                        
+                    </table>
+                </div>
+            </div>
+        </center>
+    </div>
+    
+</body>
+
+<style>
+    .placeholder {
+        display:block;
+        /* position: fixed; */
+        color: currentColor;
+        border: solid;
+        border-color: transparent;
+        /* height: "2px"; */
+        padding: "5px";
+    }
+
+    .noresize {
+        resize: none;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+
+    .scope-element {
+        background-color: grey;
+        cursor: crosshair;
+    }
+
+    .response_showhide-on {
+        background-color: green;
+        transform: translateX(35px);
+        transition: transform 250ms;
+    }
+
+    .response_showhide-off {
+        background-color: #6e4c4c;
+        transform: translateX(none);
+        transition: transform 250ms;
+    }
+
+    .response_showhide-default {
+        background-color: #6e4c4c;
+    }
+
+    .displayscope-elem-h {
+        padding: 3px;
+        border: 3px double black;
+    }
+
+    .displayscope-elem-lr {
+        padding: 3px;
+        border: 1px solid black;
+        border-top: none;
+    }
+
+    .displayscope-elem-b {
+        padding: 3px;
+        border: 1px solid black;
+        border-top: none;
+    }
+
+    .displayscope-elem-t {
+        padding: 3px;
+        border: 1px solid black;
+    }
+
+</style>
+
+<script>
+    let allscopes = [
+        "analytics:read:extensions",
+        "analytics:read:games",
+        "bits:read",
+        "channel:edit:commercial",
+        "channel:manage:broadcast",
+        "channel:manage:extensions",
+        "channel:manage:polls",
+        "channel:manage:predictions",
+        "channel:manage:redemptions",
+        "channel:manage:schedule",
+        "channel:manage:videos",
+        "channel:read:editors",
+        "channel:read:goals",
+        "channel:read:hype_train",
+        "channel:read:polls",
+        "channel:read:predictions",
+        "channel:read:redemptions",
+        "channel:read:stream_key",
+        "channel:read:subscriptions",
+        "clips:edit",
+        "moderation:read",
+        "moderator:manage:banned_users",
+        "moderator:read:blocked_terms",
+        "moderator:manage:blocked_terms",
+        "moderator:manage:automod",
+        "moderator:read:automod_settings",
+        "moderator:manage:automod_settings",
+        "moderator:read:chat_settings",
+        "moderator:manage:chat_settings",
+        "user:edit",
+        "user:edit:follows",
+        "user:manage:blocked_users",
+        "user:read:blocked_users",
+        "user:read:broadcast",
+        "user:read:email",
+        "user:read:follows",
+        "user:read:subscriptions",
+        "channel:moderate",
+        "chat:edit",
+        "chat:read",
+        "whispers:read",
+        "whispers:edit"
+    ];
+
+    let dev = false;
+
+    function devmode(dmin){
+        if(dmin === true){
+            dev = true;
+            document.getElementById("displayscopes-div").style.display = "inline-block"
+            scopeslist()
+            document.getElementById("pageurl-div").style.display = "inline-block"
+            pageurl()
+        } else {
+            dev = false
+            document.getElementById("displayscopes-div").style.display = "none"
+            document.getElementById("pageurl-div").style.display = "none"
+        }
+    }
+
+    let enabledscopes = {};
+    let disabledscopes = {};
+    const offcolor = "#6e4c4c";
+    const oncolor = "green";
+    const modactioncolor = "deepskyblue";
+    const recommendedcolor = "cyan";
+    let lastscope = {};
+
+    function getvalue(gvelementid){
+        return document.getElementById(gvelementid).value
+    }
+
+    function setvalue(svelementid, svelementvalue){
+        document.getElementById(svelementid).value = svelementvalue
+    }
+
+    function loadlink(){
+        let response_extras = ""
+        if(document.getElementById("response_extras-forceverify").checked === true){
+            response_extras = "&force_verify=true"
+        }
+
+        document.getElementById("response_clientid-input").value = document.getElementById("response_clientid-input").value.toLowerCase()
+
+        // let scopes = getvalue("response_scopes-input").replace(/[\s]/g, "+")
+        // if(getvalue("response_scopes-input") === "all"){
+        //     scopes = allscopes.join("+")
+        // }
+        let scopes = []
+        for(i = 0; i < Object.keys(enabledscopes).length; i++){
+            scopes.push(Object.keys(enabledscopes)[i])
+        }
+        let link = `https://id.twitch.tv/oauth2/authorize?response_type=${getvalue("response_type-select")}&client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${scopes.sort().join("+")}${response_extras}`
+
+        setvalue("response_output-output", link)
+        pageurl()
+    }
+
+    document.onload = loadscopes(),modactionscopes(),loadscopeurl(),checkurl()
+
+    function loadscopes(){
+        for(i = 0; i < allscopes.length; i++){
+            let snode = document.createElement("div", {is:"scope-container"})
+            snode.id = `scope-element_${i}`
+            snode.style.border = "double"
+            snode.style.paddingLeft = "2px"
+            snode.style.paddingRight = "2px"
+            snode.style.display = "inline-block"
+            snode.className = "scope-element"
+            snode.style.backgroundColor = offcolor
+            snode.style.margin = "1px"
+
+            let slabel = document.createElement("h", {is:"scope-container"})
+            slabel.innerHTML = allscopes[i]
+            slabel.id = `scope-element_${i}-label`
+            snode.appendChild(slabel)
+
+            snode.addEventListener("click", () => {
+                changecheck(snode)
+            })
+            if(i === allscopes.length-5){
+                document.getElementById("scope-container").appendChild(document.createElement("br"))
+                let scope_container_chatmsg = document.createElement("h", {is:"scope-container"})
+                scope_container_chatmsg.innerHTML = "Chat and IRC Scopes:"
+                scope_container_chatmsg.style.paddingRight = "2px"
+                scope_container_chatmsg.className = "underline"
+                document.getElementById("scope-container").appendChild(scope_container_chatmsg)
+            }
+
+            document.getElementById("scope-container").appendChild(snode)
+        }
+        document.getElementById("scope-container").appendChild(document.createElement("br"))
+        document.getElementById("scope-container").appendChild(document.createElement("br"))
+    }
+
+    function enablescopes(){
+        enabledscopes = {}
+        disabledscopes = {}
+        for(i = 0; i < allscopes.length; i++){
+            enabledscopes[allscopes[i]] = 1
+        }
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+            document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = oncolor
+        }
+        document.getElementById("response_output-output").style.backgroundColor = oncolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function disablescopes(dsbg){
+        disabledscopes = {}
+        disabledscopes = enabledscopes
+        enabledscopes = {}
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+            document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
+        }
+        if(dsbg !== false){
+            document.getElementById("response_output-output").style.backgroundColor = offcolor
+        }
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function recommendedscopes(){
+        let recommendedscopesids = [0,1,2,3,6,7,8,9,10,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,30,31,32,35,36,37,38,39,40,41];
+        disablescopes(false)
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+            if(recommendedscopesids.includes(i)){
+                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = recommendedcolor
+                enabledscopes[allscopes[i]] = 1
+                if(Object.keys(disabledscopes).includes(allscopes[i])){
+                    delete disabledscopes[allscopes[i]]
+                }
+            }
+        }
+        document.getElementById("response_output-output").style.backgroundColor = recommendedcolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function loadscopeurl(){
+        setTimeout(() => {
+            if(/(\&|\?)+(scope(s*)=)/g.test(document.URL) === true){
+                disablescopes(false)
+                let scopes = document.URL.match(/(\&|\?)+(scope(s*)=)(.*?)(\&|$)/g)[0].replace(/(\&|\?)+(scope(s*)=)/g, "").replace(/(\&|$)/g, "")
+                if(scopes.length > 0){
+                    scopes = scopes.split("+")
+                    for(i = 0; i < scopes.length; i++){
+                        if(scopes === "all"){
+                            enablescopes()
+                            // return;
+                        } else if(scopes === "mod"){
+                            modactionscopes()
+                        } else if(scopes === "none"){
+                            disablescopes()
+                        } else if(scopes === "rec" || scopes === "recommended"){
+                            recommendedscopes()
+                        } else {
+                            if(!isNaN(scopes[i])){
+                                enabledscopes[allscopes[scopes[i]]] = 1
+                                document.getElementById(`scope-element_${allscopes.indexOf(enabledscopes[allscopes[scopes[i]]])}`).style.backgroundColor = oncolor
+                            } else {
+                                enabledscopes[scopes[i]] = 1
+                                document.getElementById(`scope-element_${allscopes.indexOf(enabledscopes[scopes[i]])}`).style.backgroundColor = oncolor
+                            }
+                        }
+                    }
+                    // document.getElementById("response_output-output").style.backgroundColor = oncolor
+                    fitheight("response_output-output", 75, 6)
+                    loadlink()
+                }
+            } 
+            
+            if(/(\&|\?)+(ignore=)/g.test(document.URL) === true){
+                let scopes = document.URL.match(/((\&|\?)+ignore\=)(.*?)(\&|$)/g)[0].replace(/((\&|\?)ignore\=)/g, "").replace(/(\&|$)/g, "")
+                if(scopes.length > 0){
+                    scopes = scopes.split("+")
+                    for(i = 0; i < scopes.length; i++){
+                        if(scopes === "all"){
+                            disablescopes()
+                            // return;
+                        } else {
+                            if(!isNaN(scopes[i])){
+                                delete enabledscopes[allscopes[scopes[i]]]
+                                disabledscopes[allscopes[scopes[i]]] = 1
+                                document.getElementById(`scope-element_${allscopes.indexOf(allscopes[scopes[i]])}`).style.backgroundColor = offcolor
+                            } else {
+                                delete enabledscopes[scopes[i]]
+                                disabledscopes[allscopes[i]] = 1
+                                document.getElementById(`scope-element_${allscopes.indexOf(scopes[i])}`).style.backgroundColor = offcolor
+                            }
+                        }
+                    }
+                    // document.getElementById("response_output-output").style.backgroundColor = offcolor
+                    fitheight("response_output-output", 75, 6)
+                    loadlink()
+                }
+            }
+        }, 0);
+    }
+
+    function modactionscopes(){
+        let modactionscopeids = [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41];
+        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+            if(modactionscopeids.includes(i)){
+                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = modactioncolor
+                enabledscopes[allscopes[i]] = 1
+                if(Object.keys(disabledscopes).includes(allscopes[i])){
+                    delete disabledscopes[allscopes[i]]
+                }
+            }
+        }
+        document.getElementById("response_output-output").style.backgroundColor = modactioncolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function changecheck(ccparent){
+        if(![oncolor,modactioncolor,recommendedcolor].includes(ccparent.style.backgroundColor)){
+            // console.log("off -> on")
+            ccparent.style.backgroundColor = oncolor
+            enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML] = 1
+        } else {
+            // console.log("on -> off")
+            ccparent.style.backgroundColor = offcolor
+            delete enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML]
+        }
+        // console.log(enabledscopes)
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+
+    function fitheight(fhelem, fhminheigt, fmsubtract){
+        if(fhminheigt === undefined){
+            fhminheigt = 0
+        }
+        if(fmsubtract === undefined){
+            fmsubtract = 0
+        }
+        setTimeout(() => {
+            if(document.getElementById(fhelem).style.height !== fhminheigt){
+                document.getElementById(fhelem).style.height = fhminheigt + "px"
+                document.getElementById(fhelem).style.height = document.getElementById(fhelem).scrollHeight-fmsubtract + "px"
+            }
+        }, 0);
+    }
+
+    function openlink(olelem, ollink){
+        console.log(olelem.style)
+        window.open(ollink, target="_blank")
+        let stylecfirst = olelem.style
+        olelem.style.backgroundColor = oncolor
+        setTimeout(() => {
+            olelem.style = stylecfirst
+        }, 2000);
+    }
+
+    function copylink(clelem, cltext){
+        navigator.clipboard.writeText(cltext)
+        let styleclfirst = clelem.style.backgroundColor
+        clelem.style.backgroundColor = oncolor
+        setTimeout(() => {
+            clelem.style.backgroundColor = styleclfirst
+        }, 2000);
+    }
+
+    function switchshowhide(shsaction){
+        window.scrollbars.visible = false
+        let cselem_container = document.getElementById("response_showhide-container")
+        let cselem_switch = document.getElementById("response_showhide-switch")
+        if(cselem_container.style.backgroundColor === oncolor || shsaction === true){
+            cselem_container.style.backgroundColor = offcolor
+            cselem_switch.className = "response_showhide-off"
+            document.getElementById("response_clientid-input").type = "text"
+            document.getElementById("response_redirecturl-input").type = "text"
+            document.getElementById("response_output-output").style.display = "block"
+            document.getElementById("response_output-hidden").style.display = "none"
+
+        } else {
+            cselem_container.style.backgroundColor = oncolor
+            cselem_switch.className = "response_showhide-on"
+            document.getElementById("response_clientid-input").type = "password"
+            document.getElementById("response_redirecturl-input").type = "password"
+            document.getElementById("response_output-output").style.display = "none"
+            document.getElementById("response_output-hidden").style.display = "block"
+
+        }
+    }
+
+    function changecolor(){
+        let colorcodes = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"] 
+        let ccolor = []
+        colorcodes.forEach(i => {
+            ccolor[0] = colorcodes[i]
+            colorcodes.forEach(a => {
+                ccolor[1] = colorcodes[a]
+                colorcodes.forEach(b => {
+                    ccolor[2] = colorcodes[b]
+                    colorcodes.forEach(c => {
+                        ccolor[3] = colorcodes[c]
+                        colorcodes.forEach(d => {
+                            ccolor[4] = colorcodes[d]
+                            colorcodes.forEach(e => {
+                                ccolor[5] = colorcodes[e]
+                                document.getElementById("colorchange").style.backgroundColor = "#" + ccolor.join("")
+                            })
+                        })
+                    })
+                })
+            })
+        })
+    }
+
+    function checkurl(){
+        setTimeout(() => {
+            // (&/?)list=(false/true)
+            if(/(\&|\?)+(list)+(\=)/g.test(document.URL)){
+                if(/(\&|\?)+(list)+(\=true)/g.test(document.URL)){
+                    document.getElementById("displayscopes-div").style.display = "inline-block"
+                    scopeslist()
+                } else if(/(\&|\?)+(list)+(\=false)/g.test(document.URL)){
+                    document.getElementById("displayscopes-div").style.display = "none"
+                }
+            }
+
+            if(/(\&|\?)+(hid+e(n)*)+(\=)/g.test(document.URL)){
+                if(/(\&|\?)+(hid+e(n)*)+(\=true)/g.test(document.URL)){
+                    switchshowhide(false)
+                } else {
+                    switchshowhide(true)
+                }
+            }
+
+            if(/(\&|\?)+(dev(mode)*)+(\=)/g.test(document.URL)){
+                if(/(\&|\?)+(dev(mode)*)+(\=true)/g.test(document.URL)){
+                    devmode(true);
+                } else {
+                    devmode(false);
+                }
+            }
+
+            if(/(\&|\?)+(open)+(\=)/g.test(document.URL)){
+                if(/(\&|\?)+(open)+(\=parent)/g.test(document.URL)){
+                    window.open(document.getElementById("response_output-output").value, "_parent")
+                } else if(/(\&|\?)+(open)+(\=self)/g.test(document.URL)){
+                    window.open(document.getElementById("response_output-output").value, "_self")
+                } else if(/(\&|\?)+(open)+(\=top)/g.test(document.URL)){
+                    window.open(document.getElementById("response_output-output").value, "_top")
+                } else {
+                    window.open(document.getElementById("response_output-output").value, "_blank")
+                }
+            }
+
+
+        }, 0);
+    }
+
+    function scopeslist(){
+        let displaydiv = document.getElementById("displayscopes-table")
+
+        if(displaydiv.childElementCount === 1){
+            for(i = 0; i < allscopes.length; i++){
+                let displayscopetr = document.createElement("tr")
+
+                for(a = 0; a < 2; a++){
+                    let displayscopetd = document.createElement("td")
+                    if(i === allscopes.length-1){
+                        displayscopetd.className = "displayscope-elem-b"
+                    } else if(i === 0){
+                        displayscopetd.className = "displayscope-elem-t"
+                    } else {
+                        displayscopetd.className = "displayscope-elem-lr"
+                    }
+
+                    if(a === 0){
+                        displayscopetd.innerHTML = i;
+                    } else if(a === 1){
+                        displayscopetd.innerHTML = allscopes[i];
+                    }
+
+                    displayscopetr.appendChild(displayscopetd)
+                }
+
+                displaydiv.appendChild(displayscopetr)
+            }
+        }
+    }
+
+    function pageurl(){
+        let purl = [(document.URL.split("?")[0] !== undefined ? document.URL.split("?")[0] : document.URL)]
+
+        if(Object.keys(enabledscopes).length > 0){
+            let purl_enabled = []
+            for(i = 0; i < Object.keys(enabledscopes).length; i++){
+                purl_enabled.push(allscopes.indexOf(Object.keys(enabledscopes)[i]))
+            }
+            purl.push(`?scopes=${purl_enabled.join("+")}`)
+        }
+
+        if(Object.keys(disabledscopes).length > 0){
+            let purl_disabled = []
+            for(i = 0; i < Object.keys(disabledscopes).length; i++){
+                purl_disabled.push(allscopes.indexOf(Object.keys(disabledscopes)[i]))
+            }
+            if(purl.length === 1){
+                purl.push(`?ignore=${purl_disabled.join("+")}`)
+            } else {
+                purl.push(`&ignore=${purl_disabled.join("+")}`)
+            }
+        }
+
+        document.getElementById("pageurl-output").value = purl.join("")
+        fitheight("pageurl-output", 75, 6)
+
+    }
+
+</script>

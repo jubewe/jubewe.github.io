@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <meta content='width=device-width, initial-scale=1' name="viewport">
+    <header>
+        <title>Jubewe - JSON</title>
+        <link rel="icon" type="img/x-icon" href="./src/favicon.ico">
+    </header>
+    
+    
+    <body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
+        <div id="class-header">
+            <center>
+                <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                    <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+                </div>
+            </center>
+        </div>
+        <center>
+            <div id="err-container" style="display: none; color: greenyellow; border: solid; padding: 10px; padding-top: 5px; padding-bottom: 5px; margin-top: 10px; position: sticky">
+                <h id="err-output" style="font-size: 25px;"></h>
+            </div>
+        </center>
+        <br>
+        <div id="data-input-container">
+            <div id="data-input-div">
+                <h>Input:</h>
+                <div class="placeholder"></div>
+                <ol>
+                    <div>
+                        <textarea id="data-input" class="data-textarea" spellcheck="false" placeholder="Paste raw data or drag and drop a .json/.txt file"></textarea>
+                        <br>
+                        <button onclick="loadjsonfromtext(0)">Submit</button>
+                    </div>
+                </ol>
+            </div>
+        </div>
+        <!-- <br> -->
+        <!-- <button class="addbutton">+</button> -->
+        <br>
+        <div id="data-output-container">
+            <div id="data-output-div">
+                <h>Output:</h>
+                <div class="placeholder"></div>
+                <ol>
+                    <div id="data-output" style="border: solid; display: inline-block; padding: 15px; padding-right: 50px; ">
+                        <ul id="data-output-ul"></ul>
+                    </div>
+                </ol>
+            </div>
+        </div>
+    </body>
+</html>
+
+<style>
+    .data-textarea {
+        resize: none;
+        width: 750px;
+        height: 150px;
+    }
+
+    .placeholder {
+        border: solid;
+        border-color: transparent;
+    }
+
+    .addbutton {
+        /* padding: 2px; */
+        margin: 1px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+        width: 25px;
+        background-color: aqua;
+    }
+
+</style>
+
+<script>
+    window.onload = function(){
+        setTimeout(() => {
+            appendjson(1)
+        }, 0);
+    }
+
+    let jsona = ""
+
+    document.getElementById("data-input").addEventListener("dragover", ev => {
+        ev.preventDefault()
+    })
+
+    document.getElementById("data-input").addEventListener("drop", ev => {
+        ev.preventDefault()
+        if(ev.dataTransfer.items[0].type === "text/plain" || ev.dataTransfer.items[0].type === "application/json"){
+            let reader = new FileReader();
+            reader.onload = function(event){
+                if(ev.dataTransfer.items[0].type === "text/plain"){
+                    if(isjson(event.target.result) === false || Object.keys(JSON.parse(event.target.result)) === undefined || Object.keys(JSON.parse(event.target.result)) === null || Object.keys(JSON.parse(event.target.result)).length === 0){
+                        e(1, "Error: No JSON keys were found [1]")
+                    } else if(Object.keys(JSON.parse(event.target.result)).length > 0){
+                        jsona = JSON.stringify(JSON.parse(event.target.result))
+                        document.getElementById("data-input").value = jsona
+                        appendjson()
+                    } else {
+                        jsona = event.target.result
+                        document.getElementById("data-input").value = jsona
+                        appendjson()
+                    }
+                } else {
+                    if(Object.keys(event.target.result).length > 0 && (Object.keys(event.target.result) !== undefined || Object.keys(event.target.result) !== null)){
+                        jsona = JSON.stringify(JSON.parse(event.target.result))
+                        document.getElementById("data-input").value = jsona
+                        appendjson()
+                    } else {
+                        e(1, "Error: No JSON keys were found [2]")
+                    }
+                }
+            }
+            reader.readAsText(ev.dataTransfer.files[0])
+        } else {
+            e(1, "Error: File is not in .txt or .json format")
+        }
+    })
+
+    function checkformat(cfmode, cfparentallid, cfparentid, cfvar, cfcontent){
+        // cfmode 0: append format, 1: return format
+
+        if(cfmode !== undefined && cfparentid !== undefined && cfvar !== undefined && cfcontent !== undefined){
+            let cfcontenttype = typeof cfcontent
+            if(cfcontenttype === "string" || cfcontenttype === "number"){
+                let parentnode_1 = document.createElement("li", {is:cfparentid})
+                parentnode_1.className = "data-output-li"
+                parentnode_1.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++
+                
+                let childnode1_1 = document.createElement("h", {is:parentnode_1.id})
+                childnode1_1.className = "data-output-h"
+                childnode1_1.id = "data-output-h-" + document.getElementById(cfparentallid).childElementCount++ + "-h_1"
+                if(cfmode === 0){
+                    childnode1_1.innerHTML = cfvar + ": " + cfcontent
+                } else if(cfmode === 1){
+                    childnode1_1.innerHTML = cfcontent
+                }
+
+                parentnode_1.appendChild(childnode1_1)
+                document.getElementById(cfparentid).appendChild(parentnode_1)
+            } else if(Array.isArray(cfcontent)){
+                cfcontenttype = cfcontenttype + "/Array"
+                let parentnode_2 = document.createElement("li", {is:cfparentid})
+                parentnode_2.className = "data-output-li"
+                parentnode_2.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++
+                
+                let childnode2_1 = document.createElement("h", {is:parentnode_2.id})
+                childnode2_1.className = "data-output-h"
+                childnode2_1.id = "data-output-h-" + document.getElementById(cfparentallid).childElementCount++ + "-h_1"
+                childnode2_1.innerHTML = cfvar
+                
+                let childnode2_2 = document.createElement("ul", {is:parentnode_2.id})
+                childnode2_2.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++ + "-ul"
+                
+                parentnode_2.appendChild(childnode2_1)
+                parentnode_2.appendChild(childnode2_2)
+                document.getElementById(cfparentid).appendChild(parentnode_2)
+
+                for(i = 0; i < cfcontent.length; i++){
+                    checkformat(1, cfparentallid, childnode2_2.id, "", cfcontent[i])
+                }
+            } else if(typeof JSON.parse(JSON.stringify(cfcontent)) === "boolean"){
+                let parentnode_4 = document.createElement("li", {is:cfparentid})
+                parentnode_4.className = "data-output-li"
+                parentnode_4.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++
+                
+                let childnode4_1 = document.createElement("h", {is:parentnode_4.id})
+                childnode4_1.className = "data-output-h"
+                childnode4_1.id = "data-output-h-" + document.getElementById(cfparentallid).childElementCount++ + "-h_1"
+                if(cfmode === 0){
+                    childnode4_1.innerHTML = cfvar + ": " + cfcontent
+                } else if(cfmode === 1){
+                    childnode4_1.innerHTML = cfcontent
+                }
+
+                parentnode_4.appendChild(childnode4_1)
+                document.getElementById(cfparentid).appendChild(parentnode_4)
+            } else if(isjson(JSON.stringify(cfcontent)) === true){
+                cfcontenttype = cfcontenttype + "/JSON"
+                let parentnode_3 = document.createElement("li", {is:cfparentid})
+                parentnode_3.className = "data-output-li"
+                parentnode_3.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++
+                
+                let childnode3_1 = document.createElement("h", {is:parentnode_3.id})
+                childnode3_1.className = "data-output-h"
+                childnode3_1.id = "data-output-h-" + document.getElementById(cfparentallid).childElementCount++ + "-h_1"
+                childnode3_1.innerHTML = cfvar
+                
+                let childnode3_2 = document.createElement("ul", {is:parentnode_3.id})
+                childnode3_2.id = "data-output-li-" + document.getElementById(cfparentallid).childElementCount++ + "-ul"
+                
+                // let addelem = document.createElement("button")
+                // addelem.type = "button"
+                // addelem.innerHTML = "+"
+                // parentnode_3.appendChild(addelem)
+
+                parentnode_3.appendChild(childnode3_1)
+                parentnode_3.appendChild(childnode3_2)
+                document.getElementById(cfparentid).appendChild(parentnode_3)
+
+
+                Object.keys(cfcontent).forEach(i => {
+                    checkformat(0, cfparentallid, childnode3_2.id, cfvar, cfcontent[i])
+                })
+
+            } else {
+                
+            }
+        } else {
+            return "error"
+        }
+
+        document.getElementById("data-input").value = jsona
+    }
+
+    function appendjson(ajmode){
+        // jsona = document.getElementById("data-input").value
+        if(isjson(jsona) === true){
+            removechilds()
+
+            let addelem1 = document.createElement("button")
+            addelem1.type = "button"
+            addelem1.className = "addbutton"
+            addelem1.innerHTML = "+"
+            addelem1.id = "addelem_1"
+
+            document.getElementById("data-output-ul").appendChild(addelem1)
+            document.getElementById("addelem_1").addEventListener("click", function(e){
+                let val = prompt("Enter a Key name", "")
+                if(val.length > 0){
+                    let val2 = prompt("Enter a Value", "")
+                    if(val2.length > 0){
+                        checkformat(0, "data-output-ul", "data-output-ul", val, val2)
+                    }
+                }
+            })
+            
+            Object.keys(JSON.parse(jsona)).forEach(jkey => {
+                checkformat(0, "data-output-ul", "data-output-ul", jkey, JSON.parse(jsona)[jkey])
+            })
+        } else {
+            if(ajmode !== 1){
+                
+            } 
+        }
+    }
+
+    function loadjsonfromtext(){
+        jsona = document.getElementById("data-input").value
+        removechilds()
+        appendjson(0)
+    }
+
+    function removechilds(){
+        for(i = 0; i < document.getElementById("data-output-ul").childElementCount; i++){
+            // document.getElementById("data-output-ul").childNodes[i].remove()
+            document.getElementById("data-output-ul").innerHTML = ``
+        }
+    }
+
+    function isjson(ijstring){
+        try {
+            JSON.parse(new String(ijstring))
+        } catch(err){
+            return false
+        } 
+        return true
+    }
+
+    function e(emode, etext){
+        if(emode === undefined || emode === 0){
+            // green
+            document.getElementById("err-output").innerHTML = etext
+            document.getElementById("err-container").style.color = "greenyellow"
+            document.getElementById("err-container").style.display = "inline-block"
+            setTimeout(() => {
+                document.getElementById("err-container").style.display = "none"
+            }, 3000);
+        } else if(emode === 1){
+            // red
+            document.getElementById("err-output").innerHTML = etext
+            document.getElementById("err-container").style.color = "red"
+            document.getElementById("err-container").style.display = "inline-block"
+            setTimeout(() => {
+                document.getElementById("err-container").style.display = "none"
+            }, 3000);
+        }
+    }
+
+
+</script>

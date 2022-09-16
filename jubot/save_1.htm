@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html class=" fjsflhdn idc0_338" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><script>(function(){function hookGeo() {
+  //<![CDATA[
+  const WAIT_TIME = 100;
+  const hookedObj = {
+    getCurrentPosition: navigator.geolocation.getCurrentPosition.bind(navigator.geolocation),
+    watchPosition: navigator.geolocation.watchPosition.bind(navigator.geolocation),
+    fakeGeo: true,
+    genLat: 38.883333,
+    genLon: -77.000
+  };
+
+  function waitGetCurrentPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        hookedObj.tmp_successCallback({
+          coords: {
+            latitude: hookedObj.genLat,
+            longitude: hookedObj.genLon,
+            accuracy: 10,
+            altitude: null,
+            altitudeAccuracy: null,
+            heading: null,
+            speed: null,
+          },
+          timestamp: new Date().getTime(),
+        });
+      } else {
+        hookedObj.getCurrentPosition(hookedObj.tmp_successCallback, hookedObj.tmp_errorCallback, hookedObj.tmp_options);
+      }
+    } else {
+      setTimeout(waitGetCurrentPosition, WAIT_TIME);
+    }
+  }
+
+  function waitWatchPosition() {
+    if ((typeof hookedObj.fakeGeo !== 'undefined')) {
+      if (hookedObj.fakeGeo === true) {
+        navigator.getCurrentPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+        return Math.floor(Math.random() * 10000); // random id
+      } else {
+        hookedObj.watchPosition(hookedObj.tmp2_successCallback, hookedObj.tmp2_errorCallback, hookedObj.tmp2_options);
+      }
+    } else {
+      setTimeout(waitWatchPosition, WAIT_TIME);
+    }
+  }
+
+  Object.getPrototypeOf(navigator.geolocation).getCurrentPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp_successCallback = successCallback;
+    hookedObj.tmp_errorCallback = errorCallback;
+    hookedObj.tmp_options = options;
+    waitGetCurrentPosition();
+  };
+  Object.getPrototypeOf(navigator.geolocation).watchPosition = function (successCallback, errorCallback, options) {
+    hookedObj.tmp2_successCallback = successCallback;
+    hookedObj.tmp2_errorCallback = errorCallback;
+    hookedObj.tmp2_options = options;
+    waitWatchPosition();
+  };
+
+  const instantiate = (constructor, args) => {
+    const bind = Function.bind;
+    const unbind = bind.bind(bind);
+    return new (unbind(constructor, null).apply(null, args));
+  }
+
+  Blob = function (_Blob) {
+    function secureBlob(...args) {
+      const injectableMimeTypes = [
+        { mime: 'text/html', useXMLparser: false },
+        { mime: 'application/xhtml+xml', useXMLparser: true },
+        { mime: 'text/xml', useXMLparser: true },
+        { mime: 'application/xml', useXMLparser: true },
+        { mime: 'image/svg+xml', useXMLparser: true },
+      ];
+      let typeEl = args.find(arg => (typeof arg === 'object') && (typeof arg.type === 'string') && (arg.type));
+
+      if (typeof typeEl !== 'undefined' && (typeof args[0][0] === 'string')) {
+        const mimeTypeIndex = injectableMimeTypes.findIndex(mimeType => mimeType.mime.toLowerCase() === typeEl.type.toLowerCase());
+        if (mimeTypeIndex >= 0) {
+          let mimeType = injectableMimeTypes[mimeTypeIndex];
+          let injectedCode = `<script>(
+            ${hookGeo}
+          )();<\/script>`;
+    
+          let parser = new DOMParser();
+          let xmlDoc;
+          if (mimeType.useXMLparser === true) {
+            xmlDoc = parser.parseFromString(args[0].join(''), mimeType.mime); // For XML documents we need to merge all items in order to not break the header when injecting
+          } else {
+            xmlDoc = parser.parseFromString(args[0][0], mimeType.mime);
+          }
+
+          if (xmlDoc.getElementsByTagName("parsererror").length === 0) { // if no errors were found while parsing...
+            xmlDoc.documentElement.insertAdjacentHTML('afterbegin', injectedCode);
+    
+            if (mimeType.useXMLparser === true) {
+              args[0] = [new XMLSerializer().serializeToString(xmlDoc)];
+            } else {
+              args[0][0] = xmlDoc.documentElement.outerHTML;
+            }
+          }
+        }
+      }
+
+      return instantiate(_Blob, args); // arguments?
+    }
+
+    // Copy props and methods
+    let propNames = Object.getOwnPropertyNames(_Blob);
+    for (let i = 0; i < propNames.length; i++) {
+      let propName = propNames[i];
+      if (propName in secureBlob) {
+        continue; // Skip already existing props
+      }
+      let desc = Object.getOwnPropertyDescriptor(_Blob, propName);
+      Object.defineProperty(secureBlob, propName, desc);
+    }
+
+    secureBlob.prototype = _Blob.prototype;
+    return secureBlob;
+  }(Blob);
+
+  window.addEventListener('message', function (event) {
+    if (event.source !== window) {
+      return;
+    }
+    const message = event.data;
+    switch (message.method) {
+      case 'updateLocation':
+        if ((typeof message.info === 'object') && (typeof message.info.coords === 'object')) {
+          hookedObj.genLat = message.info.coords.lat;
+          hookedObj.genLon = message.info.coords.lon;
+          hookedObj.fakeGeo = message.info.fakeIt;
+        }
+        break;
+      default:
+        break;
+    }
+  }, false);
+  //]]>
+}hookGeo();})()</script><meta content="width=device-width, initial-scale=1" name="viewport">
+    </head><body style="background-color: #008b8b; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; user-select: none;"><header>
+        <title>Jubewe - JuBot</title>
+        <link rel="icon" type="img/x-icon" href="http://127.0.0.1:5500/src/favicon.ico">
+    </header>
+    
+    
+    
+        <div id="class-header">
+            <center>
+                <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                    <a href="https://jubewe.github.io/"><img src="save_1_files/moneycool_72.png" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom" height="70px"></a>
+                </div>
+            </center>
+        </div>
+        <center>
+            <div id="err-container" style="display: none; color: greenyellow; border: solid; padding: 10px; padding-top: 5px; padding-bottom: 5px; margin-top: 10px; position: sticky">
+                <h id="err-output" style="font-size: 25px;"></h>
+            </div>
+        </center>
+        <br>
+        <div>
+            <center>
+                <h4><h style="text-decoration: underline; ">Prefix:</h> <h style="background-color: cyan; padding: 3px; border-radius: 10px; user-select: text;">&gt;</h></h4>
+                <h><code>Being Developed...</code></h>
+            </center>
+        </div>
+        <div id="jubot-perms">
+            <center>
+                <h3 name="permissions" class="underline">Permissions</h3>
+                <table style="border: double; border-width: .5px; width: max-content; display: block; padding: 1px;">
+                    <tbody><tr>
+                        <th class="permtable">Number</th>
+                        <th class="permtable">Perm Group</th>
+                    </tr>
+                    <tr></tr>
+                    <tr>
+                        <td class="permtable">7</td>
+                        <td class="permtable">Bot-Owner (<h style="color: #00ffff;">Jubewe</h>)</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">6</td>
+                        <td class="permtable">Bot-Admin</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">5</td>
+                        <td class="permtable">Chatbot (<a href="https://api.frankerfacez.com/v1/badges" target="_blank" style="color: currentColor;">FFZ list</a>)</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">4</td>
+                        <td class="permtable">Channel-Broadcaster</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">3</td>
+                        <td class="permtable">Channel-Moderator</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">2</td>
+                        <td class="permtable">Channel-Vip</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">1</td>
+                        <td class="permtable">Channel-Subscriber</td>
+                    </tr>
+                    <tr>
+                        <td class="permtable">0</td>
+                        <td class="permtable">None/Everyone</td>
+                    </tr>
+                </tbody></table>
+            </center>
+        </div>
+        <div id="jubot-commands">
+            <center>
+                <h3 class="underline">Commands</h3>
+                <div style="margin-left: 35px;">
+                    <h><strong>Info</strong>: Messages are splitted into variables by spaces</h>
+                    <br><br>
+                    <h>JavaScript starts counting at 0 so a message is splitted like this:</h>
+                    <br>
+                    <div style="margin-top: 5px; border: solid 2px; display: inline-block; padding: 3px; ">
+                        <table style="text-align: center; border-spacing: 2px 0;">
+                            <tbody><tr>
+                                <th class="commandexpltop">&gt;cmdname</th>
+                                <th class="commandexpltop">arg1</th>
+                                <th class="commandexpltop">arg2</th>
+                                <th class="commandexpltop">arg3</th>
+                                <th>...</th>
+                            </tr>
+                            <tr>
+                                <td class="commandexpbottom">0</td>
+                                <td class="commandexpbottom">1</td>
+                                <td class="commandexpbottom">2</td>
+                                <td class="commandexpbottom">3</td>
+                            </tr>
+                        </tbody></table>
+                        
+                    </div>
+                </div>
+                <br>
+                <div id="commands">
+                    <table id="commandstable" style="border: solid 2px; width: 90%; display: flexbox; padding: 1px; user-select: text;">
+                        <tbody><tr>
+                            <th class="trelem">Command</th>
+                            <th class="trelem">Aliases</th>
+                            <th class="trelem">Args</th>
+                            <th class="trelem">Description</th>
+                            <th class="trelem">Perms</th>
+                            <th class="trelem">Extra</th>
+                        </tr>
+                        <tr></tr>
+                    </tbody><tr is="[object HTMLTableElement]" id="bot" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">bot</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">info, uptime, ping</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Info Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="test" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">test</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Test Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="afk" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">afk</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>message</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Afk Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="math" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">math</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>excersise</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Solves the excersise</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="streaminfo" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">streaminfo</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">islive</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>channel</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets if a streamer is live (and says streaminfos)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">3</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="user" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">user</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>user</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets informations about the user (twitch api)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">3</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="join" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">join</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>channel</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Joins the channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="leave" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">leave</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>channel</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Leaves the channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="getchans" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">getchans</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>(-force)</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets the joined channels</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="addperm" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">addperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_9_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>user</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Grants a user rights (bot intern)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="delperm" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">delperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">removeperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_10_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>user</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Removes a users rights (bot intern)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="sync" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">sync</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>option</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Syncs a variable</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="say" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">say</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>message</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Says a message</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="send" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">send</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_13_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>channel</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>message</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Sends a message to channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="whisper" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">whisper</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_14_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>user</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>message</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Sends a whisper to user</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="timer" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">timer</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_15_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>(next/last/all)/none</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>(timer)</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Timer</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="sb" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">sb</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_16_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>user</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>(time/message)</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Executes a action across multiple channels</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="clip" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">clip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>channel</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Creates a clip with the api if a token is set</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">token required</h></td></tr><tr is="[object HTMLTableElement]" id="getclip" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">getclip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>clip</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets infos about a clip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="getvideo" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">getvideo</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>video</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets infos about a twitch-video</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem" rowspan="6"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">token required</h></td></tr><tr is="[object HTMLTableElement]" id="getmarkers" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">getmarkers</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>video</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets the markers of a twitch video</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td></tr><tr is="[object HTMLTableElement]" id="createmarker" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">createmarker</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_21_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>channel</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>description</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Creates a marker in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="poll" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">poll</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_22_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>title,opt1,opt2</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>(duration:time,bits:bits,points:channelpoints)</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Creates a poll in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="prediction" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">prediction</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_23_table" style="border: 0.5px solid black; border-radius: 4px;"><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>title,choice1,choice2</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139);"><h is="[object HTMLTableCellElement]"><code>(duration:time)</code></h></td></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Creates a prediction in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="schedule" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">schedule</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>channel</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets the stream schedule of a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="scope" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">scope</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0"><code>twitch:scope</code></td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets if the set token has the scope</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="off" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">off</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Removes all chat listeners</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="view" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">view</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Mainacc starts viewing a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="unview" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">unview</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Mainacc stops viewing a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr><tr is="[object HTMLTableElement]" id="getviews" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">getviews</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);" rowspan="0">-</td></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">Gets the viewed channels by the Mainacc</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139);">-</h></td></tr></table>
+                    <br>
+                    <div>
+                        <input id="input_command" placeholder="command" value="getviews">
+                        <input id="input_command_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_command_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_alias" placeholder="aliases">
+                        <input id="input_alias_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_alias_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_arg_1" placeholder="arg1">
+                        <input id="input_arg_1_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_arg_1_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_arg_2" placeholder="arg2">
+                        <input id="input_arg_2_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_arg_2_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_arg_3" placeholder="arg3">
+                        <input id="input_arg_3_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_arg_3_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_arg_4" placeholder="arg4">
+                        <input id="input_arg_4_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_arg_4_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_arg_5" placeholder="arg5">
+                        <input id="input_arg_5_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_arg_5_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_description" placeholder="description" value="Gets the viewed channels by the Mainacc">
+                        <input id="input_description_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_description_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_perm" placeholder="perm" value="7">
+                        <input id="input_perm_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_perm_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_extra" placeholder="extra">
+                        <input id="input_extra_span" placeholder="num" value="0" type="number" style="width: 40px;">
+                        <input id="input_extra_color" type="color" style="border: none; height: 20px;" value="#008b8b">
+                        <br>
+                        <input id="input_mode" placeholder="mode" type="number" style="width: 50px;">
+                        <button type="button" onclick="addcmd()">Add</button>
+                    </div>
+                </div>
+            </center>
+            
+            <div id="commands-div" style="display: none;">
+                <input style="float: inline-end;" placeholder="Search Commands">
+                <ul>
+                    <li>
+                        <h>Regular (everyone)</h>
+                        <ul>
+                            <li>bot/info/uptime/ping</li>
+                            <li>Custom commands if perm</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h>Mod (or higher)</h>
+                        <ul>
+                            <li>cmd/command ~add/delete/edit/rename/alias/info/enable/disable~ ~cmdname~ (~cmdarg/cmdcontent~) (-~none/sub/vip/mod/bro/bot~)</li>
+                            <li>key/keyword ~add/delete/edit/rename/alias/info/enable/disable~ ~keyname~ (~keyarg/keycontent~) (-~none/sub/vip/mod/bro/bot~)</li>
+                            <li>prefix ~set/reset~ (~setprefix~)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h>Admin (or higher)</h>
+                        <ul>
+                            <li>test</li>
+                            <li>join ~chan~</li>
+                            <li>leave ~chan~</li>
+                            <li>getchans/channels (~-force~)</li>
+                            <li>sync ~bots~</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <h>Owner</h>
+                        <ul>
+                            <li>addperm ~admin~ ~user~</li>
+                            <li>delperm ~admin~ ~user~</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer id="bottom">Bot Development Start: 2022-03-15</footer>
+    <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+
+    <style>
+        .commandexpltop {
+            border: 1px solid black;
+            padding: 1px;
+            border-bottom: none 1px;
+        }
+
+        .commandexpbottom {
+            padding: 1px;
+            border: 1px solid black;
+            border-top: solid 1px;
+        }
+
+        .trelem {
+            border: double;
+            padding: 2px;
+            border-radius: 5px;
+            border-left: solid 1px;
+            border-right: solid 1px;
+            user-select: none;
+        }
+
+        .underline {
+            text-decoration: underline;
+        }
+
+        .permtable {
+            border: 1px dotted black;
+            text-align: center;
+        }
+
+        .cmdelem {
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 2px;
+            user-select: text;
+            text-align: center;
+        }
+
+        .cmdelement {
+            color: currentColor
+        }
+
+    </style>
+
+    <script>
+        document.onload = setdefaultcolors()
+
+        function setdefaultcolors(){
+            let colorelems = ["command","alias","arg_1","arg_2","arg_3","arg_4","arg_5","description","perm","extra"];
+            for(i = 0; i < colorelems.length; i++){
+                document.getElementById("input_" + colorelems[i]+"_color").value = "#008b8b"
+                console.log(document.getElementById("input_" + colorelems[i]+"_color").value)
+            }
+        }
+
+        function getvalue(gvelem){
+            return document.getElementById(gvelem).value
+        }
+        function addcmd(){
+            let cmdnumber = document.getElementsByClassName("cmdelement").length;
+            let aelemtr = document.createElement("tr",{is:document.getElementById("commandstable")});
+            aelemtr.id = `${getvalue("input_command")}`;
+            aelemtr.className = "cmdelement";
+
+            let inputcommands = ["input_command","input_alias","args","input_description","input_perm","input_extra"];
+            for(i = 0; i < inputcommands.length; i++){
+                let aelemcmdtd = document.createElement("td",{is:aelemtr});
+                aelemcmdtd.className = "cmdelem";
+                if(i === 2){
+                    // aelemcmdtd.innerHTML = `<input id="input_alias" placeholder="alias">`;
+                    if(getvalue("input_arg_1") !== "" && getvalue("input_arg_2") !== ""){
+                        let aelemcmdobj = document.createElement("table",{is:aelemcmdtd});
+                        aelemcmdobj.id = `cmd_${cmdnumber}_table`;
+                        aelemcmdobj.style.border = "solid .5px black";
+                        aelemcmdobj.style.borderRadius = "4px";
+                        for(e = 1; e < 5; e++){
+                            if(getvalue(`input_arg_${e}`) !== ""){
+                                let aelemcmdobjtr = document.createElement("td",{is:aelemcmdobj});
+                                // aelemcmdobjtr.id = `cmd_${cmdnumber}_table_${e}`;
+                                aelemcmdobjtr.rowSpan = getvalue(`input_arg_${e}_span`);
+                                aelemcmdobjtr.style.border = "solid .5px black"
+                                aelemcmdobjtr.style.borderRadius = "4px"
+                                let aelemcmdobjtr2 = document.createElement("h",{is:aelemcmdobjtr});
+                                aelemcmdobjtr2.innerHTML = `<code>${(getvalue(`input_arg_${e}`) === "" ? "-" : getvalue(`input_arg_${e}`))}</code>`;
+                                aelemcmdobjtr.style.backgroundColor = getvalue(`input_arg_${e}_color`)
+                                aelemcmdobjtr.appendChild(aelemcmdobjtr2);
+                                aelemcmdobj.appendChild(aelemcmdobjtr);
+                            }
+                        }
+                        aelemcmdtd.appendChild(aelemcmdobj);
+                    } else {
+                        let aelemcmdobj = document.createElement("td",{is:aelemcmdtd});
+                        // aelemcmdobj.id = `cmd_${cmdnumber}_h`;
+                        aelemcmdobj.style.backgroundColor = getvalue(`input_arg_1_color`)
+                        aelemcmdobj.innerHTML = `${(getvalue(`input_arg_1`) === "" ? "-" : "<code>" + getvalue(`input_arg_1`) + "</code>")}`;
+                        aelemcmdobj.rowSpan = getvalue(`input_arg_1_span`);
+                        aelemcmdtd.appendChild(aelemcmdobj);
+                    }
+                } else {
+                    let aelemcmdobj = document.createElement("h",{is:aelemcmdtd});
+                    // aelemcmdobj.id = `cmd_${cmdnumber}_h`;
+                    aelemcmdobj.innerHTML = (getvalue(inputcommands[i]) === "" ? "-" : getvalue(inputcommands[i]));
+                    aelemcmdobj.rowSpan = getvalue(`input_arg_1_span`);
+                    aelemcmdobj.style.backgroundColor = getvalue(`input_arg_1_color`)
+                    aelemcmdtd.appendChild(aelemcmdobj);
+                }
+                aelemtr.appendChild(aelemcmdtd)
+            }
+
+            document.getElementById("commandstable").appendChild(aelemtr)
+        }
+    </script>
+
+<script src="save_1_files/app.js" type="text/javascript"></script></body></html>

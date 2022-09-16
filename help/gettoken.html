@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+
+<header>
+    <link rel="icon" href="../src/favicon.ico" type="image/x-icon">
+    <title>Jubewe Github</title>
+</header>
+
+<body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
+    <a href="https://jubewe.github.io/" style="border:ridge; border-color: #1d3956; padding: 2px; border-color: #335376; color: cyan; border-radius: 3px; text-decoration: none; padding-top: 0px; background-color: #2a4869; user-select: none;">Main</a>
+    <center>
+        <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+            <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+        </div>
+        <br><br>
+        <h style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869; display: inline-block; margin-inline: 20px; margin-left: auto; margin-right: auto; font-size: 40px; color: white; user-select: none;" onclick="window.open('https://jubewe.github.io/')"> Token </h>
+    </center>
+    <br>
+    <center>
+        <h id="herror" style="display: none; color: red; text-transform: none;"></h>
+    </center>
+    <br>
+    <center>
+        <a href="https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=7ajujm2bromilnclf3p4mgbat5lyhz&redirect_uri=https://jubewe.github.io/help/validatetoken&scope=channel:moderate+moderation:read+openid" style="color: aqua;">Request Token</a>
+    </center>
+    <br>
+    <br>
+    <div style="border: solid; border-color:transparent"></div>
+    <center>
+        <div id="links" style="border: dotted; border-radius: 20px; padding: 5px; border-color: aqua; color: steelblue; display: inline; padding-left: 10px; padding-right: 10px; user-select: none; " >
+            <h style="color: #6197a9;" > Contact: </h>
+            <!-- <img> -->
+            <div style="width: 20px; height: 25px; display:contents; margin-inline: 20px; margin-left: auto; margin-right: auto; user-select: none;" onclick="window.open('https://twitch.tv/jubewe', '_blank')">
+                <img id="jtwitch" src="../src/twitch.png" style="width: 15px; display: inline-block; " class="clickrotate">
+            </div>
+            <!-- <img> -->
+            <div style="width: 20px; height: 25px; display:contents; margin-inline: 20px; margin-left: auto; margin-right: auto; user-select: none;" onclick="window.open('https://twitter.com/Jubewe', '_blank')">
+                <img id="jtwitch" src="../src/twitter.png" style="width: 15px; display: inline-block; " class="clickrotate">
+            </div>
+            <!-- <img> -->
+            <div style="width: 20px; height: 25px; display:contents; margin-inline: 20px; margin-left: auto; margin-right: auto; user-select: none;" onclick="window.open('https://instagram.com/ju.be.we', '_blank')">
+                <img id="jtwitch" src="../src/instagram.png" style="width: 15px; display: inline-block; " class="clickrotate">
+            </div>
+            <!-- <img> -->
+            <div style="width: 20px; height: 25px; display:contents; margin-inline: 20px; margin-left: auto; margin-right: auto; user-select: none;" onclick="window.open('https://discord.com/users/635032637194633229', '_blank')">
+                <img id="jtwitch" src="../src/Discord_new.png" style="width: 15px; display: inline-block; " class="clickrotate">
+            </div>
+        </div>
+    </center>
+</body>
+
+
+<style>
+    .clickrotate {
+        transform: rotate(0deg);
+        transition: transform 125ms;
+    }
+    .clickrotate:hover {
+        transform: rotate(360deg) scale(1.8);
+        transition: transform 250ms;
+    }
+    .clickrotate:active {
+        transform: scale(50);
+        transition: transform 250ms;
+    }
+    .zoom {
+        transform: scale(1);
+        transition: transform 125ms;
+    }
+    .zoom:hover {
+        transform: scale(1.5);
+        transition: transform 125ms;
+    }
+</style>

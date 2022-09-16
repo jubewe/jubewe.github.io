@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<header>
+    <link rel="icon" href="./src/favicon.ico" type="image/x-icon">
+    <title>Jubewe Github - Patrick71z</title>
+</header>
+
+<body style="background-color: #1d3956; color: mediumseagreen; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; text-transform: uppercase; font-size: 20px;">
+    <div id="header">
+        <a href="https://jubewe.github.io/" style="border:ridge; border-color: #1d3956; padding: 2px; border-color: #335376; color: cyan; border-radius: 3px; text-decoration: none; padding-top: 0px; background-color: #2a4869;">Main</a>
+        <a href="https://jubewe.github.io"><center><img src="./src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869;"></center></a>
+        <a href="https://jubewe.github.io/" style="text-align: center; color: white; text-decoration: none;"><h1 style="border: solid; border-radius: 3px; border-color: #335376; background-color: #2a4869;"> Patrick71z - Main</h1></a>
+    </div>
+    <div id="help" style="border: dotted; align-content: flex-end;">
+        <!-- <br> -->
+        <center>
+            <a href="./help/token" target="_blank" style="color: yellowgreen; text-decoration: none;"> 
+                <img src="https://cdn.discordapp.com/emojis/811523637571485736.webp?size=40&quality=lossless" height="15px" style="padding: 2px; right: auto;"> 
+                <h style="text-decoration: underline;">Token Help</h> 
+                <img src="https://cdn.discordapp.com/emojis/811523637571485736.webp?size=40&quality=lossless" height="15px" style="padding: 2px; right: auto;"> 
+            </a>
+        </center>
+        <!-- <br> -->
+    </div>
+    <div style="border: solid; border-color: transparent;"></div>
+    <div>
+        <h3>Used Permissions (Code)</h3>
+        <ol>
+            <table style="padding: 2px; padding-right: 2px; color: whitesmoke; text-align: center; border: 2px solid green; text-transform: none; border-radius: 10px;">
+                <tr>
+                    <th class="tableheadelem" style="border-top-left-radius: 3px;">Perm-type</th>
+                    <th class="tableheadelem">Number</th>
+                    <th class="tableheadelem" style="border-top-right-radius: 3px;">Note</th>
+                </tr>
+                <tr>
+                    <td>Owner</td>
+                    <td>7</td>
+                    <td rowspan="2" class="spanborder">Manually managed</td>
+                </tr>
+                <tr>
+                    <td>Admin</td>
+                    <td>6</td>
+                </tr>
+                <tr>
+                    <td>Bot (FFZ)</td>
+                    <td>5</td>
+                    <td class="spanborder">Saved Local (may be not up to date)</td>
+                </tr>
+                <tr>
+                    <td>Broadcaster</td>
+                    <td>4</td>
+                    <td rowspan="4" class="spanborder">Of the selected channel</td>
+                </tr>
+                <tr>
+                    <td>Moderator</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>VIP</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Subscriber (any tier)</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td style="border-bottom: solid 1px greenyellow; border-bottom-left-radius: 3px;">None/Everyone</td>
+                    <td style="border-bottom: solid 1px greenyellow;">0</td>
+                    <td style="border-bottom: solid 1px greenyellow; border-bottom-right-radius: 3px;" class="spanborder"></td>
+                </tr>
+            </table>
+        </ol>
+    </div>
+    <div style="border: solid; border-color: transparent;"></div>
+    <div id="commands">
+        <h3>Commands</h3>
+        <ol>
+            <div>
+                <h style="text-decoration: underline;">Regular</h>
+                <div style="font-size: 15px;">
+                    <ol style="text-transform: none;">
+                        <br>
+                        <li><code class="commands">bot/ping</code> - shows info about the Bot, including ping, channels, logchannels and handels</li>
+                        <li><code class="commands">channels</code> - shows in how many channels the bot is in</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Depends on Permissions</h>
+                <div style="font-size: 15px;">
+                    <ol style="text-transform: none;">
+                        <br>
+                        <li><code class="commands">stats ~all/user\self~ ~channel/all\chan~</code> - Shows numbered logstats filtered by user/all and channel/all</li>
+                        <li><code class="commands">log ~chan~</code> - starts logging a channel</li>
+                        <li><code class="commands">unlog ~chan~</code> - stops logging a channel</li>
+                        <li><code class="commands">rank ~user/all\self~ ~channel\currentchan\all~ (admin: -force/-~number~)</code> - Shows the rank of a user by the modactions in ~channel~ (if logged)</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Admin/Owner</h>
+                <div style="font-size: 15px;">
+                    <ol style="text-transform: none;">
+                        <br>
+                        <li><code class="commands">num</code> - gets the current number in the console - useful for finding errors</li>
+                        <li><code class="commands">off</code> - stops the script without restart (manual restart required)</li>
+                        <li><code class="commands">join ~chan~</code> - joins a channel and handles messages</li>
+                        <li><code class="commands">leave ~channel~</code> - leaves a channel</li>
+                        <li><code class="commands">say ~message~</code> - says ~message~</li>
+                        <li><code class="commands">send ~channel~ ~message~</code> - sends ~message~ in ~channel~</li>
+                        <li><code class="commands">test</code> - test command</li>
+                        <li><code class="commands">channels ~(-force)~</code> - gets the current channels (-force sends the names in chat)</li>
+                        <li><code class="commands">getlogs ~(-force)~</code> - gets the current logging channels (-force sends the names in chat)</li>
+                        <li><code class="commands">addperm ~user~</code> - adds perms to a user so it can use the commands</li>
+                        <li><code class="commands">removeperm ~user~</code> - removes perms from a user</li>
+                        <li><code class="commands">checkperm ~user\self~ ~channel\currentchannel~</code> - gets the permstatus of a user (in a channel)</li>
+                        <li><code class="commands">gettoken ~channel\currentchannel~</code> - gets the token of a channel (log in console if custom)</li>
+                        <li><code class="commands">sync ~all/logs/channels/logchannels~</code> - Re-syncs the option in the script</li>
+                        <li><code class="commands">getlog ~channel~</code> - Gets the current logstate of ~channel~</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Owner</h>
+                <div style="font-size: 15px;">
+                    <ol style="text-transform: none;">
+                        <br>
+                        <li><code class="commands">addperm ~(admin)~ ~user~</code> - adds admin rights to ~user~ (they cant use this command)</li>
+                        <li><code class="commands">removeperm ~(admin)~ ~user~</code> - removes admin rights from ~user~</li>
+                    </ol>
+                </div>
+                <br>
+                <h style="text-decoration: underline;">Whisper</h>
+                <div style="font-size: 15px;">
+                    <ol style="text-transform: none;">
+                        <br>
+                        <li><code class="commands">test</code> - test cmd</li>
+                        <li><code class="commands">help ~(oauth)\standard~</code> - help cmd</li>
+                        <li><code class="commands">oauth ~oauth:(yourkey)/channel~</code> - sets the oauth key for the account or a channel if access</li>
+                        <li><code class="commands">oauth reset |~channel~</code> code resets the token for the account or channel if access</li>
+                        <!-- Depends on Permissions -->
+                        <li><code class="commands">log ~channel~</code> - starts logging the modlogs of a channel</li>
+                        <li><code class="commands">unlog ~channel~</code> - stops logging the modlogs of a channel</li>
+                        <!-- Admin/Owner -->
+                        <li><code class="commands">tokeninfo ~token~</code> - gets info about the token of a channel</li>
+                        <li><code class="commands">checktoken ~channel~</code> - gets info about a token over the api</li>
+                    </ol>
+                </div>
+                <br>
+                <h3 style="text-decoration: underline;">Changelog</h3>
+                <div id="changelog_1-1-4">
+                    <h3>Version 1.1.4</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="update">Mods with 0 logs are now shown in the <code>!rank all ~channel~</code> command</li>
+                            <li class="update">Added Option to remove bot actions from rank commands by adding <code>-nobot</code> to the message</li>
+                            <li class="bugfix">Fixed bug in splitmsg for splitting messages over 500 characters into multiple ones</code></li>
+                            <li class="update">Command <code>rank</code> now has the option to show the top channels <code>!rank channels all</code></li>
+                            <li class="bugfix">Fixed bug in command <code>rank</code> which randomly sorted the ranks and updated function <code>rank</code></li>
+                            <li class="add">Added command <code>rename ~oldname~ ~newname~</code> (admin) to update the names</li>
+                            <li class="code">Updated logging system to ids for users (from names) to prevent errors from renames (BETA)</li>
+                            <h>Renamed users before 07-07-2022 have to contact <a href="https://jubewe.github.io/" style="color:currentColor;">Jubewe</a> per dm to change the name manually</h>
+                        </ol>
+                    </div>
+                </div>
+                <div id="changelog_1-1-3">
+                    <h3>Version 1.1.3</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="bugfix">[Code] Fixed bug in logging with the last argument of the modaction being undefined in some cases</li>
+                            <li class="update">The script is now saving userid and username in a local file without requesting every time (logging)</li>
+                            <li class="add">The ping times are now being saved and used to calculate the average ping (bot and ping)</li>
+                            <li class="update">NEW: The bot is now usally replying to messages - using twurple-chat to send replys</li>
+                            <li class="update">[Code] Updated command stats - now using a function to get the information + Changed command argument order</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="changelog_1-1-2">
+                    <h3>Version 1.1.2</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="add">[Code] Added Option to send messages longer than 500 characters (<code>sendmsg</code> - \n for manual new line)</li>
+                            <li class="bugfix">Fixed file logging bug (user)</li>
+                            <li class="update">Changed variable <code>requestopt</code> to function for better options</li>
+                            <li class="add">Added <code>getlog</code> command to get the logstate of a channel (admin)</li>
+                            <li class="bugfix">[Code] Fixed majure bugs in logging system</li>
+                            <br>
+                            <li class="update">Added channel "all" option for rank command</li>
+                            <li class="add">[Code] Added function send to send messages with delay</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="changelog_1-1-1">
+                    <h3>Version 1.1.1</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="add">Added <code>rank</code> command</li>
+                            <li class="add">Added <code>sync</code> command</li>
+                        </ol>
+                    </div>
+                </div>
+                <div id="changelog_1-1-0">
+                    <h3>Version 1.1.0</h3>
+                    <div style="font-size: 15px;">
+                        <ol style="text-transform: none;">
+                            <li class="update">Logging System:</li>
+                            <h class="update">> Changed the logging from one log one line single .txt files to one json file for better efficiency</h>
+                            <li class="bugfix">Some Smaller bug fixes in <code>index.js</code></li>
+                            <li class="bugfix">Bug fix for <code>stats</code> command - filters (msg-action)</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </ol>
+    </div>
+    <div style="border: solid; border-color: transparent;"></div>
+</body>
+
+<style>
+    .commands {
+        color: teal;
+        text-transform: none;
+    }
+
+    .bugfix {
+        color: orange;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .add {
+        color: green;
+    }
+
+    .update {
+        color: mediumturquoise;
+    }
+
+    .tableheadelem {
+        border: .5px solid greenyellow;
+        padding: 3px;
+    }
+
+    .spanborder {
+        border-left-color: transparent;
+    }
+
+    td {
+        border: .5px dotted greenyellow;
+        padding: 2px;
+        border-left: solid 1px greenyellow;
+        border-right: solid 1px greenyellow;
+    }
+</style>
+
+<footer>
+    <div id="updated">
+        <img src="https://static-cdn.jtvnw.net/emoticons/v2/28/default/dark/2.0" height="21px">
+        <h>Updated on 07-07-2022</h>
+    </div>
+</footer>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Jubewe - Chatty Help</title>
+    <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
+</head>
+
+<body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; ">
+    <div id="class-header">
+        <center>
+            <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+            </div>
+            <h3 name="top">Welcome to my Chatty Help!</h3>
+            <h>Here you can find answers for a lot of often asked questions</h>
+            <br>
+            <div class="divinline" style="border: double;">
+                <a class="divchild" href="https://discord.gg/WTuqGeJ" style="text-decoration: none;"><h4>Chatty Discord <img class="imginline" src="../src/Discord_new.png"> </h4></a>
+            </div>
+        </center>
+    </div>
+    <div style="border: solid; border-width: 1px; border-color: aqua;"></div>
+    <div id="container-help">
+        <div style="padding: 3px;">
+            <div id="joinpart">
+                <h3>1) Join/Part</h3>
+                <ol>
+                    <h>If you want to hide the joins/parts, disable the option</h>
+                    <br>
+                    <h>Same process to show them in other direction</h>
+                    <br><br>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/joinpart.png">
+                    <!-- <br> -->
+                    <h>or</h>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/joinpart2.png">
+                </ol>
+            </div>
+            <br>
+            <div id="chatcolor">
+                <h3>2) Changing Chat Colors</h3>
+                <ol>
+                    <h>Customize your Chat colors:</h>
+                    <br>
+                    <h>(Recommendation: HiFi Custom (Dark))</h>
+                    <br>
+                    <br>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/chatcolor.png">
+                </ol>
+            </div>
+            <br>
+            <div id="maxemotesize">
+                <h3>3) Setting max emote size</h3>
+                <ol>
+                    <h>Set the max emote size to prevent the oversize emotes</h>
+                    <br>
+                    <br>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/resizeemotes.png">
+                </ol>
+            </div>
+            <br>
+            <div>
+                <h3>4) Highlights</h3>
+                <ol>
+                    <h>You can highlight different things which appear in a seperate tab (Chatty: View -> Highlights)</h>
+                    <br>
+                    <h>New Highlights can be added in Settings -> Chat: Highlight</h>
+                    <br>
+                    <h>You have many options for the items, for example you can highlight a message in the channel "test" only by adding "chan:test" before your highlight</h>
+                    <br>
+                    <h>That also works the other way: you can ignore a highlight in a specific channel by adding a "!" before the matching prefix, that would be "!chan:test" in our case</h>
+                    <br>
+                    <a href="https://chatty.github.io/help/help-settings.html#Highlight_Matching">All Highlight Prefixes</a>
+                    <br>
+                    <a href="https://chatty.github.io/help/help-settings.html#Highlight">More detailed explaination by the Chatty dev</a>
+                </ol>
+            </div>
+            <br>
+            <div>
+                <h3>5) Highlight Blacklist</h3>
+                <ol>
+                    <h>You can blacklist things from being highlighted</h>
+                    <br>
+                    <h>That means you can except things from being highlighted, e.g. in channels you are not a mod in</h>
+                    <br>
+                    <br>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/highlight_blacklist.png">
+                    <br>
+                    <h class="underline">Picture:</h>
+                    <ol>
+                        <li>Blacklist highlights in channels you are not a mod in</li>
+                        <li>- Except the message includes "jubewe" (in any channel)</li>
+                        <li>Doesn't highlight if the user is a Broadcaster/Moderator/Global Moderator/Admin/Staff or Vip</li>
+                        <li>- Except the message includes "jubewe" (from any user)</li>
+                    </ol>
+                    <br>
+                    <img class="helpimg" onclick="popoutimage(this)" src="./img/highlight_blacklist_example.png">
+                    <br>
+                    <h class="underline">Picture:</h>
+                    <ul>
+                        <li>Highlights "jubewe" in every channel from every user</li>
+                    </ul>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+    
+    </footer>
+</body>
+
+<style>
+    .imginline {
+        height: 20px;
+        position: relative;
+        vertical-align: middle;
+        display: inline-block;
+    }
+
+    .divinline {
+        display: inline;
+        padding-inline: 5px;
+        padding: 4px;
+        padding-top: 2px;
+        padding-bottom: 2px;
+    }
+
+    .divchild {
+        display: inline-block;
+    }
+
+    .helpimg {
+        height: 150px;
+        cursor: zoom-in;
+    }
+
+    .underline {
+        text-decoration: underline;
+    }
+    
+</style>
+
+<script>
+    function popoutimage(imgelem){
+        window.open(imgelem.src, "_blank")
+    }
+
+    
+</script>

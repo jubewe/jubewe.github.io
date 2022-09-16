@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html>
+    <header>
+        <title>Jubewe - JuBot</title>
+        <link rel="icon" type="img/x-icon" href="../src/favicon.ico">
+    </header>
+
+    <body style="background-color: #008b8b; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; user-select: none;">
+        <div id="class-header">
+            <center>
+                <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                    <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+                </div>
+            </center>
+        </div>
+        <center>
+            <h3>JS Tools</h3>
+        </center>
+        <br>
+        <div id="length-div" style="display: inline-block;" class="border">
+            <center>
+                <h class="fontup">Length</h>
+                <br><br>
+                <label for="length-select" class="underline">Type:</label>
+                <select id="length-select" >
+                    <option selected>String</option>
+                    <option>Array</option>
+                    <option>JSON</option>
+                </select>
+                <br>
+                <div class="placeholder"></div>
+                <textarea id="length-input" placeholder="Input" spellcheck="false"></textarea>
+                <div class="placeholder"></div>
+                <textarea id="length-output" style="width: 50px; height: 15px;" placeholder="Output" spellcheck="false"></textarea>
+            </center>
+        </div>
+        <div id="replace-div" style="display: inline-block;" class="border">
+            <center>
+                <h class="fontup">Replace</h>
+                <!-- <br><br> -->
+                <!-- <label for="replace-select" class="underline">Type:</label>
+                <select id="replace-select" >
+                    <option selected>String</option>
+                    <option>Array</option>
+                    <option>JSON</option>
+                </select>
+                <br> -->
+                <div class="placeholder"></div>
+                <textarea id="replace-input" placeholder="Input" spellcheck="false"></textarea>
+                <div class="placeholder"></div>
+                <textarea id="replace-replacer" placeholder="Replacer" spellcheck="false"></textarea>
+                <br>
+                <h class="underline">Regex:</h>
+                <input id="replace-regex" type="checkbox">
+                <br>
+                <h class="underline">Case Sensitive:</h>
+                <input id="replace-case" type="checkbox">
+                <div class="placeholder"></div>
+                <textarea id="replace-output" placeholder="Output" spellcheck="false"></textarea>
+            </center>
+        </div>
+        <div id="date-div" style="display: inline-block;" class="border">
+            <center>
+                <h class="fontup">Date</h>
+                <br><br>
+                <input id="date-input" type="datetime-local">
+                <div class="placeholder"></div>
+                <textarea id="date-output_js" placeholder="Output JS-Format" spellcheck="false" style="resize: none;"></textarea>
+                <br>
+                <textarea id="date-output_ms" placeholder="Output Milliseconds" spellcheck="false" style="resize: none;"></textarea>
+            </center>
+        </div>
+    </body>
+</html>
+
+<style>
+    .border {
+        border: solid 1px aqua;
+        padding: 5px;
+    }
+
+    .fontup {
+        font-size: 20px;
+    }
+
+    .placeholder {
+        border: 2px solid transparent
+    }
+    
+    .underline {
+        text-decoration: underline;
+    }
+</style>
+
+<script>
+    document.getElementById("length-select").onchange = function(){
+        getlength();
+        if (document.getElementById("length-select").value == "String") {
+            document.getElementById("length-input").placeholder = "Input String";
+        } else if (document.getElementById("length-select").value == "Array") {
+            document.getElementById("length-input").placeholder = "Input Array";
+        } else if (document.getElementById("length-select").value == "JSON") {
+            document.getElementById("length-input").placeholder = "Input JSON";
+        }
+    }
+
+    document.getElementById("length-input").oninput = function(){
+        getlength();
+    }
+
+    function getlength(){
+        let len;
+        let val = document.getElementById("length-input").value;
+        if (document.getElementById("length-select").value === "String") {
+            try {
+                len = `${val.length}\nLower: ${val.replace(/[^a-z]/g, "").length}\nUpper: ${val.replace(/[^A-Z]/g, "").length}\n`
+                +`Numbers: ${val.replace(/[^\d]/g, "").length}\nSpaces: ${val.replace(/[^\s]/g, "").length}\nOthers: ${val.replace(/[a-zA-Z0-9\s]/g, "").length}`;
+            } catch(err){
+                len = "Invalid";
+            }
+        } else if (document.getElementById("length-select").value === "Array") {
+            try {
+                len = Array(val).length;
+            } catch(err){
+                len = "Invalid"
+            }
+        } else if (document.getElementById("length-select").value === "JSON") {
+            try {
+                len = Object.keys(JSON.parse(val)).length;
+            } catch(err) {
+                len = "Invalid";
+            }
+        }
+        document.getElementById("length-output").value = len;
+    }
+
+    document.getElementById("replace-input").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-replacer").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-regex").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("replace-case").oninput = function(){
+        replacer();
+    }
+
+    document.getElementById("date-input").oninput = function(){
+        document.getElementById("date-output_js").innerHTML = new Date(document.getElementById("date-input").value).toISOString();
+        document.getElementById("date-output_ms").innerHTML = new Date(document.getElementById("date-input").value).getTime();
+    }
+
+    function replacer(){
+        let val = document.getElementById("replace-input").value;
+        let replacea = document.getElementById("replace-replacer").value;
+        let regex = document.getElementById("replace-regex").checked;
+        let casesensitive = document.getElementById("replace-case").checked;
+        let output;
+        if(!casesensitive && !regex && regex.length > 0){
+            regex = regex.toLowerCase();
+        }
+        if(regex){
+            try {
+                output = val.replace(new RegExp(replacea.replace(/(\/|\/g)/g, ""), "g"), "");
+            } catch(err) {
+                output = "Invalid Regexp";
+            }
+        } else {
+            output = val.replace(new RegExp(replacea, "g"), "");
+        }
+        document.getElementById("replace-output").value = output;
+    }
+
+</script>

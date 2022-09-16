@@ -1,0 +1,14 @@
+{
+    "test":{"args":[],"alias":[],"perm":6,"description":["Test command"],"message":["$(user) Test"]},
+    "bot":{"args":[],"alias":["info","uptime","ping"],"perm":0,"description":["Returns Infos about the bot"],"message":["$(user) Bot is online since $(uptime), Current Ping: $(ping)ms [Average out of $(lastpings 25) pings: $(lastpings.ping)ms], Session Handles: $(handles)"]},
+    "cmd":{"args":["list","add","delete","edit","rename","alias","info","enable","disable","cooldown","renamechan"],"alias":["command"],"perm":3,"description":["Gets the custom commands of a channel","Adds a custom command","Deletes a custom command","Edits a custom command","Renames a custom command","-Alias-",""],"message":""},
+    "key":{"args":[],"alias":["keyword"],"perm":3,"description":[],"message":""},
+    "prefix":{"args":[],"alias":[],"perm":3,"description":[],"message":""},
+    "join":{"args":[],"alias":[],"perm":6,"description":[],"message":""},
+    "leave":{"args":[],"alias":[],"perm":6,"description":[],"message":""},
+    "getchans":{"args":[],"alias":["channels"],"perm":6,"description":[],"message":""},
+    "addperm":{"args":[],"alias":[],"perm":6,"description":[],"message":""},
+    "delperm":{"args":[],"alias":["removeperm"],"perm":6,"description":[],"message":""},
+    "sync":{"args":[],"alias":[],"perm":6,"description":[],"message":""},
+    "ignore":{"args":[],"alias":[],"perm":0,"description":[],"message":""}
+}

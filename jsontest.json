@@ -1,0 +1,6 @@
+{
+    "dest1":"dest1a",
+    "dest2":1,
+    "dest3":["dest3_1", "dest3_2"],
+    "dest4":{"dest4_1":"dest4_1_1","dest4_2":1,"dest4_3":["dest3_1", "dest3_2"], "dest4_4":{}}
+}

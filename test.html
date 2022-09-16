@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<header>
+    <title>Jubewe Test</title>
+    <link rel="icon" href="./src/favicon.ico" type="img/x-icon">
+</header>
+
+<body style="background-color: darkcyan;">
+    <div style="display: contents;">
+        <nav id="nav-container" class="shownav" style="border: solid 1px cyan; float: inline-start; margin-right: 10px;">
+            <center>
+                <div id="nav-header" style="background-color: #0e6d6d; height: 92px; vertical-align: middle; " onclick="togglenav()">
+                    <img id="nav-header_img" class="nav-header_active" src="./src/moneycool_72.png" style="height: 72px; padding: 10px; display: inline">
+                    <div id="nav-header_div" class="nav-header_active" style="display: none; margin-top: 18%;">
+                        <div style="border: solid 2px black; border-radius: 10px; padding: 1px; ">
+                            <div class="hamburger"></div>
+                            <div class="hamburger"></div>
+                            <div class="hamburger"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div id="nav-content-border_bottom" style="border-top: solid 1px cyan; border-collapse: collapse;"></div> -->
+                <div style="background-color: #128585; display: contents;" class="shownavcontent">
+                    <table id="nav-content" style="border: none; border-top: solid 1px aqua;" class="shownavcontent">
+                        <tbody style="text-align: center;">
+                            <tr>
+                                <td>
+                                    <div style="border: solid 1px #3da2a2;">
+                                        <center>
+                                            <h style="font-size: 20px; padding: 2px;">Links:</h>
+                                        </center>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.baseURI, '.../', '')">Main</h>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><h class="urlpoint" onclick="openurl(document.URL, '.../jubot', '')">JuBot</h></td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../patrick71z.html', '')">Patrick71z</h>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../oauthlink.html', '')">Oauth-link Generator</h>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../help/gettoken.html', '')">Get Token</h>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../help/token.html', '')">Token Validator</h>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../regexgenerator/index.html', '')">Regexgenerator</h>
+                                </td>
+                            </tr>
+                            <!-- <tr>
+                                <td>
+                                    <h class="urlpoint" onclick="openurl(document.URL, '.../help/', '')"></h>
+                                </td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </center>
+        </nav>
+    </div>
+    <div style="display: none">
+        <div style="border: solid 2px black; display: inline-block; border-radius: 10px; padding: 1px;">
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+            <div class="hamburger"></div>
+        </div>
+    </div>
+    <br>
+    <div id="stopwatch-div" style="display: none; ">
+        <div style="border: 2px solid aqua; padding: 10px; border-radius: 25px;">
+            <center style="color: darkblue; font-size: 30px;">
+                <div>
+                    <h id="stopwatch-h">00</h>
+                    <h>:</h>
+                    <h id="stopwatch-m">00</h>
+                    <h>:</h>
+                    <h id="stopwatch-s">00</h>
+                </div>
+                <div>
+                    <button id="stopwatch-start">Start</button>
+                    <button id="stopwatch-pause">Pause</button>
+                    <button id="stopwatch-reset">Reset</button>
+                </div>
+            </center>
+        </div>
+    </div>
+
+</body>
+
+<style>
+    .change1 {
+        user-select: none;
+        opacity: 1;
+        transition: opacity 250ms;
+    }
+
+    .change2 {
+        opacity: 0;
+        transition: opacity 250ms;
+    }
+
+    .shownavcontent {
+        transform: scale(1);
+        visibility: visible;
+        transition: opacity 0ms ease-in, visibility 0ms ease-in, transform 125ms ease-in;
+    }
+
+    .hidenavcontent {
+        transform: scale(0);
+        border-collapse: collapse;
+        visibility: collapse;
+        transition: transform 125ms ease-out, opacity 250ms ease-out, visibility 250ms ease-out;
+    }
+
+    .shownav {
+        width: 150px;
+        transition: width 250ms ease;
+    }
+
+    .hidenav {
+        width: 90px;
+        transition: width 250ms ease;
+    }
+
+    .urlpoint {
+        cursor: pointer;
+        color: darkslateblue;
+    }
+
+    .hamburger {
+        width: 30px;
+        margin: 5px;
+        border-top: 5px solid aqua;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+    }
+
+    #nav-content {
+        padding: 2px;
+    }
+
+    .header_active {
+        transform: translate(0, 0);
+        scale: 1;
+        transition: transform 125ms, scale 125ms;
+    }
+
+    .nav-header_active:hover {
+        scale: 1.1;
+        transition: scale 125ms;
+    }
+
+    .nav-header_active:active {
+        transform: scale(1.2);
+        transition: transform 125ms;
+    }
+</style>
+
+<script>
+    let changeenabled = true;
+    document.onload = onload();
+
+    function onload(){
+        let changeactive = false;
+        document.getElementById("nav-header").addEventListener("mouseenter", () => {
+            changeactive = true;
+            changediv();
+
+            function changeimg(){
+                setTimeout(() => {
+                    document.getElementById("nav-header_img").style.display = "inline-block";
+                    document.getElementById("nav-header_div").style.display = "none";
+                    setTimeout(() => {
+                        if(changeactive){
+                            changediv();
+                        }
+                    }, 1000);
+                }, 1000);
+            }
+
+            function changediv(){
+                setTimeout(() => {
+                    if(changeactive){
+                        document.getElementById("nav-header_img").style.display = "none";
+                        document.getElementById("nav-header_div").style.display = "inline-block";
+                        setTimeout(() => {
+                            changeimg();
+                        }, 1000);
+                    }
+                }, 1000);
+            }
+        })
+
+        document.getElementById("nav-header").addEventListener("mouseleave", () => {
+            changeactive = false;
+        })
+    }
+
+    function changetext(){
+        let ctelems = ["Developer","Moderator","Supporter"];
+        let ctcolors = ["cyan","greenyellow","violet"]
+        let i = 0;
+        let elem = document.getElementById("change")
+        setInterval(() => {
+            if(changeenabled){
+                setTimeout(() => {
+                    elem.className = "change1";
+                }, 0);
+                setTimeout(() => {
+                    elem.className = "change2";
+                }, 4750);
+            }
+        }, 5000);
+        
+        setInterval(() => {
+            if(changeenabled){
+                elem.innerHTML = ctelems[i];
+                elem.className = ctelems[i].toLowerCase();
+                elem.style.color = ctcolors[i];
+
+                for(a = 0; a < 4; a++){                
+                    document.getElementById(`meelem${a}`).style.borderColor = ctcolors[i]
+                }
+
+                i++
+                if(i === ctelems.length){
+                    i = 0
+                }
+            }
+        }, 5000);
+    }
+
+    function toggletext(elem){
+        if(elem.style.backgroundColor === "green"){
+            elem.style.backgroundColor = "red"
+            changeenabled = false
+        } else {
+            elem.style.backgroundColor = "green"
+            changeenabled = true
+        }
+    }
+
+    function togglenav(){
+        let navcontent = document.getElementById("nav-content");
+        let navhead = document.getElementById("nav-header");
+        let navcontainer = document.getElementById("nav-container");
+        if(navcontent.className === "hidenavcontent"){
+            navcontainer.className = "shownav";
+            setTimeout(() => {
+                navcontent.className = "shownavcontent";
+                // navcontent.style.display = "block";
+                navcontainer.className = "shownav"
+            }, 325);
+        } else {
+            navcontent.className = "hidenavcontent";
+            // navcontent.style.display = "none";
+            setTimeout(() => {
+                navcontainer.className = "hidenav";
+            }, 250);
+        }
+    }
+
+    function openurl(url, target, openmode){
+        if(target.startsWith("...")){
+            let url2 = url.split("/")[0] + target.split("...")[1]
+            window.open(url2, openmode)
+        } else {
+            window.open(url, openmode)
+        }
+    }
+
+    let timer = {"h": 0, "m": 0, "s": 0};
+
+    function timerstart(){
+        let timerh = document.getElementById("stopwatch-h");
+        let timerm = document.getElementById("stopwatch-m");
+        let timers = document.getElementById("stopwatch-s");
+        setInterval(() => {
+            timer["s"]++;
+            if(timer["s"] === 60){
+                timer["s"] = 0;
+                timer["m"]++;
+                if(timer["m"] === 60){
+                    timer["m"] = 0;
+                    timer["h"]++;
+                }
+            }
+            timerh.innerHTML = timer["h"];
+            timerm.innerHTML = timer["m"];
+            timers.innerHTML = timer["s"];
+        }, 1000);
+    }
+
+    function timerpause(){
+
+    }
+
+    function timerreset(){
+
+    }
+
+</script>
