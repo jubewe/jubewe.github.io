@@ -58,6 +58,7 @@
             request.send();
         }
         request.onload = function(ev){
+            console.log(request.responseText);
             document.getElementById("input_response").value = request.responseText;
             document.getElementById("input_response_2").value = JSON.stringify(JSON.parse(request.responseText), undefined, 2);
         }
