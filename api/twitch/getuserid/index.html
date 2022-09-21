@@ -1,0 +1,35 @@
+<header>
+    <title>Getuserid</title>
+    <link href="./styles.css" rel="stylesheet">
+</header>
+
+<body>
+    <div id="_header">
+        <div id="_header_div">
+            <button id="_btn_login" accesskey="enter" class="_a_url" onclick="openblank('https://id.twitch.tv/oauth2/authorize?response_type=token&client_id=5udxck6anc74znp16q3isokjd9pj7m&redirect_uri=https://jubewe.github.io/help/validatetoken&scope=user:read:email')">Login (Twitch)</button>
+            <div>
+                <output id="output_error" class="output_error">Test</output>
+                <br id="output_error_br" class="output_error">
+            </div>
+        </div>
+    </div>
+    <br>
+    <div id="_body">
+        <div id="_body_div">
+            <center>
+                <textarea id="input_name" type="text" placeholder="Input User(s) - Seperated by space or ,"></textarea>
+                <br><br>
+                <button id="input_submit" type="submit">Request</button>
+                <br><br>
+                <textarea id="output_id" placeholder="Ouput Id(s)"></textarea>
+            </center>
+        </div>
+    </div>
+    <br>
+    <div id="_footer">
+        <div id="_footer_div">
+            <h>Requests Via Twitch-API - Reference: <a id="_url_reference" class="_a_url">https://dev.twitch.tv/docs/api/reference#get-users</a></h>
+        </div>
+    </div>
+</body>
+<script src="./index.js"></script>
