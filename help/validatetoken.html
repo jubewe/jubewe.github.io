@@ -219,7 +219,7 @@
                     // changetokeninfo("validated_token", code)
                     document.getElementById("validated_token").value = code;
                     document.getElementById("validated_clientid").value = dat.client_id;
-                    // window.history.pushState({}, document.title, document.URL.split("#")[0])
+                    window.history.pushState({}, document.title, document.URL.split("#")[0])
                 }
             })
             request.addEventListener("error", function (e) {
