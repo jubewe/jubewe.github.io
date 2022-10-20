@@ -1,0 +1,82 @@
+body {
+    background-color: darkcyan;
+    margin: 0;
+    padding: 0;
+    /* font-size: 16px; */
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+* {
+    overflow-wrap: break-word;
+    scrollbar-width: thin;
+    scrollbar-color: black;
+    scrollbar-base-color: black;
+    /* align-self: baseline; */
+    
+}
+
+#j_chat {
+    display: inline-block;
+    width: 99%;
+    max-height: 1000px;
+    /* min-height: 100px; */
+    background-color: #007474c6;
+    padding: 5px;
+    overflow-y: scroll;
+}
+
+#j_chat * {
+    padding-left: 0;
+    padding-right: 0;
+    padding: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+}
+
+j_msg {
+    display: inline-block;
+    width: 99%;
+    background-color: #00a3a382;
+}
+
+j_msg_badge {
+    /* display: inline-block; */
+    height: 100%;
+    padding: 0px;
+    text-align: left;
+}
+
+j_msg_badge img {
+    display: inline-flexbox;
+    height: 16px;
+    padding: 0px;
+}
+
+j_msg_timestamp {
+    display: inline-block;
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    width: 100px;
+    /* height: 100%; */
+}
+
+j_msg_username {
+    display: inline-block;
+    /* justify-content: baseline;
+    justify-items: baseline;
+    justify-self: baseline; */
+    min-width: 150px;
+    /* height: 100%; */
+}
+
+j_msg_username h {
+    text-align: right;
+}
+
+j_msg_message {
+    display: inline-block;
+    min-width: 100px;
+    /* height: 100%; */
+}
+
+#font_courier {font-family: 'Courier New', Courier, monospace;}

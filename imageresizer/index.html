@@ -1,0 +1,34 @@
+<header>
+    <title>Ju - Image resizer</title>
+    <link href="./styles.css" rel="stylesheet">
+</header>
+<script src="./script.js"></script>
+<body>
+    <center>
+        <h>Image: </h>
+        <input id="input_file" type="file" onchange="" required>
+        <br><br>
+        <h>Height: </h>
+        <input id="input_height" type="text">
+        <br>
+        <h>Width: </h>
+        <input id="input_width" type="text">
+        <br>
+        <label>Link:</label>
+        <input id="input_width_auto" type="checkbox">
+        <br><br>
+        <input id="input_submit" type="button" value="Resize">
+        <br><br>
+        <div>
+            <h>Output:</h>
+            <br><br>
+            <img id="output_img">
+            <br><br>
+            <h>Original size: </h>
+            <h id="output_original_size"></h>
+            <br>
+            <h>Size: </h>
+            <h id="output_size"></h>
+        </div>
+    </center>
+</body>

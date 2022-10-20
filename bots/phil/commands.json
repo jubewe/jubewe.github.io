@@ -1,0 +1,9 @@
+{
+    "discord": {
+        "test":{"arguments":[],"description":"Sends a test message","perm":10},
+        "7tv":{"arguments":["add/remove/get/sync","7tvemote"],"description":"Runs the action of argument 1","perm":60}
+    },
+    "twitch": {
+
+    }
+}

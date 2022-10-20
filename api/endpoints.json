@@ -1,0 +1,20 @@
+{
+    "ALL": {
+        "%2F": {"c":"mainpage"}
+    },
+    "GET": {
+        "%2Ferrors": {"a":"admin", "c":"returns the posted errors by bots","h":["username","password"]},
+        "%2Fping": {"c":"returns the processing time of a request"},
+        "%2Frestart": {"a":"admin", "c":"restarts the api","h":["username","password"]},
+        "%2Fstatus": {"c":"returns the status of the pi and some running bots"},
+        "%2Ftest": {"c":"returns test"},
+        "%2Fvalorantrank%2F%3Ariotid%3Atagline": {"c": "returns the valorantrank from a user (cache: 15m)"}
+    },
+    "POST": {
+        "%2Ferror": {"a":"admin", "c":"pushes a error to the file","h":["username","password","data"]},
+        "%2Fupload": {"a":"admin", "c":"uploads a file from","h":["username","password","url","data","filename","filetype","filepath"]}
+    },
+    "PUT": {
+        "%2Fgpio": {"a":"admin","c":"sets the specified raspi-pin to a state","h":["username","password","option","pin","type","value"]}
+    }
+}
