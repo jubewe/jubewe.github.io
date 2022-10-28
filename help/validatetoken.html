@@ -72,13 +72,15 @@
                 <tr>
                     <td class="_tbl_td_1">Client-Id: </td>
                     <td class="_tbl_td_space"></td>
-                    <td><input id="validated_clientid" type="password" style="width: 200px; user-select: text;" onpointerenter="revealinput('validated_clientid')" onpointerleave="hideinput('validated_clientid')"></td>
+                    <td><input id="validated_clientid" type="password" style="width: 200px; user-select: text;" onpointerenter="revealinput('validated_clientid')" onpointerleave="hideinput('validated_clientid')">
+                        <button onclick="copyvalue('validated_clientid')">Copy Client-Id</button>
+                    </td>
                 </tr>
                 <tr>
                     <td class="_tbl_td_1" style="color:#ff0000c9">Token: </td>
                     <td class="_tbl_td_space"></td>
                     <td><input id="validated_token" type="password" style="width:200px; user-select: text;" onpointerenter="revealinput('validated_token')" onpointerleave="hideinput('validated_token')">
-                        <button onclick="copytoken()">Copy token</button>
+                        <button onclick="copyvalue('validated_token')">Copy Token</button>
                     </td>
                 </tr>
                 <tr>
@@ -109,14 +111,18 @@
                 Token</a>
         </center>
     </div>
-    <!-- <br>
+    <br>
     <center>
         <div style="border: solid; border-radius: 10px; border-color: red; display: inline-block; padding: 5px; padding-left: 10px; padding-right: 10px; user-select: none; ">
             <h style="color: red; text-decoration: underline;">Revoke Token:</h>
-            <input id="tokenrevoke" type="text" placeholder="Insert Token" style="background-color: orangered; border-color: red;">
+            <br>
+            <input id="tokenrevoke" type="text" autocomplete="off" placeholder="Token" style="background-color: orangered; border-color: red;">
+            <br>
+            <input id="tokenrevokeclientid" type="text" autocomplete="off" placeholder="Clientid" style="background-color: orangered; border-color: red;">
+            <br>
             <button type="button" style="background-color: orangered; border-color: red;" onclick="revoketoken()">Submit</button>
         </div>
-    </center> -->
+    </center>
     <br>
     <div style="border: solid; border-color:transparent"></div>
     <center>
@@ -201,13 +207,13 @@
             request.open("GET", `https://id.twitch.tv/oauth2/validate`)
             request.setRequestHeader("Authorization", `Bearer ${code}`)
             request.addEventListener("load", function (r) {
-                // console.log(request.response)
+                console.log(request.response)
                 let dat = JSON.parse(request.response)
                 if (dat.status !== undefined) {
                     document.getElementById("tokenstatus").innerHTML = "Errored"
                     document.getElementById("tokenstatus").style.color = "red"
                     document.getElementById("loadingdiv").style.display = "none"
-                    document.getElementById("togglepixel").style.display = "none"
+                    // document.getElementById("togglepixel").style.display = "none"
                 } else {
                     document.getElementById("tokenstatus").innerHTML = "Validated"
                     document.getElementById("tokenstatus").style.color = "green"
@@ -227,35 +233,24 @@
                 document.getElementById("tokenstatus").style.color = "red"
                 document.getElementById("loadingdiv").style.display = "none"
             })
-            request.send()
         } else {
             document.getElementById("tokenstatus").innerHTML = "Errored - No Token"
             document.getElementById("tokenstatus").style.color = "orange"
             document.getElementById("loadingdiv").style.display = "none"
-            document.getElementById("togglepixel").style.display = "none"
+            // document.getElementById("togglepixel").style.display = "none"
         }
     }
 
-
-    function togglepixel() {
-        let loadeddiva = document.getElementById("loadeddiv")
-        if (loadeddiva.style.display === "none") {
-            loadeddiva.style.display = "block"
-            document.getElementById("togglebutton").innerHTML = "Hide Infos"
-        } else {
-            loadeddiva.style.display = "none"
-            document.getElementById("togglebutton").innerHTML = "Show Infos"
-        }
-    }
-
-    function copytoken() {
-        let ctext = document.getElementById("validated_token").innerHTML;
+    function copyvalue(id) {
+        revealinput(id);
+        let ctext = document.getElementById(id).value;
+        hideinput(id);
         // ctext.select();
         navigator.clipboard.writeText(ctext);
-        let colorfirst = document.getElementById("validated_token").style.backgroundColor
-        document.getElementById("validated_token").style.backgroundColor = "green"
+        let colorfirst = document.getElementById(id).style.backgroundColor
+        document.getElementById(id).style.backgroundColor = "green"
         setTimeout(() => {
-            document.getElementById("validated_token").style.backgroundColor = colorfirst
+            document.getElementById(id).style.backgroundColor = colorfirst
         }, 5000)
     };
 
@@ -265,31 +260,32 @@
 
     function revoketoken() {
         if (document.getElementById("tokenrevoke").value !== undefined) {
+            let tokenr = document.getElementById("tokenrevoke").value;
+            let tokenc = document.getElementById("tokenrevokeclientid").value;
+            tokenr = tokenr.toLowerCase().replace("oauth:", "")
+            let request = new XMLHttpRequest();
+            request.open("POST", "https://id.twitch.tv/oauth2/revoke");
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
+            request.send(`client_id=${tokenc}&token=${tokenr}`);
+            request.addEventListener("load", r => {
+                console.log(request.response)
+                document.getElementById("notificationdiv").style.display = "block"
+                document.getElementById("notification").style.color = "green"
+                document.getElementById("notification").innerHTML = "Successfully resetted token"
+                setTimeout(() => {
+                    document.getElementById("notification").style.color = "red"
+                    document.getElementById("notificationdiv").style.display = "none"
+                }, 10000)
+            })
+            request.addEventListener("error", e => {
+                console.log(e)
+                document.getElementById("notificationdiv").style.display = "block"
+                document.getElementById("notification").innerHTML = "Error on removing token"
+                setTimeout(() => {
+                    document.getElementById("notificationdiv").style.display = "none"
+                }, 10000)
+            })
             if (document.getElementById("tokenrevoke").value.length >= 25) {
-                let tokenr = document.getElementById("tokenrevoke").value
-                tokenr.toLowerCase().replace("oauth:", "")
-                let request = new XMLHttpRequest();
-                request.open("POST", "https://id.twitch.tv/oauth2/revoke")
-                request.
-                    request.addEventListener("load", r => {
-                        console.log(request.response)
-                        document.getElementById("notificationdiv").style.display = "block"
-                        document.getElementById("notification").style.color = "green"
-                        document.getElementById("notification").innerHTML = "Successfully resetted token"
-                        setTimeout(() => {
-                            document.getElementById("notification").style.color = "red"
-                            document.getElementById("notificationdiv").style.display = "none"
-                        }, 10000)
-                    })
-                request.addEventListener("error", e => {
-                    console.log(e)
-                    document.getElementById("notificationdiv").style.display = "block"
-                    document.getElementById("notification").innerHTML = "Error on removing token"
-                    setTimeout(() => {
-                        document.getElementById("notificationdiv").style.display = "none"
-                    }, 10000)
-                })
-                request.send()
             }
         } else {
             document.getElementById("notificationdiv").style.display = "block"

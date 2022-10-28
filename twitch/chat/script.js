@@ -32,10 +32,22 @@ let badges = {
 
 document.onload = setTimeout(_main, 1);
 
+let urlparams = {};
+if(document.URL.includes("?")){
+    let url = document.URL.replace("?", "&");
+    url.split("&").forEach(p => {
+        urlparams[p.split("=")[0]] = p.split("=")[1];
+    })
+};
+
+if(urlparams.bgcolor){
+    document.getElementsByTagName("body")[0].style.backgroundColor = urlparams.bgcolor;
+}
+
 function _main(){
     document.getElementById("j_chat").style.maxHeight = window.innerHeight;
     createmessage("Server", "Welcome", "#00FFFF");
-    _ws("jubewe");
+    _ws(urlparams.channel || "jubewe");
 };
 
 function _ws(channel){
@@ -96,7 +108,8 @@ function _ws(channel){
             }
 
             case "JOIN": {
-                console.log(`[WS] [JOIN]`)
+                console.log(`[WS] [JOIN]`);
+                createmessage("Server", `Joined #${channel}`, "#00FFFF");
                 break;
             }
         }
@@ -120,12 +133,43 @@ function getmsgbadges(msg_badges){
 
 function createmessage(username, message, color, badges){
     let messagenode = document.createElement("j_msg");
-    messagenode.innerHTML = 
-    `<j_msg>
-        <j_msg_timestamp>${new Date(new Date().setMinutes(new Date().getMinutes()-new Date().getTimezoneOffset())).toISOString().split(".")[0].split("T")[1]}</j_msg_timestamp>
-        <j_msg_username ${(username == "server" ? `class='font_courier'` : '')}${(color ? `style="color:${color}"` : "")}>${getmsgbadges(badges)} <h>${username}</h></j_msg_username>
-        <j_msg_message>${message}</j_msg_message>
-    </j_msg>`;
+    // messagenode.innerHTML = 
+    // `<j_msg>
+    //     <j_msg_timestamp>${new Date(new Date().setMinutes(new Date().getMinutes()-new Date().getTimezoneOffset())).toISOString().split(".")[0].split("T")[1]}</j_msg_timestamp>
+    //     <j_msg_username ${(username == "server" ? `class='font_courier'` : '')}${(color ? `style="color:${color}"` : "")}>${getmsgbadges(badges)} <h>${username}</h></j_msg_username>
+    //     <j_msg_message>${message}</j_msg_message>
+    // </j_msg>`;
+    let j_msg_timestamp = document.createElement("j_msg_timestamp");
+    j_msg_timestamp.innerText = new Date(new Date().setMinutes(new Date().getMinutes()-new Date().getTimezoneOffset())).toISOString().split(".")[0].split("T")[1];
+    let j_msg_badges = document.createElement("j_msg_badges");
+    j_msg_badges.innerHTML = getmsgbadges(badges);
+    let j_msg_username = document.createElement("j_msg_username");
+    j_msg_username.innerText = username;
+    if(username == "server"){j_msg_username.className = "font_courier";}
+    if(color){j_msg_username.style.color = color;}
+    let j_msg_message = document.createElement("j_msg_message");
+    j_msg_message.innerText = message;
+
+    if(urlparams.bgcolor){
+        messagenode.style.backgroundColor = urlparams.bgcolor;
+    } else {
+        messagenode.className = "bgcolor_007474c6";
+    }
+
+    if(urlparams.fgcolor || ["transparent", "white"].includes(urlparams.bgcolor)){
+        j_msg_timestamp.style.color = urlparams.fgcolor || "white";
+        j_msg_message.style.color = urlparams.fgcolor || "white";
+    }
+
+    if(urlparams.minwidth){
+        j_msg_badges.style.minWidth = urlparams.minwidth;
+        j_msg_username.style.minWidth = urlparams.minwidth;
+    }
+
+    messagenode.appendChild(j_msg_timestamp);
+    messagenode.appendChild(j_msg_badges);
+    messagenode.appendChild(j_msg_username);
+    messagenode.appendChild(j_msg_message);
     // scrollY({"bottom":0,"type":"smooth"})
     document.getElementById("j_chat").appendChild(messagenode);
     msgnum++;
