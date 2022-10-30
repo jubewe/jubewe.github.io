@@ -200,7 +200,7 @@
         ctielement.innerText = ctivalue
     };
 
-    function validate(token) {
+    function validate() {
         if (document.URL.includes("#access_token=")) {
             let code = document.URL.split("#access_token=")[1].split("&")[0]
             let request = new XMLHttpRequest();
@@ -225,9 +225,10 @@
                     // changetokeninfo("validated_token", code)
                     document.getElementById("validated_token").value = code;
                     document.getElementById("validated_clientid").value = dat.client_id;
-                    window.history.pushState({}, document.title, document.URL.split("#")[0])
+                    // window.history.pushState({}, document.title, document.URL.split("#")[0])
                 }
             })
+            request.send();
             request.addEventListener("error", function (e) {
                 document.getElementById("tokenstatus").innerHTML = "Errored"
                 document.getElementById("tokenstatus").style.color = "red"
