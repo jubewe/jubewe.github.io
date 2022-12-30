@@ -90,6 +90,8 @@
                 </tr>
             </table>
             <h>(Hover hidden fields to reveal contents)</h>
+            <br><br>
+            <button onclick="copytokeninfo()">Copy Tokeninfo</button>
         </center>
     </div>
 </body>
@@ -105,8 +107,8 @@
 </style>
 
 <script>
-    window.innerHeight
-    document.onload = (validate())
+    document.onload = (validate());
+    let tokeninfo;
 
     function setCookie(cname, cvalue, exdays) {
         exdays = exdays ?? 365;
@@ -168,7 +170,8 @@
                     changetokeninfo("validated_expiresin", dat.expires_in);
                     document.getElementById("validated_token").value = code;
                     document.getElementById("validated_clientid").value = dat.client_id;
-                    await window.navigator.clipboard.writeText(JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in}));
+                    tokeninfo = JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in});
+                    copytokeninfo();
                     window.close();
                 }
             })
@@ -195,6 +198,10 @@
         setTimeout(() => {
             document.getElementById(id).style.backgroundColor = colorfirst;
         }, 5000);
+    };
+
+    function copytokeninfo(){
+        navigator.clipboard.writeText(tokeninfo);
     };
 
     function encoder(text){
