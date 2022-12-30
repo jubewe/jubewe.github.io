@@ -1,0 +1,25 @@
+body {
+    background-color: darkcyan;
+}
+
+* {
+    scrollbar-width: thin;
+    padding: 3px;
+}
+
+.j_command {
+    border: 1px solid black;
+}
+
+.j_command td * {
+    padding: 0;
+}
+
+.j_command td {
+    border: 1px solid blue;
+    border-radius: 3px;
+}
+
+#j_commands {
+    border: 1px solid red;
+}

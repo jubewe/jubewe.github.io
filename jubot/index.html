@@ -1,323 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-    <meta content='width=device-width, initial-scale=1' name="viewport">
-    <header>
-        <title>Jubewe - JuBot</title>
-        <link rel="icon" type="img/x-icon" href="../src/favicon.ico">
-    </header>
-    
-    
-    <body style="background-color: #008b8b; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; user-select: none;">
-        <div id="class-header">
-            <center>
-                <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
-                    <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
-                </div>
-            </center>
-        </div>
-        <center>
-            <div id="err-container" style="display: none; color: greenyellow; border: solid; padding: 10px; padding-top: 5px; padding-bottom: 5px; margin-top: 10px; position: sticky">
-                <h id="err-output" style="font-size: 25px;"></h>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../src/moneycool_72.png" rel="icon">
+    <link href="./styles.css" rel="stylesheet">
+    <title>Ju - Jubot</title>
+</head>
+<body>
+    <j_body>
+        <j_commands id="j_commands">
+            <div class="j_command_description">
+                <j_command_desc>Command</j_command_desc>
+                <j_command_desc>Aliases</j_command_desc>
+                <j_command_desc>Permission</j_command_desc>
+                <j_command_desc>Channel-Cooldown</j_command_desc>
+                <j_command_desc>User-Cooldown</j_command_desc>
+                <j_command_desc>Arguments</j_command_desc>
+                <j_command_desc>Description</j_command_desc>
             </div>
-        </center>
-        <br>
-        <div>
-            <center>
-                <h4><h style="text-decoration: underline; ">Prefix:</h> <h style="background-color: cyan; padding: 3px; border-radius: 10px; user-select: text;">></h></h4>
-                <h><code>Being Developed...</code></h>
-            </center>
-        </div>
-        <div id="jubot-perms">
-            <center>
-                <h3 name="permissions" class="underline">Permissions</h3>
-                <table style="border: double; border-width: .5px; width: max-content; display: block; padding: 1px;">
-                    <tr>
-                        <th class="permtable">Number</th>
-                        <th class="permtable">Perm Group</th>
-                    </tr>
-                    <tr></tr>
-                    <tr>
-                        <td class="permtable">7</td>
-                        <td class="permtable">Bot-Owner (<h style="color: #00ffff;">Jubewe</h>)</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">6</td>
-                        <td class="permtable">Bot-Admin</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">5</td>
-                        <td class="permtable">Chatbot (<a href="https://api.frankerfacez.com/v1/badges" target="_blank" style="color: currentColor;">FFZ list</a>)</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">4</td>
-                        <td class="permtable">Channel-Broadcaster</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">3</td>
-                        <td class="permtable">Channel-Moderator</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">2</td>
-                        <td class="permtable">Channel-Vip</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">1</td>
-                        <td class="permtable">Channel-Subscriber</td>
-                    </tr>
-                    <tr>
-                        <td class="permtable">0</td>
-                        <td class="permtable">None/Everyone</td>
-                    </tr>
-                </table>
-            </center>
-        </div>
-        <div id="jubot-commands">
-            <center>
-                <h3 class="underline">Commands</h3>
-                <div style="margin-left: 35px;">
-                    <h><strong>Info</strong>: Messages are splitted into variables by spaces</h>
-                    <br><br>
-                    <h>JavaScript starts counting at 0 so a message is splitted like this:</h>
-                    <br>
-                    <div style="margin-top: 5px; border: solid 2px; display: inline-block; padding: 3px; ">
-                        <table style="text-align: center; border-spacing: 2px 0;">
-                            <tr>
-                                <th class="commandexpltop">>cmdname</th>
-                                <th class="commandexpltop">arg1</th>
-                                <th class="commandexpltop">arg2</th>
-                                <th class="commandexpltop">arg3</th>
-                                <th>...</th>
-                            </tr>
-                            <tr >
-                                <td class="commandexpbottom">0</td>
-                                <td class="commandexpbottom">1</td>
-                                <td class="commandexpbottom">2</td>
-                                <td class="commandexpbottom">3</td>
-                            </tr>
-                        </table>
-                        
-                    </div>
-                </div>
-                <br>
-                <div id="commands">
-                    <table id="commandstable" style="border: solid 2px; width: 90%; display: flexbox; padding: 1px; user-select: text;">
-                        <tr>
-                            <th class="trelem">Command</th>
-                            <th class="trelem">Aliases</th>
-                            <th class="trelem">Args</th>
-                            <th class="trelem">Description</th>
-                            <th class="trelem">Perms</th>
-                            <th class="trelem">Extra</th>
-                        </tr>
-                        <tr></tr>
-                        <tr is="[object HTMLTableElement]" id="bot" class="cmdelement">
-                            <td is="[object HTMLTableRowElement]" class="cmdelem">
-                                <h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">bot</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">info, uptime, ping</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Info Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="test" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">test</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Test Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="afk" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">afk</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>message</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Afk Command</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="math" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">math</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>excersise</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Solves the excersise</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">0</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="streaminfo" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">streaminfo</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">islive</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>channel</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets if a streamer is live (and says streaminfos)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">3</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="user" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">user</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>user</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets informations about the user (twitch api)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">3</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="join" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">join</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>channel</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Joins the channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem">
-                                    <h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="leave" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">leave</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>channel</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Leaves the channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="getchans" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">getchans</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>(-force)</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets the joined channels</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="addperm" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">addperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_9_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>user</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Grants a user rights (bot intern)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="delperm" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">delperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">removeperm</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_10_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>user</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Removes a users rights (bot intern)</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="sync" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">sync</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>option</code></td><td is="[object HTMLTableRowElement]" class="cmdelem">
-                                        <h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Syncs a variable</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="say" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">say</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>message</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Says a message</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="send" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">send</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_13_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>channel</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>message</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Sends a message to channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="whisper" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">whisper</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_14_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>user</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>message</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Sends a whisper to user</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="timer" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">timer</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_15_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>(next/last/all)/none</code></h></td>
-                                            <td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>(timer)</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Timer</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="sb" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">sb</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_16_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>option</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>user</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>(time/message)</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Executes a action across multiple channels</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="clip" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">clip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>channel</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Creates a clip with the api if a token is set</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">token required</h></td></tr><tr is="[object HTMLTableElement]" id="getclip" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">getclip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>clip</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets infos about a clip</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="getvideo" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">getvideo</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>video</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets infos about a twitch-video</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem" rowspan="6"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">token required</h></td></tr><tr is="[object HTMLTableElement]" id="getmarkers" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">getmarkers</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>video</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets the markers of a twitch video</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td></tr><tr is="[object HTMLTableElement]" id="createmarker" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">createmarker</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_21_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>channel</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>description</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Creates a marker in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="poll" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">poll</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_22_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>title,opt1,opt2</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>(duration:time,bits:bits,points:channelpoints)</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Creates a poll in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="prediction" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">prediction</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><table is="[object HTMLTableCellElement]" id="cmd_23_table" style="border: 0.5px solid black; border-radius: 4px; --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><tbody><tr><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>title,choice1,choice2</code></h></td><td is="[object HTMLTableElement]" rowspan="0" style="border: 0.5px solid black; border-radius: 4px; background-color: rgb(0, 139, 139); --darkreader-inline-border-top: #8c8273; --darkreader-inline-border-right: #8c8273; --darkreader-inline-border-bottom: #8c8273; --darkreader-inline-border-left: #8c8273; --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left="" data-darkreader-inline-bgcolor=""><h is="[object HTMLTableCellElement]"><code>(duration:time)</code></h></td></tr></tbody></table></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Creates a prediction in a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="schedule" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">schedule</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>channel</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets the stream schedule of a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="scope" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">scope</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor=""><code>twitch:scope</code></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets if the set token has the scope</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">6</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="off" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">off</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Removes all chat listeners</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="view" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">view</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Mainacc starts viewing a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="unview" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">unview</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Mainacc stops viewing a channel</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td></tr><tr is="[object HTMLTableElement]" id="getviews" class="cmdelement"><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">getviews</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"></td><td is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" rowspan="0" data-darkreader-inline-bgcolor="">-</td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">Gets the viewed channels by the Mainacc</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">7</h></td><td is="[object HTMLTableRowElement]" class="cmdelem"><h is="[object HTMLTableCellElement]" style="background-color: rgb(0, 139, 139); --darkreader-inline-bgcolor: #006f6f;" data-darkreader-inline-bgcolor="">-</h></td
-                    </table>
-                    <br>
-                    <div>
-                        <input id="input_command" placeholder="command">
-                        <input id="input_command_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_command_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_alias" placeholder="aliases">
-                        <input id="input_alias_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_alias_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_arg_1" placeholder="arg1">
-                        <input id="input_arg_1_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_arg_1_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_arg_2" placeholder="arg2">
-                        <input id="input_arg_2_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_arg_2_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_arg_3" placeholder="arg3">
-                        <input id="input_arg_3_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_arg_3_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_arg_4" placeholder="arg4">
-                        <input id="input_arg_4_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_arg_4_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_arg_5" placeholder="arg5">
-                        <input id="input_arg_5_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_arg_5_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_description" placeholder="description">
-                        <input id="input_description_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_description_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_perm" placeholder="perm">
-                        <input id="input_perm_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_perm_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_extra" placeholder="extra">
-                        <input id="input_extra_span" placeholder="num" value="0" type="number" style="width: 40px;">
-                        <input id="input_extra_color" type="color" style="border: none; height: 20px;">
-                        <br>
-                        <input id="input_mode" placeholder="mode" type="number" style="width: 50px;">
-                        <button type="button" onclick="addcmd()">Add</button>
-                    </div>
-                </div>
-            </center>
-            
-            <div id="commands-div" style="display: none;">
-                <input style="float: inline-end;" placeholder="Search Commands">
-                <ul>
-                    <li>
-                        <h>Regular (everyone)</h>
-                        <ul>
-                            <li>bot/info/uptime/ping</li>
-                            <li>Custom commands if perm</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h>Mod (or higher)</h>
-                        <ul>
-                            <li>cmd/command ~add/delete/edit/rename/alias/info/enable/disable~ ~cmdname~ (~cmdarg/cmdcontent~) (-~none/sub/vip/mod/bro/bot~)</li>
-                            <li>key/keyword ~add/delete/edit/rename/alias/info/enable/disable~ ~keyname~ (~keyarg/keycontent~) (-~none/sub/vip/mod/bro/bot~)</li>
-                            <li>prefix ~set/reset~ (~setprefix~)</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h>Admin (or higher)</h>
-                        <ul>
-                            <li>test</li>
-                            <li>join ~chan~</li>
-                            <li>leave ~chan~</li>
-                            <li>getchans/channels (~-force~)</li>
-                            <li>sync ~bots~</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <h>Owner</h>
-                        <ul>
-                            <li>addperm ~admin~ ~user~</li>
-                            <li>delperm ~admin~ ~user~</li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <footer id="bottom">Bot Development Start: 2022-03-15</footer>
-    </body>
-
-    <style>
-        .commandexpltop {
-            border: 1px solid black;
-            padding: 1px;
-            border-bottom: none 1px;
-        }
-
-        .commandexpbottom {
-            padding: 1px;
-            border: 1px solid black;
-            border-top: solid 1px;
-        }
-
-        .trelem {
-            border: double;
-            padding: 2px;
-            border-radius: 5px;
-            border-left: solid 1px;
-            border-right: solid 1px;
-            user-select: none;
-        }
-
-        .underline {
-            text-decoration: underline;
-        }
-
-        .permtable {
-            border: 1px dotted black;
-            text-align: center;
-        }
-
-        .cmdelem {
-            border: 1px solid black;
-            border-radius: 5px;
-            padding: 2px;
-            user-select: text;
-            text-align: center;
-        }
-
-        .cmdelement {
-            color: currentColor
-        }
-
-    </style>
-
-    <script>
-        document.onload = setdefaultcolors()
-
-        function setdefaultcolors(){
-            let colorelems = ["command","alias","arg_1","arg_2","arg_3","arg_4","arg_5","description","perm","extra"];
-            for(i = 0; i < colorelems.length; i++){
-                document.getElementById("input_" + colorelems[i]+"_color").value = "#008b8b"
-                console.log(document.getElementById("input_" + colorelems[i]+"_color").value)
-            }
-        }
-
-        function getvalue(gvelem){
-            return document.getElementById(gvelem).value
-        }
-        function addcmd(){
-            let cmdnumber = document.getElementsByClassName("cmdelement").length;
-            let aelemtr = document.createElement("tr",{is:document.getElementById("commandstable")});
-            aelemtr.id = `${getvalue("input_command")}`;
-            aelemtr.className = "cmdelement";
-
-            let inputcommands = ["input_command","input_alias","args","input_description","input_perm","input_extra"];
-            for(i = 0; i < inputcommands.length; i++){
-                let aelemcmdtd = document.createElement("td",{is:aelemtr});
-                aelemcmdtd.className = "cmdelem";
-                if(i === 2){
-                    // aelemcmdtd.innerHTML = `<input id="input_alias" placeholder="alias">`;
-                    if(getvalue("input_arg_1") !== "" && getvalue("input_arg_2") !== ""){
-                        let aelemcmdobj = document.createElement("table",{is:aelemcmdtd});
-                        aelemcmdobj.id = `cmd_${cmdnumber}_table`;
-                        aelemcmdobj.style.border = "solid .5px black";
-                        aelemcmdobj.style.borderRadius = "4px";
-                        for(e = 1; e < 5; e++){
-                            if(getvalue(`input_arg_${e}`) !== ""){
-                                let aelemcmdobjtr = document.createElement("td",{is:aelemcmdobj});
-                                // aelemcmdobjtr.id = `cmd_${cmdnumber}_table_${e}`;
-                                aelemcmdobjtr.rowSpan = getvalue(`input_arg_${e}_span`);
-                                aelemcmdobjtr.style.border = "solid .5px black"
-                                aelemcmdobjtr.style.borderRadius = "4px"
-                                let aelemcmdobjtr2 = document.createElement("h",{is:aelemcmdobjtr});
-                                aelemcmdobjtr2.innerHTML = `<code>${(getvalue(`input_arg_${e}`) === "" ? "-" : getvalue(`input_arg_${e}`))}</code>`;
-                                aelemcmdobjtr.style.backgroundColor = getvalue(`input_arg_${e}_color`)
-                                aelemcmdobjtr.appendChild(aelemcmdobjtr2);
-                                aelemcmdobj.appendChild(aelemcmdobjtr);
-                            }
-                        }
-                        aelemcmdtd.appendChild(aelemcmdobj);
-                    } else {
-                        let aelemcmdobj = document.createElement("td",{is:aelemcmdtd});
-                        // aelemcmdobj.id = `cmd_${cmdnumber}_h`;
-                        aelemcmdobj.style.backgroundColor = getvalue(`input_arg_1_color`)
-                        aelemcmdobj.innerHTML = `${(getvalue(`input_arg_1`) === "" ? "-" : "<code>" + getvalue(`input_arg_1`) + "</code>")}`;
-                        aelemcmdobj.rowSpan = getvalue(`input_arg_1_span`);
-                        aelemcmdtd.appendChild(aelemcmdobj);
-                    }
-                } else {
-                    let aelemcmdobj = document.createElement("h",{is:aelemcmdtd});
-                    // aelemcmdobj.id = `cmd_${cmdnumber}_h`;
-                    aelemcmdobj.innerHTML = (getvalue(inputcommands[i]) === "" ? "-" : getvalue(inputcommands[i]));
-                    aelemcmdobj.rowSpan = getvalue(`input_arg_1_span`);
-                    aelemcmdobj.style.backgroundColor = getvalue(`input_arg_1_color`)
-                    aelemcmdtd.appendChild(aelemcmdobj);
-                }
-                aelemtr.appendChild(aelemcmdtd)
-            }
-
-            document.getElementById("commandstable").appendChild(aelemtr)
-        }
-    </script>
-
+        </j_commands>
+    </j_body>
+</body>
 </html>
+<script src="./script.js"></script>
+<!-- <table id="j_commands"> -->
+    <!-- <tr> -->
+        <!-- <td> -->
+            <!-- Name -->
+            <!-- <h>Name</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- Aliases -->
+            <!-- <h>Aliases</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- Permission -->
+            <!-- <h>Permission</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- Arguments -->
+            <!-- <h>Arguments</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- Channel Cooldown -->
+            <!-- <h>Channel Cooldown</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- User Cooldown -->
+            <!-- <h>User Cooldown</h> -->
+        <!-- </td> -->
+        <!-- <td> -->
+            <!-- Description -->
+            <!-- <h>Description</h> -->
+        <!-- </td> -->
+    <!-- </tr> -->
+<!-- </table> -->

@@ -1,0 +1,20 @@
+body {
+    background-color: darkcyan;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+* {border-radius: 10px;}
+a {color: currentColor;}
+j_header * {padding: 1px;}
+j_header j_title h {font-size: 30px;}
+j_header j_icon img {
+    background-color: #005d5d;
+    border: 2.5px solid;
+}
+j_body j_picker center div .j_label {
+    display: inline-block;
+    width: 125px;
+}
+j_title {
+    font-size: 22.5px;
+    text-decoration: underline;
+}
