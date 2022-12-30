@@ -174,8 +174,7 @@
                     changetokeninfo("validated_expiresin", dat.expires_in);
                     document.getElementById("validated_token").value = code;
                     document.getElementById("validated_clientid").value = dat.client_id;
-                    window.opener.setCookie("j_api_oauth_token", code, (dat.expires_in/60/24).toFixed(0));
-                    window.opener.togglelogintwitch(0);
+                    window.navigator.clipboard.writeText(JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in}));
                     window.close();
                 }
             })
