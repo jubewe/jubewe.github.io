@@ -205,7 +205,7 @@
     };
 
     function encoder(text){
-        return new TextEncoder().encode(text).join("");
+        return [...new TextEncoder().encode(text)].map(t => {return "0".repeat(3-t.toString().length) + t}).join("");
     };
     
     function decoder(text){
