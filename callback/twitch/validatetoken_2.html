@@ -105,6 +105,7 @@
 </style>
 
 <script>
+    window.innerHeight
     document.onload = (validate())
 
     function setCookie(cname, cvalue, exdays) {
@@ -144,13 +145,13 @@
         ctielement.innerText = ctivalue;
     };
 
-    function validate() {
+    async function validate() {
         if (document.URL.includes("#access_token=")) {
             let code = document.URL.split("#access_token=")[1].split("&")[0];
             let request = new XMLHttpRequest();
             request.open("GET", `https://id.twitch.tv/oauth2/validate`);
             request.setRequestHeader("Authorization", `Bearer ${code}`);
-            request.addEventListener("load", (r) => {
+            request.addEventListener("load", async (r) => {
                 console.log(request.response);
                 let dat = JSON.parse(request.response);
                 if (dat.status !== undefined) {
@@ -167,7 +168,7 @@
                     changetokeninfo("validated_expiresin", dat.expires_in);
                     document.getElementById("validated_token").value = code;
                     document.getElementById("validated_clientid").value = dat.client_id;
-                    window.navigator.clipboard.writeText(JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in}));
+                    await window.navigator.clipboard.writeText(JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in}));
                     window.close();
                 }
             })
