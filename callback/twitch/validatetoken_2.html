@@ -91,7 +91,7 @@
             </table>
             <h>(Hover hidden fields to reveal contents)</h>
             <br><br>
-            <button onclick="copytokeninfo()">Copy Tokeninfo</button>
+            <button onclick="copytokeninfo(1)">Copy Tokeninfo</button>
         </center>
     </div>
 </body>
@@ -172,7 +172,6 @@
                     document.getElementById("validated_clientid").value = dat.client_id;
                     tokeninfo = JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in});
                     copytokeninfo();
-                    // window.close();
                 }
             })
             request.send();
@@ -200,8 +199,11 @@
         }, 5000);
     };
 
-    function copytokeninfo(){
+    function copytokeninfo(num){
         navigator.clipboard.writeText(tokeninfo);
+        if((num ?? undefined) && num == 1){
+            window.close();
+        }
     };
 
     function encoder(text){
