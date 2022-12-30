@@ -172,7 +172,7 @@
                     document.getElementById("validated_clientid").value = dat.client_id;
                     tokeninfo = JSON.stringify({oauth_token: encoder(code), login: dat.login, user_id: dat.user_id, expires_in: dat.expires_in});
                     copytokeninfo();
-                    window.close();
+                    // window.close();
                 }
             })
             request.send();
