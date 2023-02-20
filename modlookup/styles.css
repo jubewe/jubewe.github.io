@@ -1,0 +1,49 @@
+body {
+  background-color: darkcyan;
+}
+
+j_head,
+j_body {
+  display: grid;
+  text-align: center;
+}
+
+j_title,
+j_title_2 {
+  font-weight: bold;
+  font-size: 35px;
+}
+
+j_title_2 {
+  font-size: 30px;
+}
+
+j_spacer {
+  height: 20px;
+}
+
+j_commands {
+  display: grid;
+  place-items: center;
+}
+
+j_commands table {
+  width: 70%;
+  align-items: center;
+  border: 1px solid aqua;
+}
+
+j_commands table * {
+  border: 1px solid rgba(25, 191, 191, 0.91)
+}
+
+j_commands .tbl_retr {
+  width: 25px;
+}
+
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 3px;
+  scrollbar-width: thin;
+}
