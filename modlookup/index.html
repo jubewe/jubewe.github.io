@@ -1,3 +1,4 @@
+<!-- Oida hau ab -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -5,31 +6,43 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./styles.css" />
-    <link rel="icon" href="../src/favicon.ico">
+    <link rel="icon" href="../src/favicon.ico" />
     <title>Ju / Modlookup</title>
   </head>
   <body>
     <j_head>
+      <div>
+        <img class="j_icon noselect" src="../src/OkayChamp_modding_2_2_bot_2@112.png" />
+      </div>
+      <j_spacer_smol></j_spacer_smol>
       <j_title>Modlookup-Bot</j_title>
-    </j_head>
-    <j_body>
+      <j_spacer_smol_smol></j_spacer_smol_smol>
       <j_h
-        >A twitch bot with the features of the depcrecated modlookup.3v.fi
+        >A twitch bot with the features of the depcrecated
+        <h
+          class="url"
+          onclick="window.open('https://modlookup.3v.fi', '_blank')"
+          >modlookup.3v.fi</h
+        >
         website</j_h
       >
-      <j_spacer></j_spacer>
+      <j_spacer_smol></j_spacer_smol>
+    </j_head>
+    <j_body>
       <j_title_2>Prefix:</j_title_2>
-      <j_h>ml!</j_h>
-      <j_spacer></j_spacer>
-      <j_title_2>Commands</j_title_2>
+      <j_spacer_smol_smol></j_spacer_smol_smol>
+      <j_h id="prefix" class="noselect" onclick="navigator.clipboard.writeText('ml!')">ml!</j_h>
+      <j_spacer_smol></j_spacer_smol>
+      <j_title_2>Commands:</j_title_2>
+      <j_spacer_smol_smol></j_spacer_smol_smol>
       <j_commands>
         <table>
           <tr>
-            <th class="tbl_name">Name</th>
-            <th class="tbl_args">Arguments</th>
-            <th class="tbl_desc">Description</th>
-            <th class="tbl_retr">Requires Tracking</th>
-            <th class="tbl_perm">Permission</th>
+            <th class="tbl _tbl_head tbl_name">Name</th>
+            <th class="tbl _tbl_head tbl_args">Arguments</th>
+            <th class="tbl _tbl_head tbl_desc">Description</th>
+            <th class="tbl _tbl_head tbl_retr">Requires Tracking</th>
+            <th class="tbl _tbl_head tbl_perm">Permission</th>
           </tr>
           <tbody></tbody>
         </table>
@@ -38,3 +51,4 @@
   </body>
 </html>
 <script src="./script.js"></script>
+<!-- FeelsJavaScriptMan -->

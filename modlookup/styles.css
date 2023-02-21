@@ -1,5 +1,36 @@
+* {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  padding: 3px;
+  scrollbar-width: thin;
+  border-radius: 5px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.j_icon {
+  border-radius: 100%;
+  border: 2px dashed;
+  background-color: #018c5e;
+}
+
+.url {
+  color: yellow;
+  cursor: pointer;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
 body {
   background-color: darkcyan;
+}
+
+.noselect {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
 }
 
 j_head,
@@ -15,11 +46,25 @@ j_title_2 {
 }
 
 j_title_2 {
+  text-decoration: underline;
   font-size: 30px;
 }
 
 j_spacer {
   height: 20px;
+}
+
+j_spacer_smol {
+  height: 10px;
+}
+
+j_spacer_smol_smol {
+  height: 5px;
+}
+
+#prefix {
+  color: gold;
+  cursor: copy;
 }
 
 j_commands {
@@ -33,17 +78,22 @@ j_commands table {
   border: 1px solid aqua;
 }
 
+j_commands table ._tbl_head {
+  color: gold;
+}
+
 j_commands table * {
-  border: 1px solid rgba(25, 191, 191, 0.91)
+  border: 1px solid rgba(166, 191, 25, 0.91)
+}
+
+j_commands .tbl {
+  max-width: 10%;
 }
 
 j_commands .tbl_retr {
   width: 25px;
 }
 
-* {
-  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
-    "Lucida Sans", Arial, sans-serif;
-  padding: 3px;
-  scrollbar-width: thin;
+.tbl_desc {
+  max-width: 420px;
 }
