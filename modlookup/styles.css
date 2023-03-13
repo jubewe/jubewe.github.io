@@ -83,7 +83,7 @@ j_commands table ._tbl_head {
 }
 
 j_commands table * {
-  border: 1px solid rgba(166, 191, 25, 0.91)
+  border: 1px solid #a6bf19e8
 }
 
 j_commands .tbl {
