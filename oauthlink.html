@@ -1,15 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> 
+
+<head>
     <title>Jubewe - Oauth Link Generator</title>
     <link rel="icon" href="../../src/favicon.ico" type="image/x-icon">
 </head>
 
-<body style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+<body
+    style="background-color: darkcyan; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
     <div id="container" style="user-select: none;">
         <center>
-            <div id="header" style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
-                <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px" style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;" class="zoom"></a>
+            <div id="header"
+                style="user-select: none; display: contents; margin-inline: 20px; margin-left: auto; margin-right: auto;">
+                <a href="https://jubewe.github.io/"><img src="../src/moneycool_72.png" height="70px"
+                        style="border: solid; border-radius: 6px; border-color: #335376; background-color: #2a4869; user-select: none; -moz-user-select: none;"
+                        class="zoom"></a>
                 <h3 name="top">Oauth Link Generator</h3>
             </div>
             <div class="placeholder"></div>
@@ -21,8 +26,12 @@
                     <option>Github</option>
                 </select>
                 <div class="placeholder"></div>
-                <div id="response_showhide-container" style="display: flex; border-radius: 10px; background-color: #6e4c4c; border: solid; width: 55px; height: 25px; text-align: center; border-width: 2.5px; align-items: center; cursor: pointer;" onclick="switchshowhide()">
-                    <div id="response_showhide-switch" class="response_showhide-off" style="width: 10px; height: 15px; background-color: #48838a; border: solid; border-radius: 6px; border-width: 2.5px; display: flexbox; margin-left: 2px; margin-right: 2px;"></div>
+                <div id="response_showhide-container"
+                    style="display: flex; border-radius: 10px; background-color: #6e4c4c; border: solid; width: 55px; height: 25px; text-align: center; border-width: 2.5px; align-items: center; cursor: pointer;"
+                    onclick="switchshowhide()">
+                    <div id="response_showhide-switch" class="response_showhide-off"
+                        style="width: 10px; height: 15px; background-color: #48838a; border: solid; border-radius: 6px; border-width: 2.5px; display: flexbox; margin-left: 2px; margin-right: 2px;">
+                    </div>
                 </div>
                 <div class="placeholder"></div>
                 <div class="placeholder"></div>
@@ -34,7 +43,9 @@
                 <div class="placeholder"></div>
                 <label for="response_clientid-input" class="underline">Client-ID:</label>
                 <!-- <textarea id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 341px; height: 11.5px;" spellcheck="false" oninput="fitheight('response_clientid-input', 11.5, 6.5),loadlink()"></textarea> -->
-                <input type="text" id="response_clientid-input" placeholder="Client-ID" class="noresize" style="width: 200px; height: 14px;" spellcheck="false" oninput="fitheight('response_clientid-input', 14, 2),loadlink()" value="">
+                <input type="text" id="response_clientid-input" placeholder="Client-ID" class="noresize"
+                    style="width: 200px; height: 14px;" spellcheck="false"
+                    oninput="fitheight('response_clientid-input', 14, 2),loadlink()" value="">
                 <!-- 
                 <label for="response_scopes-container" class="underline"><a href="https://dev.twitch.tv/docs/authentication/#scopes" target="_blank">Scopes:</a></label>
                 <textarea id="response_scopes-input" placeholder="Scopes - seperated by Spaces or 'all'" style="width: 350px;" class="noresize" spellcheck="false"></textarea>
@@ -42,7 +53,9 @@
                 <div class="placeholder"></div>
                 <label for="response_redirecturl-input" class="underline">Redirect-URL:</label>
                 <!-- <textarea id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 11.5px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 11.5, 6.5),loadlink()"></textarea> -->
-                <input type="text" id="response_redirecturl-input" placeholder="Redirect url" style="width: 313px; height: 14px;" class="noresize" spellcheck="false" oninput="fitheight('response_redirecturl-input', 14, 2),loadlink()" value="">
+                <input type="text" id="response_redirecturl-input" placeholder="Redirect url"
+                    style="width: 313px; height: 14px;" class="noresize" spellcheck="false"
+                    oninput="fitheight('response_redirecturl-input', 14, 2),loadlink()" value="">
                 <div class="placeholder"></div>
                 <label for="response_extras-container"></label>
                 <div id="response_extras-container">
@@ -58,16 +71,24 @@
                 <div class="placeholder"></div>
                 <div id="scope-container" style="user-select: none;"></div>
                 <div>
-                    <div id="scope_element-disableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: green; margin: 1px;" class="scope-element" onclick="enablescopes()">
+                    <div id="scope_element-disableall"
+                        style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: green; margin: 1px;"
+                        class="scope-element" onclick="enablescopes()">
                         <h>Enable all</h>
                     </div>
-                    <div id="scope_element-enableall" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: #6e4c4c; margin: 1px;" class="scope-element" onclick="disablescopes()">
+                    <div id="scope_element-enableall"
+                        style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: #6e4c4c; margin: 1px;"
+                        class="scope-element" onclick="disablescopes()">
                         <h>Disable all</h>
                     </div>
-                    <div id="scope_element-modscopes" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: deepskyblue; margin: 1px;" class="scope-element" onclick="modactionscopes()">
+                    <div id="scope_element-modscopes"
+                        style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: deepskyblue; margin: 1px;"
+                        class="scope-element" onclick="modactionscopes()">
                         <h>Moderator Actions</h>
                     </div>
-                    <div id="scope_element-recommended" style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: aqua; margin: 1px" class="scope-element" onclick="recommendedscopes()">
+                    <div id="scope_element-recommended"
+                        style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: aqua; margin: 1px"
+                        class="scope-element" onclick="recommendedscopes()">
                         <h>Recommended</h>
                     </div>
                 </div>
@@ -76,42 +97,50 @@
             <h class="underline">Link Preview:</h>
             <div class="placeholder"></div>
             <div>
-                <textarea id="response_output-output" class="noresize" spellcheck="false" style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;" placeholder="Output Link"></textarea>
+                <textarea id="response_output-output" class="noresize" spellcheck="false"
+                    style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;"
+                    placeholder="Output Link"></textarea>
                 <div id="response_output-hidden" style="display: none;">
-                    <h style="color: cyan;">(Disabled to hide Client-ID and Redirect-URL, disable with the Switch at the top section)</h>
+                    <h style="color: cyan;">(Disabled to hide Client-ID and Redirect-URL, disable with the Switch at the
+                        top section)</h>
                     <br><br>
                     <h style="color: cyan;">Open in new Tab and Copy are still working</h>
                     <div class="placeholder"></div>
                 </div>
                 <div class="placeholder"></div>
-                <button onclick="openlink(this, getvalue('response_output-output'))" style="background-color: none; border-radius: 5px; border-color: currentColor;">Open in New Tab</button>
-                <button onclick="copylink(this, getvalue('response_output-output'))" style="background-color: none; border-radius: 5px; border-color: currentColor;">Copy</button>
+                <button onclick="openlink(this, getvalue('response_output-output'))"
+                    style="background-color: none; border-radius: 5px; border-color: currentColor;">Open in New
+                    Tab</button>
+                <button onclick="copylink(this, getvalue('response_output-output'))"
+                    style="background-color: none; border-radius: 5px; border-color: currentColor;">Copy</button>
             </div>
             <div>
                 <div id="pageurl-div" style="display: none;">
-                    <textarea id="pageurl-output" class="noresize" spellcheck="false" style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;" ></textarea>
+                    <textarea id="pageurl-output" class="noresize" spellcheck="false"
+                        style="width: 920px; max-width: 920px; height: 75px; border: none; overflow: hidden; padding: 4px;"></textarea>
                 </div>
             </div>
             <div>
                 <div id="displayscopes-div" style="display: none;">
                     <br>
-                    <table id="displayscopes-table" style="padding: 4px; text-align: center; border-spacing: 1px 0px; border: 2px solid darkslategray;">
+                    <table id="displayscopes-table"
+                        style="padding: 4px; text-align: center; border-spacing: 1px 0px; border: 2px solid darkslategray;">
                         <tr>
                             <th class="displayscope-elem-h">Number</th>
                             <th class="displayscope-elem-h">Scope</th>
                         </tr>
-                        
+
                     </table>
                 </div>
             </div>
         </center>
     </div>
-    
+
 </body>
 
 <style>
     .placeholder {
-        display:block;
+        display: block;
         /* position: fixed; */
         color: currentColor;
         border: solid;
@@ -170,7 +199,6 @@
         padding: 3px;
         border: 1px solid black;
     }
-
 </style>
 
 <script>
@@ -230,9 +258,15 @@
                 "chat:edit",
                 "chat:read",
                 "whispers:read",
-                "whispers:edit"
+                "whispers:edit",
+                "moderator:read:chatters",
+                "moderator:read:followers",
+                "moderator:read:shield_mode",
+                "moderator:manage:shield_mode",
+                "moderator:read:shoutouts",
+                "moderator:manage:shoutouts"
             ],
-            recommendedscopes: [0,1,2,3,6,7,8,9,10,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,30,31,32,35,36,37,38,39,40,41],
+            recommendedscopes: [0, 1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 35, 36, 37, 38, 39, 40, 41],
             modactionscopes: [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41]
         },
         github: {
@@ -240,40 +274,40 @@
             oauth_url: "https://github.com/login/oauth/authorize",
             client_id: "74f5cc5f477a7f077d2f",
             scopes: [
-              "admin:gpg_key",
-              "admin:org",
-              "admin:org_hook",
-              "admin:public_key",
-              "admin:repo_hook",
-              "codespace",
-              "delete:packages",
-              "delete_repo",
-              "gist",
-              "notifications",
-              "project",
-              "public_repo",
-              "read:discussion",
-              "read:gpg_key",
-              "read:org",
-              "read:packages",
-              "read:project",
-              "read:public_key",
-              "read:repo_hook",
-              "read:user",
-              "repo",
-              "repo:invite",
-              "repo:status",
-              "repo_deployment",
-              "security_events",
-              "user",
-              "user:email",
-              "user:follow",
-              "write:discussion",
-              "write:gpg_key",
-              "write:org",
-              "write:packages",
-              "write:public_key",
-              "write:repo_hook"
+                "admin:gpg_key",
+                "admin:org",
+                "admin:org_hook",
+                "admin:public_key",
+                "admin:repo_hook",
+                "codespace",
+                "delete:packages",
+                "delete_repo",
+                "gist",
+                "notifications",
+                "project",
+                "public_repo",
+                "read:discussion",
+                "read:gpg_key",
+                "read:org",
+                "read:packages",
+                "read:project",
+                "read:public_key",
+                "read:repo_hook",
+                "read:user",
+                "repo",
+                "repo:invite",
+                "repo:status",
+                "repo_deployment",
+                "security_events",
+                "user",
+                "user:email",
+                "user:follow",
+                "write:discussion",
+                "write:gpg_key",
+                "write:org",
+                "write:packages",
+                "write:public_key",
+                "write:repo_hook"
             ]
         }
     };
@@ -281,8 +315,8 @@
     let dev = false;
     let token_scopes = [];
 
-    function devmode(dmin){
-        if(dmin === true){
+    function devmode(dmin) {
+        if (dmin === true) {
             dev = true;
             document.getElementById("displayscopes-div").style.display = "inline-block"
             scopeslist()
@@ -304,23 +338,23 @@
     let lastscope = {};
     let selected_platform = document.getElementById("j_select_platform").value.toLowerCase();
 
-    function getvalue(gvelementid){
+    function getvalue(gvelementid) {
         return document.getElementById(gvelementid).value
     }
 
-    function setvalue(svelementid, svelementvalue){
+    function setvalue(svelementid, svelementvalue) {
         document.getElementById(svelementid).value = svelementvalue
     }
 
-    function loadlink(){
+    function loadlink() {
         let response_extras = ""
-        if(document.getElementById("response_extras-forceverify").checked === true && ["twitch"].includes(selected_platform)){
+        if (document.getElementById("response_extras-forceverify").checked === true && ["twitch"].includes(selected_platform)) {
             response_extras = "&force_verify=true";
         }
 
         document.getElementById("response_clientid-input").value = document.getElementById("response_clientid-input").value.toLowerCase()
-        let link = `${data[selected_platform].oauth_url}?client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${Object.keys(enabledscopes).sort().join("+")}`+
-        `${response_extras}${["twitch"].includes(selected_platform) ? `&response_type=${getvalue("response_type-select")}` : ""}`
+        let link = `${data[selected_platform].oauth_url}?client_id=${getvalue("response_clientid-input")}&redirect_uri=${getvalue("response_redirecturl-input")}&scope=${Object.keys(enabledscopes).sort().join("+")}` +
+            `${response_extras}${["twitch"].includes(selected_platform) ? `&response_type=${getvalue("response_type-select")}` : ""}`
 
         setvalue("response_output-output", link)
         pageurl()
@@ -328,7 +362,7 @@
 
     document.onload = setTimeout(_init, 1);
 
-    function removescopes(){
+    function removescopes() {
         document.getElementById("scope-container").innerHTML = "";
         enabledscopes = {};
         disabledscopes = {};
@@ -336,10 +370,10 @@
         token_scopes = data[selected_platform].scopes;
     }
 
-    function loadscopes(){
+    function loadscopes() {
         removescopes();
-        for(i = 0; i < token_scopes.length; i++){
-            let snode = document.createElement("div", {is:"scope-container"})
+        for (i = 0; i < token_scopes.length; i++) {
+            let snode = document.createElement("div", { is: "scope-container" })
             snode.id = `scope-element_${i}`
             snode.style.border = "double"
             snode.style.paddingLeft = "2px"
@@ -349,7 +383,7 @@
             snode.style.backgroundColor = offcolor
             snode.style.margin = "1px"
 
-            let slabel = document.createElement("h", {is:"scope-container"})
+            let slabel = document.createElement("h", { is: "scope-container" })
             slabel.innerHTML = token_scopes[i]
             slabel.id = `scope-element_${i}-label`
             snode.appendChild(slabel)
@@ -357,9 +391,9 @@
             snode.addEventListener("click", () => {
                 changecheck(snode);
             })
-            if(["twitch"].includes(selected_platform) && i === token_scopes.length-5){
+            if (["twitch"].includes(selected_platform) && i === token_scopes.length - 5) {
                 document.getElementById("scope-container").appendChild(document.createElement("br"));
-                let scope_container_chatmsg = document.createElement("h", {is:"scope-container"});
+                let scope_container_chatmsg = document.createElement("h", { is: "scope-container" });
                 scope_container_chatmsg.innerHTML = "Chat and IRC Scopes:";
                 scope_container_chatmsg.style.paddingRight = "2px";
                 scope_container_chatmsg.className = "underline";
@@ -372,13 +406,13 @@
         document.getElementById("scope-container").appendChild(document.createElement("br"));
     }
 
-    function enablescopes(){
+    function enablescopes() {
         enabledscopes = {}
         disabledscopes = {}
-        for(i = 0; i < token_scopes.length; i++){
+        for (i = 0; i < token_scopes.length; i++) {
             enabledscopes[token_scopes[i]] = 1
         }
-        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+        for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
             document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = oncolor
         }
         document.getElementById("response_output-output").style.backgroundColor = oncolor
@@ -386,28 +420,28 @@
         loadlink()
     }
 
-    function disablescopes(dsbg){
+    function disablescopes(dsbg) {
         disabledscopes = {}
         disabledscopes = enabledscopes
         enabledscopes = {}
-        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
+        for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
             document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = offcolor
         }
-        if(dsbg !== false){
+        if (dsbg !== false) {
             document.getElementById("response_output-output").style.backgroundColor = offcolor
         }
         fitheight("response_output-output", 75, 6)
         loadlink()
     }
 
-    function recommendedscopes(){
+    function recommendedscopes() {
         let recommendedscopesids = data[selected_platform].recommendedscopes || [];
         disablescopes(false)
-        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
-            if(recommendedscopesids.includes(i)){
+        for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
+            if (recommendedscopesids.includes(i)) {
                 document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = recommendedcolor
                 enabledscopes[token_scopes[i]] = 1
-                if(Object.keys(disabledscopes).includes(token_scopes[i])){
+                if (Object.keys(disabledscopes).includes(token_scopes[i])) {
                     delete disabledscopes[token_scopes[i]]
                 }
             }
@@ -417,23 +451,23 @@
         loadlink()
     }
 
-    function loadscopeurl(){
-        if(/(\&|\?)+(scope(s*)=)/g.test(document.URL) === true){
+    function loadscopeurl() {
+        if (/(\&|\?)+(scope(s*)=)/g.test(document.URL) === true) {
             disablescopes(false)
             let scopes = document.URL.match(/(\&|\?)+(scope(s*)=)(.*?)(\&|$)/g)[0].replace(/(\&|\?)+(scope(s*)=)/g, "").replace(/(\&|$)/g, "")
-            if(scopes.length > 0){
+            if (scopes.length > 0) {
                 let scopes2 = scopes;
                 scopes = scopes.split("+")
-                for(i = 0; i < scopes.length; i++){
-                    if(scopes2 === "all"){
+                for (i = 0; i < scopes.length; i++) {
+                    if (scopes2 === "all") {
                         enablescopes()
                         // return;
-                    } else if(scopes2 === "mod"){
+                    } else if (scopes2 === "mod") {
                         modactionscopes()
-                    } else if(scopes2 === "rec" || scopes2 === "recommended"){
+                    } else if (scopes2 === "rec" || scopes2 === "recommended") {
                         recommendedscopes()
                     } else {
-                        if(!isNaN(scopes[i])){
+                        if (!isNaN(scopes[i])) {
                             enabledscopes[token_scopes[scopes[i]]] = 1
                             document.getElementById(`scope-element_${token_scopes.indexOf(token_scopes[scopes[i]])}`).style.backgroundColor = oncolor
                         } else {
@@ -446,19 +480,19 @@
                 fitheight("response_output-output", 75, 6)
                 loadlink()
             }
-        } 
-        
-        if(/(\&|\?)+(ignore=)/g.test(document.URL) === true){
+        }
+
+        if (/(\&|\?)+(ignore=)/g.test(document.URL) === true) {
             let scopes = document.URL.match(/(\&ignore\=)(.*?)(\&|$)/g)[0].replace(/(\&ignore\=)/g, "").replace(/(\&|$)/g, "")
-            if(scopes.length > 0){
+            if (scopes.length > 0) {
                 let scopes2 = scopes;
                 scopes = scopes.split("+")
-                for(i = 0; i < scopes.length; i++){
-                    if(scopes2 === "all"){
+                for (i = 0; i < scopes.length; i++) {
+                    if (scopes2 === "all") {
                         disablescopes()
                         // return;
                     } else {
-                        if(!isNaN(scopes[i])){
+                        if (!isNaN(scopes[i])) {
                             delete enabledscopes[token_scopes[scopes[i]]]
                             disabledscopes[token_scopes[scopes[i]]] = 1
                             document.getElementById(`scope-element_${token_scopes.indexOf(token_scopes[scopes[i]])}`).style.backgroundColor = offcolor
@@ -476,13 +510,13 @@
         }
     }
 
-    function modactionscopes(){
+    function modactionscopes() {
         let modactionscopeids = data[selected_platform].modactionscopes || [];
-        for(i = 0; i < document.getElementsByClassName("scope-element").length-4; i++){
-            if(modactionscopeids.includes(i)){
+        for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
+            if (modactionscopeids.includes(i)) {
                 document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = modactioncolor
                 enabledscopes[token_scopes[i]] = 1
-                if(Object.keys(disabledscopes).includes(token_scopes[i])){
+                if (Object.keys(disabledscopes).includes(token_scopes[i])) {
                     delete disabledscopes[token_scopes[i]]
                 }
             }
@@ -492,8 +526,8 @@
         loadlink()
     }
 
-    function changecheck(ccparent){
-        if(![oncolor,modactioncolor,recommendedcolor].includes(ccparent.style.backgroundColor)){
+    function changecheck(ccparent) {
+        if (![oncolor, modactioncolor, recommendedcolor].includes(ccparent.style.backgroundColor)) {
             // console.log("off -> on")
             ccparent.style.backgroundColor = oncolor
             enabledscopes[document.getElementById(ccparent.id + "-label").innerHTML] = 1
@@ -507,23 +541,23 @@
         loadlink()
     }
 
-    function fitheight(fhelem, fhminheigt, fmsubtract){
-        if(fhminheigt === undefined){
+    function fitheight(fhelem, fhminheigt, fmsubtract) {
+        if (fhminheigt === undefined) {
             fhminheigt = 0
         }
-        if(fmsubtract === undefined){
+        if (fmsubtract === undefined) {
             fmsubtract = 0
         }
         setTimeout(() => {
-            if(document.getElementById(fhelem).style.height !== fhminheigt){
+            if (document.getElementById(fhelem).style.height !== fhminheigt) {
                 document.getElementById(fhelem).style.height = fhminheigt + "px"
-                document.getElementById(fhelem).style.height = document.getElementById(fhelem).scrollHeight-fmsubtract + "px"
+                document.getElementById(fhelem).style.height = document.getElementById(fhelem).scrollHeight - fmsubtract + "px"
             }
         }, 0);
     }
 
-    function openlink(olelem, ollink){
-        window.open(ollink, target="_blank")
+    function openlink(olelem, ollink) {
+        window.open(ollink, target = "_blank")
         let stylecfirst = olelem.style
         olelem.style.backgroundColor = oncolor
         setTimeout(() => {
@@ -531,7 +565,7 @@
         }, 2000);
     }
 
-    function copylink(clelem, cltext){
+    function copylink(clelem, cltext) {
         navigator.clipboard.writeText(cltext)
         let styleclfirst = clelem.style.backgroundColor
         clelem.style.backgroundColor = oncolor
@@ -540,11 +574,11 @@
         }, 2000);
     }
 
-    function switchshowhide(shsaction){
+    function switchshowhide(shsaction) {
         window.scrollbars.visible = false
         let cselem_container = document.getElementById("response_showhide-container")
         let cselem_switch = document.getElementById("response_showhide-switch")
-        if(cselem_container.style.backgroundColor === oncolor || shsaction === true){
+        if (cselem_container.style.backgroundColor === oncolor || shsaction === true) {
             cselem_container.style.backgroundColor = offcolor
             cselem_switch.className = "response_showhide-off"
             document.getElementById("response_clientid-input").type = "text"
@@ -563,40 +597,40 @@
         }
     }
 
-    function checkurl(){
+    function checkurl() {
         setTimeout(() => {
             // (&/?)list=(false/true)
-            if(/(\&|\?)+(list)+(\=)/g.test(document.URL)){
-                if(/(\&|\?)+(list)+(\=true)/g.test(document.URL)){
+            if (/(\&|\?)+(list)+(\=)/g.test(document.URL)) {
+                if (/(\&|\?)+(list)+(\=true)/g.test(document.URL)) {
                     document.getElementById("displayscopes-div").style.display = "inline-block"
                     scopeslist()
-                } else if(/(\&|\?)+(list)+(\=false)/g.test(document.URL)){
+                } else if (/(\&|\?)+(list)+(\=false)/g.test(document.URL)) {
                     document.getElementById("displayscopes-div").style.display = "none"
                 }
             }
 
-            if(/(\&|\?)+(hid+e(n)*)+(\=)/g.test(document.URL)){
-                if(/(\&|\?)+(hid+e(n)*)+(\=true)/g.test(document.URL)){
+            if (/(\&|\?)+(hid+e(n)*)+(\=)/g.test(document.URL)) {
+                if (/(\&|\?)+(hid+e(n)*)+(\=true)/g.test(document.URL)) {
                     switchshowhide(false)
                 } else {
                     switchshowhide(true)
                 }
             }
 
-            if(/(\&|\?)+(dev(mode)*)+(\=)/g.test(document.URL)){
-                if(/(\&|\?)+(dev(mode)*)+(\=true)/g.test(document.URL)){
+            if (/(\&|\?)+(dev(mode)*)+(\=)/g.test(document.URL)) {
+                if (/(\&|\?)+(dev(mode)*)+(\=true)/g.test(document.URL)) {
                     devmode(true);
                 } else {
                     devmode(false);
                 }
             }
 
-            if(/(\&|\?)+(open)+(\=)/g.test(document.URL)){
-                if(/(\&|\?)+(open)+(\=parent)/g.test(document.URL)){
+            if (/(\&|\?)+(open)+(\=)/g.test(document.URL)) {
+                if (/(\&|\?)+(open)+(\=parent)/g.test(document.URL)) {
                     window.open(document.getElementById("response_output-output").value, "_parent")
-                } else if(/(\&|\?)+(open)+(\=self)/g.test(document.URL)){
+                } else if (/(\&|\?)+(open)+(\=self)/g.test(document.URL)) {
                     window.open(document.getElementById("response_output-output").value, "_self")
-                } else if(/(\&|\?)+(open)+(\=top)/g.test(document.URL)){
+                } else if (/(\&|\?)+(open)+(\=top)/g.test(document.URL)) {
                     window.open(document.getElementById("response_output-output").value, "_top")
                 } else {
                     window.open(document.getElementById("response_output-output").value, "_blank")
@@ -607,26 +641,26 @@
         }, 0);
     }
 
-    function scopeslist(){
+    function scopeslist() {
         let displaydiv = document.getElementById("displayscopes-table")
 
-        if(displaydiv.childElementCount === 1){
-            for(i = 0; i < token_scopes.length; i++){
+        if (displaydiv.childElementCount === 1) {
+            for (i = 0; i < token_scopes.length; i++) {
                 let displayscopetr = document.createElement("tr")
 
-                for(a = 0; a < 2; a++){
+                for (a = 0; a < 2; a++) {
                     let displayscopetd = document.createElement("td")
-                    if(i === token_scopes.length-1){
+                    if (i === token_scopes.length - 1) {
                         displayscopetd.className = "displayscope-elem-b"
-                    } else if(i === 0){
+                    } else if (i === 0) {
                         displayscopetd.className = "displayscope-elem-t"
                     } else {
                         displayscopetd.className = "displayscope-elem-lr"
                     }
 
-                    if(a === 0){
+                    if (a === 0) {
                         displayscopetd.innerHTML = i;
-                    } else if(a === 1){
+                    } else if (a === 1) {
                         displayscopetd.innerHTML = token_scopes[i];
                     }
 
@@ -638,23 +672,23 @@
         }
     }
 
-    function pageurl(){
+    function pageurl() {
         let purl = [(document.URL.split("?")[0] !== undefined ? document.URL.split("?")[0] : document.URL)]
 
-        if(Object.keys(enabledscopes).length > 0){
+        if (Object.keys(enabledscopes).length > 0) {
             let purl_enabled = []
-            for(i = 0; i < Object.keys(enabledscopes).length; i++){
+            for (i = 0; i < Object.keys(enabledscopes).length; i++) {
                 purl_enabled.push(token_scopes.indexOf(Object.keys(enabledscopes)[i]))
             }
             purl.push(`?scopes=${purl_enabled.join("+")}`)
         }
 
-        if(Object.keys(disabledscopes).length > 0){
+        if (Object.keys(disabledscopes).length > 0) {
             let purl_disabled = []
-            for(i = 0; i < Object.keys(disabledscopes).length; i++){
+            for (i = 0; i < Object.keys(disabledscopes).length; i++) {
                 purl_disabled.push(token_scopes.indexOf(Object.keys(disabledscopes)[i]))
             }
-            if(purl.length === 1){
+            if (purl.length === 1) {
                 purl.push(`?ignore=${purl_disabled.join("+")}`)
             } else {
                 purl.push(`&ignore=${purl_disabled.join("+")}`)
@@ -666,8 +700,8 @@
 
     }
 
-    function changeplatform(platform){
-        if(!data[platform]) return;
+    function changeplatform(platform) {
+        if (!data[platform]) return;
         document.getElementById("response_clientid-input").value = data[platform].client_id;
         document.getElementById("response_redirecturl-input").value = data[platform].redirect_url;
         token_scopes = data[platform].scopes;
@@ -677,7 +711,7 @@
         modactionscopes();
     };
 
-    function _init(){
+    function _init() {
         changeplatform("twitch")
         document.getElementById("j_select_platform").addEventListener("change", () => {
             console.log("selection change")
