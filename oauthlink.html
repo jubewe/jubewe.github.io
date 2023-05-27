@@ -91,6 +91,11 @@
                         class="scope-element" onclick="recommendedscopes()">
                         <h>Recommended</h>
                     </div>
+                    <div id="scope_element-patty"
+                        style="border: double; padding-left: 2px; padding-right: 2px; display: inline-block; background-color: aqua; margin: 1px"
+                        class="scope-element" onclick="pattyscopes()">
+                        <h>Patrick</h>
+                    </div>
                 </div>
             </div>
             <br>
@@ -254,20 +259,111 @@
                 "user:read:follows",
                 "user:read:subscriptions",
                 "user:manage:whispers",
-                "channel:moderate",
                 "moderator:read:chatters",
                 "moderator:read:followers",
                 "moderator:read:shield_mode",
                 "moderator:manage:shield_mode",
                 "moderator:read:shoutouts",
                 "moderator:manage:shoutouts",
+                "channel:read:guest_star",
+                "channel:manage:guest_star",
+                "moderator:read:guest_star",
+                "moderator:manage:guest_star",
+                "channel:moderate",
                 "chat:edit",
                 "chat:read",
                 "whispers:read",
                 "whispers:edit"
             ],
-            recommendedscopes: [0, 1, 2, 3, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 30, 31, 32, 35, 36, 37, 38, 39, 40, 41],
-            modactionscopes: [20, 21, 22, 23, 24, 25, 26, 27, 28, 37, 38, 39, 40, 41]
+            recommendedscopes: [
+                "analytics:read:extensions",
+                "analytics:read:games",
+                "bits:read",
+                "channel:edit:commercial",
+                "channel:manage:broadcast",
+                "channel:read:charity",
+                "channel:manage:extensions",
+                "channel:manage:moderators",
+                "channel:manage:polls",
+                "channel:manage:predictions",
+                "channel:manage:raids",
+                "channel:manage:redemptions",
+                "channel:manage:schedule",
+                "channel:manage:videos",
+                "channel:read:editors",
+                "channel:read:goals",
+                "channel:read:hype_train",
+                "channel:read:polls",
+                "channel:read:predictions",
+                "channel:read:redemptions",
+                "channel:read:stream_key",
+                "channel:read:subscriptions",
+                "channel:read:vips",
+                "channel:manage:vips",
+                "clips:edit",
+                "moderation:read",
+                "moderator:manage:announcements",
+                "moderator:manage:automod",
+                "moderator:read:automod_settings",
+                "moderator:manage:automod_settings",
+                "moderator:manage:banned_users",
+                "moderator:read:blocked_terms",
+                "moderator:manage:blocked_terms",
+                "moderator:manage:chat_messages",
+                "moderator:read:chat_settings",
+                "moderator:manage:chat_settings",
+                "user:edit",
+                "user:edit:follows",
+                "user:manage:blocked_users",
+                "user:read:blocked_users",
+                "user:manage:chat_color",
+                "user:read:email",
+                "user:read:follows",
+                "user:read:subscriptions",
+                "user:manage:whispers",
+                "moderator:read:chatters",
+                "moderator:read:followers",
+                "moderator:read:shield_mode",
+                "moderator:manage:shield_mode",
+                "moderator:read:shoutouts",
+                "moderator:manage:shoutouts",
+                "channel:moderate",
+                "chat:edit",
+                "chat:read",
+                "whispers:read",
+                "whispers:edit"
+            ],
+            modactionscopes: [
+                "channel:edit:commercial",
+                "clips:edit",
+                "moderation:read",
+                "moderator:manage:announcements",
+                "moderator:manage:automod",
+                "moderator:read:automod_settings",
+                "moderator:manage:automod_settings",
+                "moderator:manage:banned_users",
+                "moderator:read:blocked_terms",
+                "moderator:manage:blocked_terms",
+                "moderator:manage:chat_messages",
+                "moderator:read:chat_settings",
+                "moderator:manage:chat_settings",
+                "moderator:read:chatters",
+                "moderator:read:followers",
+                "moderator:read:shield_mode",
+                "moderator:manage:shield_mode",
+                "moderator:read:shoutouts",
+                "moderator:manage:shoutouts",
+                "channel:moderate",
+                "chat:edit",
+                "chat:read",
+                "whispers:read",
+                "whispers:edit"
+            ],
+            pattyscopes: [
+                "moderation:read",
+                "channel:moderate",
+                "chat:read"
+            ]
         },
         github: {
             redirect_url: "https://jubewe.github.io/callback/github/validatetoken",
@@ -438,7 +534,7 @@
         let recommendedscopesids = data[selected_platform].recommendedscopes || [];
         disablescopes(false)
         for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
-            if (recommendedscopesids.includes(i)) {
+            if (recommendedscopesids.includes(document.getElementsByClassName("scope-element").item(i).innerText)) {
                 document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = recommendedcolor
                 enabledscopes[token_scopes[i]] = 1
                 if (Object.keys(disabledscopes).includes(token_scopes[i])) {
@@ -466,6 +562,9 @@
                         modactionscopes()
                     } else if (scopes2 === "rec" || scopes2 === "recommended") {
                         recommendedscopes()
+                    } else if (["patty", "patrick"].includes(scopes2)) {
+                        console.log("scpeslol")
+                        pattyscopes()
                     } else {
                         if (!isNaN(scopes[i])) {
                             enabledscopes[token_scopes[scopes[i]]] = 1
@@ -513,7 +612,23 @@
     function modactionscopes() {
         let modactionscopeids = data[selected_platform].modactionscopes || [];
         for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
-            if (modactionscopeids.includes(i)) {
+            if (modactionscopeids.includes(document.getElementsByClassName("scope-element").item(i).innerText)) {
+                document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = modactioncolor
+                enabledscopes[token_scopes[i]] = 1
+                if (Object.keys(disabledscopes).includes(token_scopes[i])) {
+                    delete disabledscopes[token_scopes[i]]
+                }
+            }
+        }
+        document.getElementById("response_output-output").style.backgroundColor = modactioncolor
+        fitheight("response_output-output", 75, 6)
+        loadlink()
+    }
+    
+    function pattyscopes() {
+        let pattyscopes = data[selected_platform].pattyscopes || [];
+        for (i = 0; i < document.getElementsByClassName("scope-element").length - 4; i++) {
+            if (pattyscopes.includes(document.getElementsByClassName("scope-element").item(i).innerText)) {
                 document.getElementById(document.getElementsByClassName("scope-element").item(i).id).style.backgroundColor = modactioncolor
                 enabledscopes[token_scopes[i]] = 1
                 if (Object.keys(disabledscopes).includes(token_scopes[i])) {
@@ -598,47 +713,43 @@
     }
 
     function checkurl() {
-        setTimeout(() => {
-            // (&/?)list=(false/true)
-            if (/(\&|\?)+(list)+(\=)/g.test(document.URL)) {
-                if (/(\&|\?)+(list)+(\=true)/g.test(document.URL)) {
-                    document.getElementById("displayscopes-div").style.display = "inline-block"
-                    scopeslist()
-                } else if (/(\&|\?)+(list)+(\=false)/g.test(document.URL)) {
-                    document.getElementById("displayscopes-div").style.display = "none"
-                }
+        // (&/?)list=(false/true)
+        if (/(\&|\?)+(list)+(\=)/g.test(document.URL)) {
+            if (/(\&|\?)+(list)+(\=true)/g.test(document.URL)) {
+                document.getElementById("displayscopes-div").style.display = "inline-block"
+                scopeslist()
+            } else if (/(\&|\?)+(list)+(\=false)/g.test(document.URL)) {
+                document.getElementById("displayscopes-div").style.display = "none"
             }
+        }
 
-            if (/(\&|\?)+(hid+e(n)*)+(\=)/g.test(document.URL)) {
-                if (/(\&|\?)+(hid+e(n)*)+(\=true)/g.test(document.URL)) {
-                    switchshowhide(false)
-                } else {
-                    switchshowhide(true)
-                }
+        if (/(\&|\?)+(hid+e(n)*)+(\=)/g.test(document.URL)) {
+            if (/(\&|\?)+(hid+e(n)*)+(\=true)/g.test(document.URL)) {
+                switchshowhide(false)
+            } else {
+                switchshowhide(true)
             }
+        }
 
-            if (/(\&|\?)+(dev(mode)*)+(\=)/g.test(document.URL)) {
-                if (/(\&|\?)+(dev(mode)*)+(\=true)/g.test(document.URL)) {
-                    devmode(true);
-                } else {
-                    devmode(false);
-                }
+        if (/(\&|\?)+(dev(mode)*)+(\=)/g.test(document.URL)) {
+            if (/(\&|\?)+(dev(mode)*)+(\=true)/g.test(document.URL)) {
+                devmode(true);
+            } else {
+                devmode(false);
             }
+        }
 
-            if (/(\&|\?)+(open)+(\=)/g.test(document.URL)) {
-                if (/(\&|\?)+(open)+(\=parent)/g.test(document.URL)) {
-                    window.open(document.getElementById("response_output-output").value, "_parent")
-                } else if (/(\&|\?)+(open)+(\=self)/g.test(document.URL)) {
-                    window.open(document.getElementById("response_output-output").value, "_self")
-                } else if (/(\&|\?)+(open)+(\=top)/g.test(document.URL)) {
-                    window.open(document.getElementById("response_output-output").value, "_top")
-                } else {
-                    window.open(document.getElementById("response_output-output").value, "_blank")
-                }
+        if (/(\&|\?)+(open)+(\=)/g.test(document.URL)) {
+            if (/(\&|\?)+(open)+(\=parent)/g.test(document.URL)) {
+                window.open(document.getElementById("response_output-output").value, "_parent")
+            } else if (/(\&|\?)+(open)+(\=self)/g.test(document.URL)) {
+                window.open(document.getElementById("response_output-output").value, "_self")
+            } else if (/(\&|\?)+(open)+(\=top)/g.test(document.URL)) {
+                window.open(document.getElementById("response_output-output").value, "_top")
+            } else {
+                window.open(document.getElementById("response_output-output").value, "_blank")
             }
-
-
-        }, 0);
+        }
     }
 
     function scopeslist() {
@@ -708,7 +819,7 @@
         checkurl();
         loadscopes();
         loadscopeurl();
-        modactionscopes();
+        // modactionscopes();
     };
 
     function _init() {
