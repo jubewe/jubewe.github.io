@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./styles/index.css" rel="stylesheet">
+    <title>Ju - Chatty</title>
+</head>
+
+<body>
+    <jbody>
+        <h2>Chatty Config</h2>
+        <a href="#download" class="ja underline">Click to Scroll down to download</a>
+        <div class="chatty-images"></div>
+        <h2 id="download">Download</h2>
+        <input id="download_username" placeholder="Username">
+        <button onclick="downloadSettings()">Download</button>
+    </jbody>
+</body>
+<script>
+    for (i = 1; i <= 31; i++) {
+        let imageElem = document.createElement("img");
+        imageElem.src = `./src/chatty/${i}.png`;
+        document.querySelector(".chatty-images").appendChild(imageElem);
+    }
+
+    let settings;
+
+    async function loadSettings() {
+        return new Promise((resolve, reject) => {
+            if (localStorage.getItem("chatty_settings")) {
+                settings = localStorage.getItem("chatty_settings");
+                return resolve();
+            }
+            fetch("./src/chatty/settings.txt")
+                .then(async (v) => {
+                    settings = await v.text();
+                    localStorage.setItem("chatty_settings", settings);
+                    resolve();
+                })
+        })
+    }
+
+    async function downloadSettings() {
+        let username = document.querySelector("#download_username");
+
+        await loadSettings();
+
+        let userSettings = settings.replace(/\$\{j_username\}/g, username);
+
+        download("settings", userSettings);
+
+        console.log(userSettings);
+    }
+
+    function download(filename, text) {
+        var element = document.createElement('a');
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+        element.setAttribute('download', filename);
+
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+    }
+</script>
+</html>

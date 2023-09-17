@@ -1,0 +1,196 @@
+:root {
+    --padding-default: 2px;
+    --padding-small: 0.7px;
+    --borderRadius-default: 5px;
+
+    --color-white: #f1faee;
+    --color-green: #a1c181;
+    --color-red: #bc3908;
+    --color-orange: #f6aa1c;
+    --color-dark: #0d1321;
+
+    --color-background: #233d4d;
+    --color-background-1: #619b8a;
+    --color-background-2: #3e5c76;
+    --color-background-3: #38a3a5;
+    --color-background-popout: #1d2d44;
+    --color-background-chat-user: #2e8588;
+    --color-background-chat-timestamp: #4ad7db;
+    --color-background-chat-message: #174445;
+    --color-background-chat-message-input: #345b73;
+    --color-background-chat-message-input-outline: #467a9a;
+    --color-background-chat-users-add-input: #345b73;
+    --color-background-chat-users-add-outline: #467a9a;
+    --color-background-chat-chats-active: #5d8ab1;
+
+    --color-border-light: #f1faee75;
+    --color-border-dark: #0d132185;
+    --color-border-chat-messages-user: #45c8cc;
+    --color-border-chat-messages-timestamp: #2e8588;
+
+    --color-background-process: #a8dadc;
+
+    --font-size-default-big: 23px;
+    --font-size-default-big-2: 30px;
+    --font-size-default-small: 15px;
+
+    padding: var(--padding-default);
+    border-radius: var(--borderRadius-default);
+}
+
+* {
+    scrollbar-width: thin;
+    font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+        "Lucida Sans", Arial, sans-serif;
+    border-radius: 5px;
+    overflow-wrap: break-word;
+    text-align: center;
+    user-select: none;
+    padding: inherit;
+    border-radius: inherit;
+}
+
+body {
+    /* display: flex; */
+    justify-content: center;
+    transition: ease-in 1s;
+    color: var(--color-white);
+    background-color: var(--color-background);
+    margin: 0;
+    flex-direction: column;
+    /* width: 99vw;
+    height: 99vh; */
+}
+
+body>*:not(jtopbar) {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+button,
+.jButton,
+input,
+select {
+    border: 1.5px solid;
+    background-color: var(--color-white);
+}
+
+button,
+.jButton {
+    cursor: pointer;
+    width: max-content;
+    color: var(--color-dark);
+}
+
+a,
+ja,
+.ja {
+    color: currentColor;
+    text-decoration: none;
+}
+
+jh,
+.jh {
+    padding: 2px;
+    margin: 3px;
+}
+
+jspacerx {
+    width: 10px;
+}
+
+jspacery {
+    height: 10px;
+}
+
+.dp-hidden {
+    display: none !important;
+}
+
+.dp-contents {
+    display: contents;
+}
+
+.bg-red {
+    background-color: var(--color-red) !important;
+}
+
+.bg-orange {
+    background-color: var(--color-orange) !important;
+}
+
+.bg-green {
+    background-color: var(--color-green) !important;
+}
+
+.bg-transparent {
+    background-color: transparent !important;
+}
+
+.fg-red {
+    color: var(--color-red) !important;
+}
+
+.fg-green {
+    color: var(--color-green) !important;
+}
+
+.fg-black {
+    color: var(--color-dark) !important;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.cursor-sort {
+    cursor: pointer;
+}
+
+.copy {
+    cursor: copy;
+}
+
+.copied {
+    background-color: red !important;
+    cursor: wait;
+}
+
+jbody {
+    /* place-items: center; */
+    /* height: 100%; */
+    min-height: 90vh;
+    justify-content: flex-start !important;
+    align-items: center;
+}
+
+jdynamic {
+    /* display: contents; */
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+}
+
+jtitle {
+    font-weight: bold;
+    font-size: large;
+    text-decoration: underline;
+}
+
+.fontSmol {
+    font-size: var(--font-size-default-small);
+}
+
+.fontBig {
+    font-size: var(--font-size-default-big);
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+script {
+    display: none;
+}
