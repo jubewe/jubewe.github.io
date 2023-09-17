@@ -192,5 +192,5 @@ jtitle {
 }
 
 script {
-    display: none;
+    display: none !important;
 }
