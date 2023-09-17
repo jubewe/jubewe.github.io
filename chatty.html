@@ -21,18 +21,26 @@
         </div>
         <h2 id="customcommands">Custom Commands</h2>
         <div class="chatty-customcommands"></div>
+        <h2 id="userdialog">User-Dialog Buttons</h2>
+        <h><h class="underline">Note:</h> A lot of these buttons will only work with the custom commands above</h>
+        <div class="chatty-userdialogbuttons"></div>
+        <h2 id="channelcontext">Channel Context Menu</h2>
+        <div class="chatty-channelcontextmenu"></div>
         <h2 id="download">Download</h2>
         <input id="download_username" oninput="updateCommandName()" placeholder="Username">
         <button onclick="downloadSettings()">Download</button>
-        <br>
+        <j_spacer></j_spacer>
         <h>This will download the settings file</h>
-        <h>To use it, move it into your chatty directory</h>
-        <h>
-            <h class="underline">Linux default:</h> ~/.chatty
-        </h>
-        <h>
-            <h class="underline">Windows default:</h> C:\Users\%username%\.chatty
-        </h>
+        <h>To use it, move it into your .chatty directory</h>
+        <div style="text-align: left;">
+            <h>
+                <h class="underline">Linux default:</h> ~/.chatty
+            </h>
+            <br>
+            <h>
+                <h class="underline">Windows default:</h> C:\Users\%username%\.chatty
+            </h>
+        </div>
     </jbody>
 </body>
 <script>
@@ -43,7 +51,7 @@
     }
 
     let settings;
-    let customcommands;
+    let customcommands = "";
 
     async function loadSettings() {
         return new Promise((resolve, reject) => {
@@ -70,6 +78,8 @@
         });
 
         document.querySelector(".chatty-customcommands").innerText = customcommands;
+        document.querySelector(".chatty-userdialogbuttons").innerText = settingsParsed.timeoutButtons;
+        document.querySelector(".chatty-channelcontextmenu").innerText = settingsParsed.channelContextMenu;
     })();
 
     function updateCommandName() {
@@ -88,6 +98,18 @@
 
         console.log(userSettings);
     }
+
+    let copy = (elem) => {
+    if (typeof elem === "string") return navigator.clipboard.writeText(elem);
+    if (elem instanceof HTMLElement) {
+      navigator.clipboard.writeText(elem.value ?? elem.innerText);
+      elem.classList.add("copied");
+      setTimeout(() => {
+        elem.classList.remove("copied");
+      }, 1500);
+      return;
+    }
+  };
 
     function download(filename, text) {
         var element = document.createElement('a');

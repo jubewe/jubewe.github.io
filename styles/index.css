@@ -195,7 +195,20 @@ script {
     display: none !important;
 }
 
-.chatty-customcommands {
+.chatty-customcommands,
+.chatty-userdialogbuttons,
+.chatty-channelcontextmenu {
     text-align: left;
     border: 1px solid;
+    width: 99%;
+    overflow-y: auto;
+    height: 200px;
+}
+
+j_spacer {
+    height: 15px;
+}
+
+.chatty-images img {
+    max-width: 99%;
 }
