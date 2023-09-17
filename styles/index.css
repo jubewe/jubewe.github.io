@@ -45,7 +45,7 @@
     border-radius: 5px;
     overflow-wrap: break-word;
     text-align: center;
-    user-select: none;
+    user-select: text;
     padding: inherit;
     border-radius: inherit;
 }
@@ -193,4 +193,9 @@ jtitle {
 
 script {
     display: none !important;
+}
+
+.chatty-customcommands {
+    text-align: left;
+    border: 1px solid;
 }

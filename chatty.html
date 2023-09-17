@@ -12,20 +12,38 @@
     <jbody>
         <h2>Chatty Config</h2>
         <a href="#download" class="ja underline">Click to Scroll down to download</a>
-        <div class="chatty-images"></div>
+        <div class="chatty-images">
+            <h class="underline">Impressions:</h>
+            <img src="./src/chatty/full.png">
+            <br>
+            <h class="underline">Settings:</h>
+            <br>
+        </div>
+        <h2 id="customcommands">Custom Commands</h2>
+        <div class="chatty-customcommands"></div>
         <h2 id="download">Download</h2>
-        <input id="download_username" placeholder="Username">
+        <input id="download_username" oninput="updateCommandName()" placeholder="Username">
         <button onclick="downloadSettings()">Download</button>
+        <br>
+        <h>This will download the settings file</h>
+        <h>To use it, move it into your chatty directory</h>
+        <h>
+            <h class="underline">Linux default:</h> ~/.chatty
+        </h>
+        <h>
+            <h class="underline">Windows default:</h> C:\Users\%username%\.chatty
+        </h>
     </jbody>
 </body>
 <script>
-    for (i = 1; i <= 31; i++) {
+    for (i = 1; i <= 30; i++) {
         let imageElem = document.createElement("img");
         imageElem.src = `./src/chatty/${i}.png`;
         document.querySelector(".chatty-images").appendChild(imageElem);
     }
 
     let settings;
+    let customcommands;
 
     async function loadSettings() {
         return new Promise((resolve, reject) => {
@@ -42,8 +60,25 @@
         })
     }
 
+    (async () => {
+        await loadSettings();
+
+        let settingsParsed = JSON.parse(settings);
+
+        settingsParsed.commands.forEach((command, i) => {
+            customcommands += (i > 0 ? "\n" : "") + command;
+        });
+
+        document.querySelector(".chatty-customcommands").innerText = customcommands;
+    })();
+
+    function updateCommandName() {
+        let username = document.querySelector("#download_username").value;
+        document.querySelector(".chatty-customcommands").innerText = customcommands.replace(/\$\{j_username\}/g, username);
+    }
+
     async function downloadSettings() {
-        let username = document.querySelector("#download_username");
+        let username = document.querySelector("#download_username").value;
 
         await loadSettings();
 
@@ -67,4 +102,5 @@
         document.body.removeChild(element);
     }
 </script>
+
 </html>
